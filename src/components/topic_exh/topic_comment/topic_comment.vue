@@ -5,9 +5,7 @@
 </template>
 
 <script>
-export default {
-  name: 'topic-comment'
-}
+export default { name: 'topic-comment' };
 </script>
 
 <style scoped>

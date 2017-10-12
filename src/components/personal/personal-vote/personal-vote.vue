@@ -5,9 +5,7 @@
 </template>
 
 <script>
-export default {
-  name: 'personal-vote'
-}
+export default { name: 'personal-vote' };
 </script>
 
 <style scoped>

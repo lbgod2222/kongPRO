@@ -5,9 +5,7 @@
 </template>
 
 <script>
-export default {
-  name: 'topic-progress'
-}
+export default { name: 'topic-progress' };
 </script>
 
 <style scoped>

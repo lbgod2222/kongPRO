@@ -5,9 +5,7 @@
 </template>
 
 <script>
-export default {
-  name: 'personal-help'
-}
+export default { name: 'personal-help' };
 </script>
 
 <style scoped>

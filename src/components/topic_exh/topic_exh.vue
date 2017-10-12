@@ -13,9 +13,7 @@
 </template>
 
 <script>
-export default {
-  name: 'topic-exh'
-}
+export default { name: 'topic-exh' };
 </script>
 
 <style scoped>

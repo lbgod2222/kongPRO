@@ -8,20 +8,22 @@
 </template>
 
 <script>
-import navBar from './components/navBar/navBar'
+import navBar from './components/navBar/navBar';
 // 弹窗组
-import launchTopic from './components/Modals/launchTopic/launchTopic'
-import login from './components/Modals/login/login'
-import popup from './components/Modals/popup/popup'
-import transfer from './components/Modals/transfer/transfer'
+import launchTopic from './components/Modals/launchTopic/launchTopic';
+import login from './components/Modals/login/login';
+import popup from './components/Modals/popup/popup';
+import transfer from './components/Modals/transfer/transfer';
+
 export default {
   name: 'app',
   components: {
+    navBar,
     launchTopic,
     login,
     popup,
-    transfer
-  }
+    transfer,
+  },
 };
 </script>
 

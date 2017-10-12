@@ -5,9 +5,7 @@
 </template>
 
 <script>
-export default {
-  name: 'topic-group'
-}
+export default { name: 'topic-group' };
 </script>
 
 <style scoped>
