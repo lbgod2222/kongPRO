@@ -1,13 +1,13 @@
 <template>
   <div class="topic-contain">
-      <ul>
-          <router-link to="/all">ALL</router-link>
-          <router-link to="/progress">PROGRESS</router-link>
-          <router-link to="/public">PUBLIC</router-link>
-          <router-link to="/done">DONE</router-link>
-      </ul>
-      <router-view></router-view>
+    <ul>
+        <router-link to="/topic/all">ALL</router-link>
+        <router-link to="/topic/progress">PROGRESS</router-link>
+        <router-link to="/topic/public">PUBLIC</router-link>
+        <router-link to="/topic/done">DONE</router-link>
+    </ul>
     <h1>TOPIC GENERAL</h1>
+    <router-view></router-view>
   </div>
 </template>
 

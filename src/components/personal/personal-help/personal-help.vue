@@ -10,7 +10,6 @@ export default { name: 'personal-help' };
 
 <style scoped>
   .personal-right-contain{
-      margin-top: 250px;
       background-color: rgb(37, 39, 40);
       width: 100%;
       height: 600px;

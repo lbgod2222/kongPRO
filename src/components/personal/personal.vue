@@ -1,10 +1,10 @@
 <template>
   <div class="personal-contain">
     <ul>
-        <router-link to="/info">INFO</router-link>
-        <router-link to="/appeal">APPEAL</router-link>
-        <router-link to="/vote">VOTE</router-link>
-        <router-link to="/help">HELP</router-link>
+        <router-link to="/personal/info">INFO</router-link>
+        <router-link to="/personal/appeal">APPEAL</router-link>
+        <router-link to="/personal/vote">VOTE</router-link>
+        <router-link to="/personal/help">HELP</router-link>
     </ul>
     <router-view></router-view>
   </div>
@@ -15,7 +15,7 @@ export default { name: 'personal' };
 </script>
 
 <style scoped>
-  .home-contain{
+  .personal-contain{
       margin-top: 250px;
       background-color: rgb(37, 39, 40);
       width: 100%;

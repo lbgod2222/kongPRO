@@ -1,6 +1,9 @@
 <template>
   <div class="navBar-contain">
     <h1>NAV BAR</h1>
+    <router-link to="/">HOME</router-link>
+    <router-link to="/topic/all">TOPIC</router-link>
+    <router-link to="/personal/info">PERSONAL</router-link>
   </div>
 </template>
 
@@ -16,5 +19,8 @@ export default { name: 'navBar' };
       width: 100%;
       line-height: 150px;
       height: 150px;
+  }
+  .navBar-contain h1{
+    display: inline;
   }
 </style>
