@@ -12,10 +12,10 @@ import personalVote from '@/components/personal/personal-vote/personal-vote';
 import topic from '@/components/topic/topic';
 import topicGroup from '@/components/topic/topic-group/topic-group';
 // 话题详情域
-import topicExh from '@/components/topic_exh/topic_exh';
-import exhComment from '@/components/topic_exh/topic_comment/topic_comment';
-import exhDetail from '@/components/topic_exh/topic_detail/topic_detail';
-import exhProgress from '@/components/topic_exh/topic_in_progress/topic_in_progress';
+import topicExh from '@/components/topicExh/topicExh';
+import exhComment from '@/components/topicExh/topicComment/topicComment';
+import exhDetail from '@/components/topicExh/topicDetail/topicDetail';
+import exhProgress from '@/components/topicExh/topicInProgress/topicInProgress';
 
 
 Vue.use(Router);
