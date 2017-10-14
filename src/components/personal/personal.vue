@@ -24,6 +24,7 @@ export default { name: 'personal' };
       padding: 0 1.5% 0;
   }
   .personal-contain ul{
+      box-shadow: 0px 0px 10px rgb(26, 29, 29);
       display: inline-block;
       width: 16%;
       height: 500px;
@@ -37,5 +38,8 @@ export default { name: 'personal' };
       line-height: 120px;
       text-align: center;
       font-size: 1.4em;
+  }
+  .personal-contain a.router-link-exact-active{
+    color: rgb(33, 133, 150);
   }
 </style>

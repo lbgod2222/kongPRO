@@ -33,4 +33,7 @@ export default { name: 'topic' };
       line-height: 40px;
       width: 20%;
   }
+  .topic-contain a.router-link-active{
+    color: rgb(33, 133, 150);
+  }
 </style>
