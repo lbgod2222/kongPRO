@@ -4,9 +4,9 @@
         <h1>EXH TOP</h1>
     </div>
     <ul>
-        <router-link to="/exhProgress">EXH_PROGRESS</router-link>
-        <router-link to="/exhDetail">EXH_DETAIL</router-link>
-        <router-link to="/exhComment">EXH_COMMENT</router-link>
+        <router-link to="/topicExh/exhProgress">EXH_PROGRESS</router-link>
+        <router-link to="/topicExh/exhDetail">EXH_DETAIL</router-link>
+        <router-link to="/topicExh/exhComment">EXH_COMMENT</router-link>
     </ul>
     <router-view></router-view>
   </div>
@@ -18,7 +18,7 @@ export default { name: 'topic-exh' };
 
 <style scoped>
   .topic-exh-contain{
-      margin-top: 250px;
+      margin-top: 70px;
       background-color: rgb(37, 39, 40);
       width: 100%;
       height: 600px;

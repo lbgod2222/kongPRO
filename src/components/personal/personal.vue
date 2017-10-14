@@ -16,22 +16,26 @@ export default { name: 'personal' };
 
 <style scoped>
   .personal-contain{
-      margin-top: 250px;
-      background-color: rgb(37, 39, 40);
+      margin: 90px auto 0;
+      max-width: 1600px;
+      min-width: 1024px;
       width: 100%;
       height: 600px;
-      padding: 0 40px 0;
+      padding: 0 1.5% 0;
   }
-  .home-contain ul{
+  .personal-contain ul{
       display: inline-block;
-      width: 250px;
+      width: 16%;
       height: 500px;
+      float: left;
+      background-color: rgb(37, 39, 40);
   }
-  .home-contain ul li{
+  .personal-contain ul a{
       display: block;
       width: 100%;
       height: 120px;
       line-height: 120px;
+      text-align: center;
       font-size: 1.4em;
   }
 </style>

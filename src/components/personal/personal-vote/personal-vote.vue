@@ -11,7 +11,9 @@ export default { name: 'personal-vote' };
 <style scoped>
   .personal-right-contain{
       background-color: rgb(37, 39, 40);
-      width: 100%;
+      float: left;
+      margin-left: 1.5%;
+      width: 80%;
       height: 600px;
   }
 </style>

@@ -10,7 +10,7 @@ export default { name: 'home' };
 
 <style scoped>
   .home-contain{
-      margin-top: 250px;
+      margin-top: 70px;
       background-color: rgb(37, 39, 40);
       width: 100%;
       height: 600px;

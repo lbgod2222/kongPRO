@@ -1,6 +1,6 @@
 <template>
   <div class="navBar-contain">
-    <h1>NAV BAR</h1>
+    <h2>LOGO</h2>
     <router-link to="/">HOME</router-link>
     <router-link to="/topic/all">TOPIC</router-link>
     <router-link to="/personal/info">PERSONAL</router-link>
@@ -17,10 +17,11 @@ export default { name: 'navBar' };
       top: 0;
       background-color: rgb(37, 39, 40);
       width: 100%;
-      line-height: 150px;
-      height: 150px;
+      line-height: 60px;
+      height: 60px;
   }
-  .navBar-contain h1{
+  .navBar-contain h2{
+    color: rgb(33, 133, 150);
     display: inline;
   }
 </style>

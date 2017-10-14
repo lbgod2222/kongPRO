@@ -29,8 +29,9 @@ export default {
 
 <style>
 #app {
+  overflow: hidden;
   width: 100%;
   background-color: rgb(29, 32, 32);
-  color: rgb(33, 133, 150);
+  color: #fff;
 }
 </style>
