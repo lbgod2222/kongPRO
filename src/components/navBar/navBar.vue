@@ -3,7 +3,7 @@
     <h2>LOGO</h2>
     <router-link to="/">HOME</router-link>
     <router-link to="/topic/all">TOPIC</router-link>
-    <router-link to="/personal/info">PERSONAL</router-link>
+    <router-link to="/personal">PERSONAL</router-link>
   </div>
 </template>
 
