@@ -1,18 +1,118 @@
 <template>
   <div class="comment-contain">
-    <h1>TOPIC COMMENT PAGE</h1>
+    <div class="upper">
+      <h1>SAY SOMETHING</h1>
+      <div class="input">
+        <textarea name="" id="" cols="30" rows="10" placeholder="TYPE YOUR MIND..."></textarea>
+      </div>
+      <div class="_btn">Subit</div>
+    </div>
+    <div class="bottom">
+      <!-- LOOP UNIT -->
+      <div class="commentContain">
+        <span class="name">BITCH</span>
+        <span class="time">2018/08/07</span>
+        <span class="content">
+          (C) 2016 Microsoft Corporation(C) 2016 Microsoft Corporation(C) 
+          2016 Microsoft Corporation(C) 
+          2016 Microsoft Corporation(C) 2016 Microsoft Corporation(C) 2016 Microsoft Corporation(C) 2016 Microsoft Corporation
+        </span>
+      </div>
+    </div>
+    <!-- <h1>TOPIC COMMENT PAGE {{page}}</h1>
+    <router-link to="/topicExh/123123/exhComment/5">TO PAGE 5</router-link>
+    <router-link to="/topicExh/123123/exhComment/7">TO PAGE 7</router-link> -->
   </div>
 </template>
 
 <script>
-export default { name: 'topic-comment' };
+export default {
+  name: 'topic-comment',
+  data() {
+    return {
+      page: 1,
+    };
+  },
+  created() {
+    console.log(this);
+    console.log(this.$route.params.page);
+  },
+  beforeRouteUpdate(to, from, next) {
+    console.log('to:  ', to);
+    console.log('from:  ', from);
+    this.page = to.params.page;
+    next();
+  },
+  beforeRouteLeave(to, from, next) {
+    console.log('Gonna leave anyway?');
+    const r = confirm('"Press a button"');
+    if (r) {
+      next();
+    }
+    // next();
+  },
+};
 </script>
 
 <style scoped>
   .comment-contain{
-      margin-top: 10px;
+    padding-top: 30px;
       background-color: rgb(37, 39, 40);
       width: 100%;
-      height: 300px;
+  }
+  .upper{
+    width: 42%;
+    margin-left: 17.3%;
+  }
+  .upper .input{
+    margin-top: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    width: 100%;
+    height: 200px;
+    border: 1px solid rgb(80, 85, 87);
+  }
+  .input textarea{
+    height: 100%;
+    width: 100%;
+    border: none;
+    background-color: rgb(37, 39, 40);
+    color: #fff;
+    resize: none;
+    outline: none; 
+  }
+  ._btn{
+    display: inline-block;
+    margin-top: 20px;
+    width: 17%;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    cursor: pointer;
+    color: #fff;
+    background-color: rgb(30, 194, 219);
+  }
+  ._btn_active{
+    background-color: rgb(32, 147, 164);
+  }
+  .bottom{
+    width: 42%;
+    margin-left: 17.3%;
+  }
+  .commentContain{
+    margin-top: 30px;
+  }
+  .commentContain .name{
+    font-size: 1.2em;
+    font-weight: 600;
+  }
+  .commentContain .time{
+    font-size: 1.1em;
+    font-weight: 500;
+    margin-left: 20px;
+  }
+  .commentContain .content{
+    margin-top: 5px;
+    display: block;
   }
 </style>

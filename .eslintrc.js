@@ -35,6 +35,8 @@ module.exports = {
     }],
     // try to fix the line break problem
     'linebreak-style': 'off',
+    // close up the reassgin function
+    "no-param-reassign": 0,
     // allow debugger during development
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0
   }

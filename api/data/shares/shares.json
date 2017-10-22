@@ -1,0 +1,37 @@
+{
+    {
+        "market_id": 33721,
+        "market_title": "To augur the weather",
+        "market_choice": "China Win",
+        "market_shares": 29,
+        "market_status": 1 // 进行中
+    },
+    {
+        "market_id": 33221,
+        "market_title": "To augur the weather",
+        "market_choice": "China Lose",
+        "market_shares": 23333,
+        "market_status": 2 // 待裁决
+    },
+    {
+        "market_id": 65721,
+        "market_title": "To augur the weather",
+        "market_choice": "Draw",
+        "market_shares": 6565,
+        "market_status": 3 // 已结束
+    },
+    {
+        "market_id": 98721,
+        "market_title": "To augur the weather",
+        "market_choice": "China Lose",
+        "market_shares": 2313,
+        "market_status": 3 // 已结束
+    },
+    {
+        "market_id": 01721,
+        "market_title": "To augur the weather",
+        "market_choice": "China Win",
+        "market_shares": 51,
+        "market_status": 3 // 已结束
+    }
+}

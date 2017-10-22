@@ -4,10 +4,15 @@
     <nav-bar></nav-bar>
     <!-- 路由点 -->
     <router-view></router-view>
+    <div class="blackSheepWall" v-show="this.blackSheepWall">
+      <launch-topic v-show="this.ModalLaunchTopic"></launch-topic>
+      <transfer v-show="this.ModalTransfer"></transfer>
+    </div>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import navBar from './components/navBar/navBar';
 // 弹窗组
 import launchTopic from './components/Modals/launchTopic/launchTopic';
@@ -24,6 +29,13 @@ export default {
     popup,
     transfer,
   },
+  data() {
+    return {
+    };
+  },
+  computed: {
+    ...mapState(['ModalLaunchTopic', 'blackSheepWall', 'ModalTransfer']),
+  },
 };
 </script>
 
@@ -31,7 +43,18 @@ export default {
 #app {
   overflow: hidden;
   width: 100%;
+  height: 100%;
   background-color: rgb(29, 32, 32);
-  color: #fff;
+  color: rgb(180, 180, 181);
+  overflow-y: scroll;
+}
+.blackSheepWall{
+  position: fixed;
+  overflow-y: scroll;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .8);
+  z-index: 998;
 }
 </style>

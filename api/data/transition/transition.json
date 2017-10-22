@@ -1,0 +1,42 @@
+{
+    {
+        "sender": "Akd2Oo9JNidadaw1v",
+        "receiptent": "AKO2daapwemf123",
+        "type": 1, // 转账
+        "timestamp": 30203010,
+        "amount": 1000000,
+        "extra": ""
+    },
+    {
+        "sender": "AKO2daapwemf123",
+        "receiptent": "Akd2Oo9JNidadaw1v",
+        "type": 2, // 投票
+        "timestamp": 30203010,
+        "amount": 1000000,
+        "extra": ""
+    },
+    {
+        "sender": "Akd2Oo9JNidadaw1v",
+        "receiptent": "AKO2daapwemf123",
+        "type": 3, // 结算/卖出
+        "timestamp": 30203010,
+        "amount": 1000000,
+        "extra": ""
+    },
+    {
+        "sender": "AKO2daapwemf123",
+        "receiptent": "Akd2Oo9JNidadaw1v",
+        "type": 1, // 转账
+        "timestamp": 30203010,
+        "amount": 1000000,
+        "extra": ""
+    },
+    {
+        "sender": "Akd2Oo9JNidadaw1v",
+        "receiptent": "AKO2daapwemf123",
+        "type": 1, // 转账
+        "timestamp": 30203010,
+        "amount": 1000000,
+        "extra": ""
+    }
+}

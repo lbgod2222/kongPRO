@@ -14,7 +14,7 @@
         </div>
       </div>
     </div>
-    <div class="info-center">
+    <!-- <div class="info-center">
       <span>图标</span>
       <span>资产预览</span>
       <span>孔明币余额:$ 0.00</span>
@@ -26,7 +26,7 @@
         <span>我的投票</span>
       </div>
       <ul class="info-bottom-topic">
-        <li id="topic1">参与的话题</li>
+        <li id="topic1" class="active">参与的话题</li>
         <li id="topic2">发起的话题</li>
       </ul>
       <div id="table1">
@@ -78,7 +78,7 @@
           </tbody>
         </table>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -88,17 +88,19 @@
 
 <style scoped>
   .personal-right-contain {
-    background-color: rgb(37, 39, 40);
+    box-sizing: border-box;
     float: left;
     margin-left: 1.5%;
     padding-left: 20px;
     width: 79.5%;
     height: 600px;
-    box-shadow: 0px 0px 10px rgb(26, 29, 29);
   }
   .info-top{
     width: 100%;
+    padding: 10px 10px;
     background: #2a2c2d;
+    box-sizing: border-box;
+    box-shadow: 0px 0px 10px rgb(26, 29, 29);
   }
   .info-top .info-top-title{
     height: 30px;
@@ -110,6 +112,7 @@
     display: inline-block;
   }
   .info-top .info-top-content{
+    padding-left: 20px;
     height: 120px;
     line-height: 120px;
   }
@@ -140,30 +143,38 @@
     text-align: left;
     background: #2a2c2d;
     margin: 20px 0;
+    box-shadow: 0px 0px 10px rgb(26, 29, 29);
   }
   .info-center span{
     margin-left: 10px;
   }
   .info-center .info-center-turn{
-    color: blue;
+    color: rgb(33, 133, 150);
   }
   .info-bottom{
     background: #2a2c2d;
+    box-shadow: 0px 0px 10px rgb(26, 29, 29);
   }
   .info-bottom .info-bottom-title{
     width: 100%;
     height: 50px;
     line-height: 50px;
-    border-bottom: 2px solid #232525;
   }
   .info-bottom .info-bottom-title span{
     margin-left: 10px;
+  }
+  .info-bottom .info-bottom-topic{
+    display: block;
+    height: 30px;
+    border-bottom: 5px solid #232525;
+    border-top: 5px solid #232525;
   }
   .info-bottom .info-bottom-topic li{
     display: inline-block;
     margin-left: 6%;
     height: 30px;
     line-height: 30px;
+    cursor: pointer;
   }
   .info-bottom #table1,.info-bottom #table1 .info-table,.info-bottom #table1 .info-table .info-table-title{
     width: 100%;
@@ -187,6 +198,7 @@
     text-align: center;
     border-bottom: 1px solid #232525;
   }
-
-
+  .active{
+    color: rgb(33, 133, 150);
+  }
 </style>

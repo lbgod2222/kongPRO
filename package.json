@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "axios": "^0.16.2",
+    "express-mockjs": "^0.4.8",
     "vue": "^2.4.2",
     "vue-echarts": "^2.4.1",
     "vue-router": "^2.7.0",

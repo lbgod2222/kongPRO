@@ -2,9 +2,9 @@
   <div class="personal-contain">
     <ul>
         <router-link to="/personal/info">INFO</router-link>
-        <router-link to="/personal/appeal">APPEAL</router-link>
-        <router-link to="/personal/vote">VOTE</router-link>
-        <router-link to="/personal/help">HELP</router-link>
+        <router-link to="/personal/assert">ASSERT</router-link>
+        <router-link to="/personal/market">MARKET</router-link>
+        <router-link to="/personal/share">SHARE</router-link>
     </ul>
     <router-view></router-view>
   </div>

@@ -47,7 +47,7 @@
  
  /* custom */
  a {
-     color: #fff;
+     color: rgb(180, 180, 181);
      text-decoration: none;
      -webkit-backface-visibility: hidden;
  }
@@ -87,5 +87,10 @@
      font-family:"微软雅黑",Georgia,Serif;
      -webkit-text-size-adjust: none;
      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-     background-color: #fff;
+ }
+ table, input, textarea{
+     background-color: transparent;
+     outline: none;
+     border: none;
+     resize: none;
  }

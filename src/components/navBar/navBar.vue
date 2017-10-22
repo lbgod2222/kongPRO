@@ -2,8 +2,8 @@
   <div class="navBar-contain">
     <h2>LOGO</h2>
     <router-link to="/">HOME</router-link>
-    <router-link to="/topic/all">TOPIC</router-link>
-    <router-link to="/personal">PERSONAL</router-link>
+    <router-link to="/topic/all" exact>TOPIC</router-link>
+    <router-link to="/personal/info" exact>PERSONAL</router-link>
   </div>
 </template>
 
@@ -27,5 +27,16 @@ export default { name: 'navBar' };
   }
   .navBar-contain a.router-link-exact-active{
     color: rgb(33, 133, 150);
+  }
+  .navBar-contain a:nth-child(4){
+    padding: 1px;
+    display: inline-block;
+    line-height: 30px;
+    margin-top: 10px;
+    margin-right: 30px;
+    float: right;
+    height: 30px;
+    border: 1px solid rgb(180, 180, 181);
+    border-radius: 10px;
   }
 </style>

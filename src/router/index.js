@@ -4,10 +4,10 @@ import Router from 'vue-router';
 import home from '@/components/home/home';
 // 个人域
 import personal from '@/components/personal/personal';
-import personalAppeal from '@/components/personal/personal-appeal/personal-appeal';
-import personalHelp from '@/components/personal/personal-help/personal-help';
+import personalAssert from '@/components/personal/personal-assert/personal-assert';
+import personalMarket from '@/components/personal/personal-market/personal-market';
 import personalInfo from '@/components/personal/personal-info/personal-info';
-import personalVote from '@/components/personal/personal-vote/personal-vote';
+import personalShare from '@/components/personal/personal-share/personal-share';
 // 话题域
 import topic from '@/components/topic/topic';
 import topicGroup from '@/components/topic/topic-group/topic-group';
@@ -15,7 +15,7 @@ import topicGroup from '@/components/topic/topic-group/topic-group';
 import topicExh from '@/components/topicExh/topicExh';
 import exhComment from '@/components/topicExh/topicComment/topicComment';
 import exhDetail from '@/components/topicExh/topicDetail/topicDetail';
-import exhProgress from '@/components/topicExh/topicInProgress/topicInProgress';
+import exhOverview from '@/components/topicExh/topicInOverview/topicInOverview';
 
 
 Vue.use(Router);
@@ -40,12 +40,12 @@ export default new Router({
       ],
     },
     // 话题详情域
-    { path: '/topicExh',
+    { path: '/topicExh/:id',
       component: topicExh,
       children: [
-          { path: 'exhProgress', component: exhProgress },
-          { path: 'exhDetail', component: exhDetail },
-          { path: 'exhComment', component: exhComment },
+        { path: 'exhOverview', component: exhOverview },
+        { path: 'exhDetail', component: exhDetail },
+        { path: 'exhComment/:page', component: exhComment },
       ],
     },
     // 个人中心域
@@ -53,9 +53,9 @@ export default new Router({
       component: personal,
       children: [
           { path: 'info', component: personalInfo },
-          { path: 'appeal', component: personalAppeal },
-          { path: 'help', component: personalHelp },
-          { path: 'vote', component: personalVote },
+          { path: 'assert', component: personalAssert },
+          { path: 'market', component: personalMarket },
+          { path: 'share', component: personalShare },
       ],
     },
   ],
