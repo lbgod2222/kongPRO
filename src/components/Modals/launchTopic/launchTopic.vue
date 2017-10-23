@@ -89,7 +89,7 @@ export default {
     margin: 40px auto 0;
     top: 20%;
     left: 25%;
-    background-color: rgba(37, 39, 40, .6);
+    background-color: rgba(37, 39, 40, .9);
     width: 500px;
     height: auto;
     z-index: 999;

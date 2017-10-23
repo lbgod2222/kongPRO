@@ -1,3 +1,4 @@
+ /* eslint-disable */
 <template>
   <div class="topic-group-contain">
     <!-- <h1> {{title}} PAGE</h1> -->
@@ -16,8 +17,9 @@
     <div class="extra-content"></div>
   </div>
 </template>
-
+sadasd
 <script>
+ /* eslint-disable */
 import topicItem from './topic-item/topic-item';
 
 export default {
@@ -27,22 +29,54 @@ export default {
   },
   data() {
     return {
-      title: null,
+      topicAll: {},
     };
   },
-  beforeRouteEnter(to, from, next) {
-    // this.data.title = to.meta.current;
-    setTimeout(() => {
-      next((vm) => {
-        vm.title = to.meta.current;
-      });
-    }, 0);
-  },
+  // beforeRouteEnter(to, from, next) {
+  //   // this.data.title = to.meta.current;
+  //   setTimeout(() => {
+  //     next((vm) => {
+  //       // 获取数据
+  //       vm.title = to.meta.current;
+  //       if (to.meta.current === 'all') {
+  //         this.$store.dispatch('getMarketOverview', {
+  //           state: null,
+  //           limit: 12,
+  //           offset: 0,
+  //           that: this,
+  //           cb(err, res) {
+  //             if (err) {
+  //               return;
+  //             }
+  //             vm.topicAll = res.markets;
+  //           },
+  //         });
+  //       }
+  //     });
+  //   }, 0);
+  // },
   created() {
+    console.log(this.$route.meta);
+    if (this.$route.meta.current === 'all') {
+      this.getData(null, 12, 0);
+    }
     console.log(this);
     // 此时关闭公共state curtain
     // 调用mutation 关闭 公共 state curtain
   },
+  methods: {
+    getData(state, limit, offset) {
+      let that = this;
+      this.$store.dispatch('getMarketOverview', {
+        state: state,
+        limit: limit,
+        offset: offset,
+        that: that,
+      }).then((res) => {
+        console.log(res)
+      })
+    }
+  }
 };
 </script>
 

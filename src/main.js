@@ -8,6 +8,9 @@ import store from './vuex/store';
 
 Vue.config.productionTip = false;
 
+// 注册axios为原型
+Vue.prototype.$axios = axios;
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
