@@ -9,14 +9,10 @@
     </div>
     <div class="bottom">
       <!-- LOOP UNIT -->
-      <div class="commentContain">
-        <span class="name">BITCH</span>
-        <span class="time">2018/08/07</span>
-        <span class="content">
-          (C) 2016 Microsoft Corporation(C) 2016 Microsoft Corporation(C) 
-          2016 Microsoft Corporation(C) 
-          2016 Microsoft Corporation(C) 2016 Microsoft Corporation(C) 2016 Microsoft Corporation(C) 2016 Microsoft Corporation
-        </span>
+      <div class="commentContain" v-for="(item, index) in this.allComment">
+        <span class="name">{{item.authorId}}</span>
+        <span class="time">{{item.t_timestamp}}</span>
+        <span class="content">{{item.content}}</span>
       </div>
     </div>
     <!-- <h1>TOPIC COMMENT PAGE {{page}}</h1>
@@ -31,11 +27,21 @@ export default {
   data() {
     return {
       page: 1,
+      allComment: {},
     };
   },
   created() {
+    const that = this;
     console.log(this);
     console.log(this.$route.params.page);
+    // get all comments
+    this.$store.dispatch('getAllcomment', {
+      id: this.$route.params.id,
+      that,
+    }).then((res) => {
+      console.log(res);
+      that.allComment = res.data.comments;
+    });
   },
   beforeRouteUpdate(to, from, next) {
     console.log('to:  ', to);

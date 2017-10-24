@@ -1,26 +1,20 @@
 <template>
   <div class="personal-right-contain">
     <div class="myShare">
-        <span class="label">My Share</span>
+        <span class="label">我的股份</span>
         <table>
           <thead>
-            <th>M.ID</th>
-            <th>M.TITLE</th>
-            <th>My.OPT</th>
-            <th>SHARES</th>
+            <th>市场ID</th>
+            <th>市场标题</th>
+            <th>我的选项</th>
+            <th>我的股份</th>
           </thead>
           <tbody>
-            <tr>
-              <td>10291</td>
-              <td>BRACIAS</td>
-              <td>WIN</td>
-              <td>9770</td>
-            </tr>
-            <tr>
-              <td>10221</td>
-              <td>MIGO</td>
-              <td>LOSE</td>
-              <td>1920</td>
+            <tr v-for="(item, index) in this.allShares">
+              <td>{{item.id}}</td>
+              <td>{{item.title}}</td>
+              <td>{{item.choice}}</td>
+              <td>{{item.shares}}</td>
             </tr>
           </tbody>
         </table>
@@ -29,7 +23,25 @@
 </template>
 
 <script>
-export default { name: 'personal-share' };
+export default {
+  name: 'personal-share',
+  data() {
+    return {
+      allShares: {},
+    };
+  },
+  created() {
+    const that = this;
+    this.$store.dispatch('getAllSharesOfOne', {
+      address: this.$store.state.user.address,
+      that,
+    }).then((res) => {
+      console.log(res);
+      // 未经测试
+      that.allShares = res.data.shares;
+    });
+  },
+};
 </script>
 
 <style scoped>

@@ -3,7 +3,8 @@
   <div class="topic-group-contain">
     <!-- <h1> {{title}} PAGE</h1> -->
     <!-- 子组件占位<topic-item class="extra-content"></topic-item> -->
-    <topic-item class="extra-content"></topic-item>
+    <topic-item class="extra-content" v-for="(item, index) in this.topicAll" :item="item"></topic-item>
+    <!-- <div class="extra-content"></div>
     <div class="extra-content"></div>
     <div class="extra-content"></div>
     <div class="extra-content"></div>
@@ -13,8 +14,7 @@
     <div class="extra-content"></div>
     <div class="extra-content"></div>
     <div class="extra-content"></div>
-    <div class="extra-content"></div>
-    <div class="extra-content"></div>
+    <div class="extra-content"></div> -->
   </div>
 </template>
 sadasd
@@ -56,9 +56,11 @@ export default {
   //   }, 0);
   // },
   created() {
-    console.log(this.$route.meta);
+    console.log(this);
     if (this.$route.meta.current === 'all') {
       this.getData(null, 12, 0);
+    } else if (this.$route.meta.current === 'progress') {
+
     }
     console.log(this);
     // 此时关闭公共state curtain
@@ -73,9 +75,10 @@ export default {
         offset: offset,
         that: that,
       }).then((res) => {
-        console.log(res)
+        console.log(res.data)
+        this.topicAll = res.data.markets;
       })
-    }
+    },
   }
 };
 </script>
@@ -84,7 +87,7 @@ export default {
   .topic-group-contain{
       display: flex;
       flex-flow:row wrap;
-      justify-content:space-between;
+      /* justify-content:space-between; */
       margin-top: 30px;
       /* background-color: rgb(37, 39, 40); */
       width: 100%;
@@ -92,6 +95,7 @@ export default {
   }
   .extra-content{
     margin-bottom: 40px;
+    margin-right: 1.5%;
     width: 23%;
     height: 314px;
     background-color: rgb(37, 39, 40);

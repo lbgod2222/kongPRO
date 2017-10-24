@@ -41,9 +41,10 @@ export default new Router({
     },
     // 话题详情域
     { path: '/topicExh/:id',
+      name: 'detailPage',
       component: topicExh,
       children: [
-        { path: 'exhOverview', component: exhOverview },
+        { path: '/', component: exhOverview },
         { path: 'exhDetail', component: exhDetail },
         { path: 'exhComment/:page', component: exhComment },
       ],

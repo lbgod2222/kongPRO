@@ -11,6 +11,7 @@ const state = {
   ModalLaunchTopic: false,
   ModalTransfer: false,
   user: {
+    address: 'APqTgWgMZqrswgK1J3FbESHoiYYNeCm5Hz',
   },
 };
 

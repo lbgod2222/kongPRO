@@ -4,25 +4,27 @@
       <div class="_upperContain">
         <div class="img"></div>
         <div class="info">
-          <h2>PRO TITLE</h2>
-          <P>HERE LIES THE DETAILS OF THE PROJECT</P>
+          <h2>{{this.item.title}}</h2>
+          <P>{{this.item.desc}}</P>
         </div>
       </div>
       <div class="_bottomContain">
         <div class="progress">
           <span class="_top">TIME(N/E):60%</span>
           <progress max="100" value="65"></progress>
-          <span class="_bottom"><b>IN PROGRESS</b><b>END.2017/12/12</b></span>
+          <span class="_bottom"><b>{{this.topicStatus}}</b><b>{{this.endTime}}</b></span>
         </div>
-        <router-link class="_btn" to="/topicExh/123123/exhOverview">TO KNOW MORE</router-link>
+        <router-link class="_btn" :to="{ path: `/topicExh/${this.item.id}`, params:{ id: this.item.id }}">TO KNOW MORE</router-link>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+/* eslint-disable */
 export default {
   name: 'topic-item',
+  props: ['item'],
   data() {
     return {
       title: null,
@@ -32,6 +34,26 @@ export default {
     // console.log(this);
     // 此时关闭公共state curtain
     // 调用mutation 关闭 公共 state curtain
+  },
+  computed: {
+    topicStatus() {
+      if (this.item.state === 0) {
+        return '进行中';
+      } else if (this.item.state === 1) {
+        return '等待揭晓';
+      } else if (this.item.state === 2) {
+        return '公示答案';
+      } else if (this.item.state === 3) {
+        return '等待仲裁';
+      } else {
+        return '已结束';
+      }
+    },
+    endTime() {
+      return '2017/10/28';
+    },
+  },
+  methods: {
   },
 };
 </script>

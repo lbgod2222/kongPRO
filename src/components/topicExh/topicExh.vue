@@ -4,26 +4,26 @@
         <div class="img"></div>
         <div class="info">
             <div class="detail">
-                <h2>PRO TITLE</h2>
-                <span>Sponser: MrLemon</span>
-                <span>Currency: XAS</span>
-                <span>Guarantee: 10000</span>
-                <span>InitShares: 100</span>
-                <span>MarketID: 12310012</span>
+                <h2>{{this.item.title}}</h2>
+                <span>发起人：{{this.item.initiator}}</span>
+                <span>代币种类: {{this.item.currency}}</span>
+                <span>保证金: {{this.item.margin}}</span>
+                <span>初始股份: {{this.item.share}}</span>
+                <span>市场ID: {{this.item.id}}</span>
             </div>
             <div class="progress">
-                <span>Status: IN PROGRESS</span>
+                <span>Status: {{this.item.status}}</span>
                 <span class="_top">TIME(N/E):60%</span>
                 <progress max="100" value="65"></progress>
-                <span class="_bottom"><b>IN PROGRESS</b><b>END.2017/12/12</b></span>
+                <span class="_bottom"><b>{{this.item.status}}</b><b>END.2017/12/12</b></span>
             </div>
         </div>
     </div>
     <ul>
         <!-- <router-link to="/topicExh/{{project id}}/exhProgress">EXH_PROGRESS</router-link> -->
-        <router-link to="/topicExh/123123/exhOverview">EXH_OVERVEW</router-link>
-        <router-link to="/topicExh/123123/exhDetail">EXH_DETAIL</router-link>
-        <router-link to="/topicExh/123123/exhComment/1">EXH_COMMENT</router-link>
+        <router-link :to="{ path: `/topicExh/${this.$route.params.id}`}">概览</router-link>
+        <router-link :to="{ path: `/topicExh/${this.$route.params.id}/exhDetail`}">详情</router-link>
+        <router-link :to="{ path: `/topicExh/${this.$route.params.id}/exhComment/1`}">评论</router-link>
     </ul>
     <router-view></router-view>
   </div>
@@ -31,7 +31,41 @@
 
 <script>
 // we need props here {params(number) marketID / QUERY:userID}
-export default { name: 'topic-exh' };
+export default {
+  name: 'topic-exh',
+  data() {
+    return {
+      item: '',
+    };
+  },
+  created() {
+    const that = this;
+    this.$store.dispatch('getSepecificMarket', {
+      id: this.$route.params.id,
+      that,
+    }).then((res) => {
+      console.log(res);
+      const a = res.data.market;
+      if (a.state === 0) {
+        a.status = '"进行中"';
+      } else if (a.state === 1) {
+        a.status = '"等待揭晓"';
+      } else if (a.state === 2) {
+        a.status = '"正在公布"';
+      } else if (a.state === 3) {
+        a.status = '"等待仲裁"';
+      } else {
+        a.status = '"已结束"';
+      }
+      that.item = a;
+    });
+    console.log(this);
+  },
+  computed: {
+    status() {
+    },
+  },
+};
 </script>
 
 <style scoped>

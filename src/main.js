@@ -5,11 +5,13 @@ import axios from 'axios';
 import App from './App';
 import router from './router';
 import store from './vuex/store';
+import getRealTime from '../static/js/getRealTime';
 
 Vue.config.productionTip = false;
 
 // 注册axios为原型
 Vue.prototype.$axios = axios;
+Vue.prototype.$getRealTime = getRealTime;
 
 /* eslint-disable no-new */
 new Vue({
