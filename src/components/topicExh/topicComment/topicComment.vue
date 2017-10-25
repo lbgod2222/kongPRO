@@ -3,9 +3,9 @@
     <div class="upper">
       <h1>SAY SOMETHING</h1>
       <div class="input">
-        <textarea name="" id="" cols="30" rows="10" placeholder="TYPE YOUR MIND..."></textarea>
+        <textarea name="" id="" cols="30" rows="10" placeholder="TYPE YOUR MIND..." v-model="content"></textarea>
       </div>
-      <div class="_btn">Subit</div>
+      <div class="_btn" @click="comment">Subit</div>
     </div>
     <div class="bottom">
       <!-- LOOP UNIT -->
@@ -28,6 +28,7 @@ export default {
     return {
       page: 1,
       allComment: {},
+      content: '',
     };
   },
   created() {
@@ -42,6 +43,20 @@ export default {
       console.log(res);
       that.allComment = res.data.comments;
     });
+  },
+  methods: {
+    // 发布评论
+    comment() {
+      const that = this;
+      this.$store.dispatch('toComment', {
+        id: this.$route.params.id,
+        content: this.content,
+        that,
+      }).then((res) => {
+        console.log(res);
+        alert('COMMENT SUCCESSFULLY!');
+      });
+    },
   },
   beforeRouteUpdate(to, from, next) {
     console.log('to:  ', to);

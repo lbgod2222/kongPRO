@@ -5,6 +5,8 @@ import aschJS from 'asch-js';
 const url = 'http://192.168.2.179:4096/api/dapps/826571fb9dd13627377c4e86e46908aaecdc97e6fc97ccaf3e68e318867229b6';
 const getMarketOverviewUrl = `${url}/markets`;
 const getShareOverviewUrl = `${url}/shares`;
+const getHeight = `${url}/blocks/height`;
+const signedUrl = `${url}/transactions/signed`;
 
 let secret;
 // import server from './server';
@@ -54,39 +56,67 @@ const actions = {
   },
   // 买卖行为
   tradeShare({ commit }, { id, share, choice, that}) {
-      secret = that.$store.state.user.secret;
+    secret = that.$store.state.user.secret;
+    console.log('in action', share, choice);
     let trs = aschJS.dapp.createInnerTransaction({
       fee: '10000000',
       type: 1001,
-      args: [
+      args: JSON.stringify([
         String(id), share, choice,
-      ],
+      ]),
     }, secret);
-    return trs;
+    return that.$axios.put(signedUrl, {
+      transaction: trs,
+    })
   },
   // 结算
   toDeal({ commit }, { id, that}) {
     secret = that.$store.state.user.secret;
-    trs = aschJS.dapp.createInnerTransaction({
+    let trs = aschJS.dapp.createInnerTransaction({
       fee: '10000000',
       type: 1002,
-      args: [
+      args: JSON.stringify([
         String(id),
-      ],
+      ]),
     }, secret);
-    return trs;
+    return that.$axios.put(signedUrl, {
+      transaction: trs,
+    })
+  },
+  // 获取区块高度
+  getBlockHeight({ commit }, { that }) {
+    return that.$axios.get(getHeight);
   },
   // 发布话题/创建市场
-  issueTopic({ commit }, { title, image, desc, results, currency, gurantee, share, endHeight, that}) {
+  toIssueTopic({ commit }, { title, image, desc, results, currency, gurantee, share, endHeight, that}) {
     secret = that.$store.state.user.secret;
-    trs = aschJS.dapp.createInnerTransaction({
+    console.log('now we start to issue a topic');
+    console.log(title, image, desc, results, currency, gurantee, share, endHeight);
+    let trs = aschJS.dapp.createInnerTransaction({
       fee: '10000000',
       type: 1000,
-      args: [
+      args: JSON.stringify([
         title, image, desc, results, currency, gurantee, share, endHeight,
-      ],
+      ]),
     }, secret);
-    return trs;
+    return that.$axios.put(signedUrl, {
+      transaction: trs,
+    });
+  },
+  // 发布评论
+  toComment({ commit }, { id, content, that }) {
+    secret = that.$store.state.user.secret;
+    let trs = aschJS.dapp.createInnerTransaction({
+      fee: '10000000',
+      type: 1006,
+      args: JSON.stringify([
+        id,
+        content
+      ])
+    }, secret);
+    return that.$axios.put(signedUrl, {
+      transaction: trs,
+    })
   },
 };
 

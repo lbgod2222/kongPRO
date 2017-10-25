@@ -14,7 +14,7 @@
               <td>{{item.choice}}</td>
               <td>{{item.share}}</td>
               <td>{{item.probability}}</td>
-              <td>100</td>
+              <td>{{(item.myShare ? item.myShare : 0)}}</td>
               <td><span @click="callSell(item.choice)">卖</span></td>
               <td><span @click="callBuy(item.choice)">买</span></td>
               <td><span @click="callDeal(item.choice)">兑换</span></td>
@@ -48,8 +48,8 @@
       <span class="close" @click="close">X</span>
       <table>
         <tr>
-          <td>{{this.isBuy = true ? '买' : '卖'}}</td>
-          <td class="buy"><input v-model="share" type="number" @change="getPrice"> SHARES</td>
+          <td>{{this.isBuy === true ? '买' : '卖'}}</td>
+          <td class="buy"><input v-model="share" type="number" @change="getPrice" @keyup="getPrice"> SHARES</td>
         </tr>
         <tr>
           <td>TOTAL</td>
@@ -88,7 +88,7 @@ export default {
       sellModal: false,
       buyModal: false,
       dealModal: false,
-      isBuy: null,
+      isBuy: undefined,
       choice: null,
       share: 0,
       calcInfo: '请输入',
@@ -111,7 +111,17 @@ export default {
       address: this.$store.state.user.address,
       that,
     }).then((res) => {
+      console.log(this.options);
       console.log('my share', res);
+      for (let i = 0; i < this.options.length; i += 1) {
+        const item = this.options[i];
+        for (let j = 0; j < res.data.shares.length; j += 1) {
+          const item2 = res.data.shares[j];
+          if (item2.choice === item.choice) {
+            item.myShare = item2.share;
+          }
+        }
+      }
     });
     // trade record in one market
     this.$store.dispatch('getAllTradeRecord', {
@@ -161,25 +171,37 @@ export default {
       });
     },
     dealConfirm() {
+      console.log('pressed that btn!', this.isBuy);
       const that = this;
       if (this.isBuy === true) {
+        console.log('buy');
         this.$store.dispatch('tradeShare', {
           id: this.$route.params.id,
           share: this.share,
           choice: this.choice,
           that,
+        }).then((res) => {
+          console.log(res);
+          alert('BROUGHT SUCCESSFULLY');
         });
       } else if (this.isBuy === false) {
+        console.log('sell');
         this.$store.dispatch('tradeShare', {
           id: this.$route.params.id,
           share: this.share - (this.share * 2),
           choice: this.choice,
           that,
+        }).then((res) => {
+          console.log(res);
+          alert('SELLED SUCCESSFULLY!');
         });
       } else {
         this.$store.dispatch('toDeal', {
           id: this.$route.params.id,
           that,
+        }).then((res) => {
+          console.log(res);
+          alert('DEAL SUCCESSFULLY!');
         });
       }
     },

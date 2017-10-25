@@ -12,6 +12,7 @@ const state = {
   ModalTransfer: false,
   user: {
     address: 'APqTgWgMZqrswgK1J3FbESHoiYYNeCm5Hz',
+    secret: 'one two three four five six seven eight nine ten eleven twlve',
   },
 };
 

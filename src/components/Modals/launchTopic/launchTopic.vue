@@ -10,75 +10,135 @@
       <table>
         <tr>
           <td class="leftSpan">TITLE</td>
-          <td class="rightSpan"><input type="text" class="title"></td>
+          <td class="rightSpan"><input type="text" class="title" v-model="topicTitle"></td>
         </tr>
         <tr>
           <td>SPONSOR</td>
-          <td class="sponsor">MR.LEMON</td>
+          <td class="sponsor">{{this.$store.state.user.address}}</td>
         </tr>
         <tr>
-          <td>TIME</td>
-          <td class="issueTime">2009/08/05</td>
+          <td>IMAGE</td>
+          <td class="issueImage"><input type="url" v-model="topicUrl"></td>
         </tr>
         <tr>
-          <td>DETAIL</td>
-          <td class="detail"><textarea name="" id="" cols="30" rows="10" placeholder="TYPE WHATEVER"></textarea></td>
+          <td class="detailTitle">DETAIL</td>
+          <td class="detail"><textarea name="" id="" cols="30" rows="10" placeholder="TYPE WHATEVER" v-model="topicDesc"></textarea></td>
         </tr>
         <tr>
-          <td>OPT SEETING</td>
+          <td>OPT SETTING</td>
           <td class="opt">
             <ul>
-              <li class="optInput">
-                <input type="text" placeholder="TYPE OPTIONS HERE">
+              <li class="setted" v-for="(item, index) in this.optList">
+                {{item}} <span class="set_delete" @click="deleteOpt(index)">DELETE</span>
               </li>
-              <li class="add">+ ADD NEW OPTION</li>
+              <li class="optInput">
+                <input type="text" placeholder="TYPE OPTIONS HERE" v-model="editOpt" @keyup.enter="confirmOpt">
+              </li>
             </ul>
           </td>
         </tr>
         <tr>
           <td>END TIME</td>
-          <td class="endTime"><input type="number" class="year">Y <input type="number" class="month">M <input type="number" class="day">D</td>
+          <td class="endTime"><input type="number" class="year" v-model="endTime.year">年<input type="number" class="month" v-model="endTime.month">月<input type="number" class="day" v-model="endTime.day">日</td>
         </tr>
         <tr>
           <td>GUARANTEE</td>
-          <td class="guarante"><input type="number" min="0"></td>
+          <td class="guarantee"><input type="number" min="0" v-model="topicGuarantee"></td>
         </tr>
         <tr>
           <td>INITIAL SHARES</td>
-          <td class="iniShare"><input type="number" min="0"></td>
+          <td class="iniShare"><input type="number" min="0" v-model="topicShare"></td>
         </tr>
         <tr>
           <td>CURRENCY TYPE</td>
-          <td class="currency"><option value=""></option></td>
+          <td class="currency"><input value="" v-model="topicCurrency"></td>
         </tr>
         <tr>
           <td>FEE</td>
           <td>1 %</td>
         </tr>
-        <tr>
+        <!-- <tr>
           <td>TOPIC TYPE</td>
           <td class="topicType"><option value=""></option></td>
-        </tr>
+        </tr> -->
       </table>
-      <div class="btn">SUBMIT</div>
+      <div class="btn" @click="issueTopic">SUBMIT</div>
     </div>
   </div>
 </template>
 
 <script>
+/* eslint-disable */
 export default {
   name: 'launchTopic',
   data() {
     return {
+      optList: ['ITEM1', 'ITEM2'],
+      editOpt: '',
+      // content of topic to be issued
+      topicTitle: '',
+      topicUrl: '',
+      topicDesc: '',
+      topicCurrency: '',
+      topicGuarantee: null,
+      topicShare: null,
+      endTime: {
+        year: null,
+        month: null,
+        day: null,
+      },
     };
   },
   computed: {
+    optListString() {
+      return this.optList.join();
+    },
   },
   methods: {
+    // timely count the block added number
+    blockAdded() {
+      const currentTime = new Date().getTime();
+      const finalTime = new Date(this.endTime.year, this.endTime.month, this.endTime.day).getTime();
+      return (finalTime - currentTime) / 10000;
+    },
     // modal close
     close() {
       this.$store.commit('switchBlackSheepWall');
       this.$store.commit('switchModalLaunchTopic');
+    },
+    confirmOpt() {
+      const presetOpt = this.editOpt.trim();
+      if (presetOpt !== '') {
+        this.optList.push(presetOpt);
+        this.editOpt = '';
+      }
+    },
+    deleteOpt(index) {
+      this.optList.splice(index, 1);
+    },
+    issueTopic() {
+      let that = this;
+      this.$store.dispatch('getBlockHeight', { that }).then((res) => {
+        console.log('afer get blockheight', res);
+        if (res.data.success === true) {
+          let blockHeight = Number(res.data.height) + that.blockAdded();
+          console.log('already get in', blockHeight);
+          that.$store.dispatch('toIssueTopic', {
+            title: that.topicTitle,
+            image: that.topicUrl,
+            desc: that.topicDesc,
+            results: that.optListString,
+            currency: that.topicCurrency,
+            gurantee: String(that.topicGuarantee),
+            share: Number(that.topicShare),
+            endHeight: Number(blockHeight),
+            that
+          }).then((res) => {
+            console.log(res);
+            alert('ISSUEED SUCCESSFULLY!');
+          });
+        }
+      });
     },
   },
 };
@@ -93,6 +153,8 @@ export default {
     width: 500px;
     height: auto;
     z-index: 999;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
   }
   .upper{
     padding: 0 10px;
@@ -135,7 +197,7 @@ export default {
     margin-top: 10px;
   }
   .endTime input{
-    width: 45px;
+    width: 55px;
   }
   .opt li{
     margin-top: 10px;
@@ -155,5 +217,12 @@ export default {
   }
   .guarante input, .iniShare input{
     width: 35px;
+  }
+  .set_delete{
+    cursor: pointer;
+    color: red;
+  }
+  .detailTitle{
+    vertical-align: top;
   }
 </style>
