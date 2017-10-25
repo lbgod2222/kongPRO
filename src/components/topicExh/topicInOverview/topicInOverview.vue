@@ -13,7 +13,7 @@
             <tr v-for="(item, index) in this.options">
               <td>{{item.choice}}</td>
               <td>{{item.share}}</td>
-              <td>{{item.probability}}</td>
+              <td>{{(item.probability*100).toFixed(2)}}%</td>
               <td>100</td>
               <td><span @click="callSell(item.choice)">卖</span></td>
               <td><span @click="callBuy(item.choice)">买</span></td>
@@ -25,7 +25,7 @@
     <div class="transitionDetail">
       <table>
           <thead>
-            <th></th>
+            <!--<th></th>-->
             <th>交易时间</th>
             <th>买卖</th>
             <th>选项</th>
@@ -34,7 +34,7 @@
           </thead>
           <tbody>
             <tr v-for="(item, index) in this.record">
-              <td>1</td>
+              <!--<td>1</td>-->
               <td>2008/09/08</td>
               <td>{{item.share > 0 ? 'BUY' : 'SELL'}}</td>
               <td>{{item.choice}}</td>
@@ -254,7 +254,7 @@ export default {
     width: 300px;
     height: 140px;
     position: absolute;
-    left: 300px;
+    left: calc(50% - 150px);
     top: 0px;
     z-index: 999;
     padding: 10px 20px;
@@ -278,7 +278,7 @@ export default {
     width: 250px;
     height: 120px;
     position: absolute;
-    left: 300px;
+    left: calc(50% - 150px);
     top: 0px;
     z-index: 999;
     padding: 10px 20px;
