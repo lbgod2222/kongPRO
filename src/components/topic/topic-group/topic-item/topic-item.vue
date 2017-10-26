@@ -22,6 +22,8 @@
 
 <script>
 /* eslint-disable */
+import getRealTime from '../../../../../static/js/getRealTime';
+
 export default {
   name: 'topic-item',
   props: ['item'],
@@ -50,7 +52,7 @@ export default {
       }
     },
     endTime() {
-      return '2017/10/28';
+      return getRealTime(this.item.t_timestamp);
     },
   },
   methods: {

@@ -3,6 +3,7 @@
     <h2>LOGO</h2>
     <router-link to="/">HOME</router-link>
     <router-link to="/topic/all" exact>TOPIC</router-link>
+    <router-link to="/login" exact>LOGIN</router-link>
     <router-link to="/personal/info" exact>PERSONAL</router-link>
   </div>
 </template>
@@ -28,7 +29,7 @@ export default { name: 'navBar' };
   .navBar-contain a.router-link-exact-active{
     color: rgb(33, 133, 150);
   }
-  .navBar-contain a:nth-child(4){
+  .navBar-contain a:nth-child(4), .navBar-contain a:nth-child(5){
     padding: 1px;
     display: inline-block;
     line-height: 30px;

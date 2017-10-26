@@ -2,6 +2,8 @@ import Vue from 'vue';
 import Router from 'vue-router';
 // 组件引入
 import home from '@/components/home/home';
+// 登录
+import login from '@/components/login/login';
 // 个人域
 import personal from '@/components/personal/personal';
 import personalAssert from '@/components/personal/personal-assert/personal-assert';
@@ -27,6 +29,7 @@ export default new Router({
   base: __dirname,
   routes: [
       { path: '/', component: home }, // 主页
+      { path: '/login', component: login }, // 登录
       // 总话题域
     {
       path: '/topic',

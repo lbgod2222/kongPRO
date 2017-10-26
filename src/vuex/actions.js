@@ -118,6 +118,13 @@ const actions = {
       transaction: trs,
     })
   },
+  loginAction({ commit }, { secret, that }) {
+    let keypair = aschJS.crypto.getKeys(secret);
+    let address = aschJS.crypto.getAddress(keypair.publicKey);
+    console.log('in action', secret, address);
+    that.$store.commit('login', { secret: secret, address: address });
+    console.log(that.$store.state.user);
+  }
 };
 
 export default actions;

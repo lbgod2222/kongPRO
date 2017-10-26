@@ -13,8 +13,8 @@
             <tr v-for="(item, index) in this.options">
               <td>{{item.choice}}</td>
               <td>{{item.share}}</td>
-              <td>{{item.probability}}</td>
-              <td>{{(item.myShare ? item.myShare : 0)}}</td>
+              <td>{{(item.probability*100).toFixed(2)}}%</td>
+              <td>{{item.myShare ? item.myShare : 0}}</td>
               <td><span @click="callSell(item.choice)">卖</span></td>
               <td><span @click="callBuy(item.choice)">买</span></td>
               <td><span @click="callDeal(item.choice)">兑换</span></td>
@@ -25,17 +25,17 @@
     <div class="transitionDetail">
       <table>
           <thead>
-            <th></th>
+            <!--<th></th>-->
             <th>交易时间</th>
             <th>买卖</th>
             <th>选项</th>
             <th>份额</th>
-            <th>数量</th>
+            <th>总额</th>
           </thead>
           <tbody>
             <tr v-for="(item, index) in this.record">
-              <td>1</td>
-              <td>2008/09/08</td>
+              <!--<td>1</td>-->
+              <td>{{item.realTime}}</td>
               <td>{{item.share > 0 ? 'BUY' : 'SELL'}}</td>
               <td>{{item.choice}}</td>
               <td>{{item.share}}</td>
@@ -81,6 +81,8 @@
 </template>
 
 <script>
+import formatDateTime from '../../../../static/js/getRealTime';
+
 export default {
   name: 'topic-_overView',
   data() {
@@ -130,6 +132,9 @@ export default {
     }).then((res) => {
       console.log('record', res);
       that.record = res.data.trades;
+      for (let i = 0; i < that.record.length; i += 1) {
+        that.record[i].realTime = formatDateTime(that.record[i].t_timestamp);
+      }
     });
   },
   computed: {
@@ -167,7 +172,7 @@ export default {
         share: that.share,
         that,
       }).then((res) => {
-        that.calcInfo = res.data.amount;
+        that.calcInfo = Number(res.data.amount);
       });
     },
     dealConfirm() {
@@ -276,7 +281,7 @@ export default {
     width: 300px;
     height: 140px;
     position: absolute;
-    left: 300px;
+    left: calc(50% - 150px);
     top: 0px;
     z-index: 999;
     padding: 10px 20px;
@@ -300,7 +305,7 @@ export default {
     width: 250px;
     height: 120px;
     position: absolute;
-    left: 300px;
+    left: calc(50% - 150px);
     top: 0px;
     z-index: 999;
     padding: 10px 20px;

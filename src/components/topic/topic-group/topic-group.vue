@@ -60,11 +60,36 @@ export default {
     if (this.$route.meta.current === 'all') {
       this.getData(null, 12, 0);
     } else if (this.$route.meta.current === 'progress') {
-
+      this.getData(0, 12, 0);
+    } else if (this.$route.meta.current === 'public') {
+      this.getData(2, 12, 0);
+    } else if (this.$route.meta.current === 'done') {
+      this.getData(4, 12, 0);
     }
     console.log(this);
     // 此时关闭公共state curtain
     // 调用mutation 关闭 公共 state curtain
+  },
+  // beforeRouteUpdate(to, from, next) {
+  //   this.topicAll = {};
+  //   if (from.$route.meta.current === 'all') {
+  //     console.log('route changed! to all');
+  //     this.getData(null, 12, 0);
+  //   } else if (from.$route.meta.current === 'progress') {
+  //     console.log('route changed! to pro');
+  //     this.getData(0, 12, 0);
+  //   } else if (from.$route.meta.current === 'public') {
+  //     console.log('route changed! to pub');
+  //     this.getData(2, 12, 0);
+  //   } else if (from.$route.meta.current === 'done') {
+  //     console.log('route changed! to done');
+  //     this.getData(4, 12, 0);
+  //   }
+  //   this.page = to.params.page;
+  //   next();
+  // },
+  watch: {
+    '$route': 'getDataForUpdate',
   },
   methods: {
     getData(state, limit, offset) {
@@ -79,6 +104,21 @@ export default {
         this.topicAll = res.data.markets;
       })
     },
+    getDataForUpdate(){
+      if (this.$route.meta.current === 'all') {
+        console.log('route changed! to all');
+        this.getData(null, 12, 0);
+      } else if (this.$route.meta.current === 'progress') {
+        console.log('route changed! to pro');
+        this.getData(0, 12, 0);
+      } else if (this.$route.meta.current === 'public') {
+        console.log('route changed! to pub');
+        this.getData(2, 12, 0);
+      } else if (this.$route.meta.current === 'done') {
+        console.log('route changed! to done');
+        this.getData(4, 12, 0);
+      }
+    }
   }
 };
 </script>
