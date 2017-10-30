@@ -7,6 +7,7 @@ const getMarketOverviewUrl = `${url}/markets`;
 const getShareOverviewUrl = `${url}/shares`;
 const getHeight = `${url}/blocks/height`;
 const signedUrl = `${url}/transactions/signed`;
+const loginUrl = `${url}/accounts/`;
 
 let secret;
 // import server from './server';
@@ -57,12 +58,12 @@ const actions = {
   // 买卖行为
   tradeShare({ commit }, { id, share, choice, that}) {
     secret = that.$store.state.user.secret;
-    console.log('in action', share, choice);
+    console.log('in action', id, share, choice);
     let trs = aschJS.dapp.createInnerTransaction({
       fee: '10000000',
       type: 1001,
       args: JSON.stringify([
-        String(id), share, choice,
+        id, share, choice,
       ]),
     }, secret);
     return that.$axios.put(signedUrl, {
@@ -118,12 +119,9 @@ const actions = {
       transaction: trs,
     })
   },
-  loginAction({ commit }, { secret, that }) {
-    let keypair = aschJS.crypto.getKeys(secret);
-    let address = aschJS.crypto.getAddress(keypair.publicKey);
-    console.log('in action', secret, address);
-    that.$store.commit('login', { secret: secret, address: address });
-    console.log(that.$store.state.user);
+  // 贮存user信息
+  loginAction({ commit }, { address, that }) {
+    return that.$axios.get(loginUrl + address);
   }
 };
 

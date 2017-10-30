@@ -10,9 +10,9 @@ const state = {
   blackSheepWall: false,
   ModalLaunchTopic: false,
   ModalTransfer: false,
+  ModalLogin: false,
+  isLogin: false,
   user: {
-    address: 'APqTgWgMZqrswgK1J3FbESHoiYYNeCm5Hz',
-    secret: 'one two three four five six seven eight nine ten eleven twlve',
   },
 };
 

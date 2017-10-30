@@ -73,7 +73,7 @@ export default {
   name: 'launchTopic',
   data() {
     return {
-      optList: ['ITEM1', 'ITEM2'],
+      optList: [],
       editOpt: '',
       // content of topic to be issued
       topicTitle: '',

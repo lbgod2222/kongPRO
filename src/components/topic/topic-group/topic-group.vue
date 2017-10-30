@@ -102,6 +102,14 @@ export default {
       }).then((res) => {
         console.log(res.data)
         this.topicAll = res.data.markets;
+        this.$store.dispatch('getBlockHeight', {
+          that,
+        }).then((res2) => {
+          that.currentHeight = res2.data.height;
+          for (let i = 0; i < that.topicAll.length; i+=1) {
+            that.topicAll[i].progressInfo = Number((((Number(that.currentHeight) - Number(that.topicAll[i].t_height)) / (Number(that.topicAll[i].endHeight) - Number(that.topicAll[i].t_height))) * 100).toFixed(3));
+          }
+        });
       })
     },
     getDataForUpdate(){

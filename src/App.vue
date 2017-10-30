@@ -7,6 +7,7 @@
     <div class="blackSheepWall" v-show="this.blackSheepWall">
       <launch-topic v-show="this.ModalLaunchTopic"></launch-topic>
       <transfer v-show="this.ModalTransfer"></transfer>
+      <login v-show="this.ModalLogin"></login>
     </div>
   </div>
 </template>
@@ -34,7 +35,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(['ModalLaunchTopic', 'blackSheepWall', 'ModalTransfer']),
+    ...mapState(['ModalLaunchTopic', 'blackSheepWall', 'ModalTransfer', 'ModalLogin']),
   },
 };
 </script>

@@ -2,7 +2,8 @@
   <div>
     <div class="container">
       <div class="_upperContain">
-        <div class="img"></div>
+        <div class="img" v-if="this.item.image !== ''"><img :src="this.item.image" height="100%" width="100%"></img></div>
+        <div class="img" v-if="this.item.image === ''">没有图片</div>
         <div class="info">
           <h2>{{this.item.title}}</h2>
           <P>{{this.item.desc}}</P>
@@ -10,8 +11,8 @@
       </div>
       <div class="_bottomContain">
         <div class="progress">
-          <span class="_top">TIME(N/E):60%</span>
-          <progress max="100" value="65"></progress>
+          <!-- <span class="_top">TIME(N/E):{{this.item.progressInfo}}%</span> -->
+          <progress max="100" :value="this.item.progressInfo"></progress>
           <span class="_bottom"><b>{{this.topicStatus}}</b><b>{{this.endTime}}</b></span>
         </div>
         <router-link class="_btn" :to="{ path: `/topicExh/${this.item.id}`, params:{ id: this.item.id }}">TO KNOW MORE</router-link>
@@ -33,7 +34,7 @@ export default {
     };
   },
   created() {
-    // console.log(this);
+    console.log(this.item.progressInfo);
     // 此时关闭公共state curtain
     // 调用mutation 关闭 公共 state curtain
   },
@@ -52,7 +53,7 @@ export default {
       }
     },
     endTime() {
-      return getRealTime(this.item.t_timestamp);
+      return getRealTime.formatDateTime(this.item.t_timestamp);
     },
   },
   methods: {

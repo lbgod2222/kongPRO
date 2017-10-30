@@ -11,7 +11,7 @@
       <!-- LOOP UNIT -->
       <div class="commentContain" v-for="(item, index) in this.allComment">
         <span class="name">{{item.authorId}}</span>
-        <span class="time">{{item.t_timestamp}}</span>
+        <span class="time">{{item.realTime}}</span>
         <span class="content">{{item.content}}</span>
       </div>
     </div>
@@ -22,6 +22,8 @@
 </template>
 
 <script>
+import getRealTime from '../../../../static/js/getRealTime';
+
 export default {
   name: 'topic-comment',
   data() {
@@ -42,12 +44,18 @@ export default {
     }).then((res) => {
       console.log(res);
       that.allComment = res.data.comments;
+      for (let i = 0; i < that.allComment.length; i += 1) {
+        that.allComment[i].realTime = getRealTime.formatDateTime(that.allComment[i].t_timestamp);
+      }
     });
+  },
+  computed: {
   },
   methods: {
     // 发布评论
     comment() {
       const that = this;
+      console.log(this.$route.params.id, this.content);
       this.$store.dispatch('toComment', {
         id: this.$route.params.id,
         content: this.content,

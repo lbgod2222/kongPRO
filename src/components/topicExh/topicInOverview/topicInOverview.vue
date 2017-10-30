@@ -4,6 +4,7 @@
       <table>
           <thead>
             <th>选项</th>
+            <th>内容</th>
             <th>股份</th>
             <th>几率</th>
             <th>我持有的股份</th>
@@ -12,6 +13,7 @@
           <tbody>
             <tr v-for="(item, index) in this.options">
               <td>{{item.choice}}</td>
+              <td>{{item.desc}}</td>
               <td>{{item.share}}</td>
               <td>{{(item.probability*100).toFixed(2)}}%</td>
               <td>{{item.myShare ? item.myShare : 0}}</td>
@@ -98,48 +100,74 @@ export default {
       record: {},
     };
   },
-  created() {
+  async created() {
+    console.log(this);
+    this.isBuy = window.sessionStorage.isBuy;
     const that = this;
     // get market detail
-    this.$store.dispatch('getMarketResult', {
+    const a = await this.$store.dispatch('getMarketResult', {
       id: this.$route.params.id,
       that,
-    }).then((res) => {
-      this.options = res.data.results;
     });
+    this.options = a.data.results;
     // my shares
-    this.$store.dispatch('getShareInOneMarket', {
+    const b = await this.$store.dispatch('getShareInOneMarket', {
       id: this.$route.params.id,
-      address: this.$store.state.user.address,
+      address: window.sessionStorage.address,
       that,
-    }).then((res) => {
-      console.log(this.options);
-      console.log('my share', res);
-      for (let i = 0; i < this.options.length; i += 1) {
-        const item = this.options[i];
-        for (let j = 0; j < res.data.shares.length; j += 1) {
-          const item2 = res.data.shares[j];
-          if (item2.choice === item.choice) {
-            item.myShare = item2.share;
-          }
+    });
+    for (let i = 0; i < this.options.length; i += 1) {
+      const item = this.options[i];
+      for (let j = 0; j < b.data.shares.length; j += 1) {
+        const item2 = b.data.shares[j];
+        if (item2.choice === item.choice) {
+          item.myShare = item2.share;
         }
       }
-    });
+    }
     // trade record in one market
-    this.$store.dispatch('getAllTradeRecord', {
+    const c = await this.$store.dispatch('getAllTradeRecord', {
       id: this.$route.params.id,
       that,
-    }).then((res) => {
-      console.log('record', res);
-      that.record = res.data.trades;
-      for (let i = 0; i < that.record.length; i += 1) {
-        that.record[i].realTime = formatDateTime(that.record[i].t_timestamp);
-      }
+    });
+    this.record = c.data.trades;
+    for (let i = 0; i < this.record.length; i += 1) {
+      this.record[i].realTime = formatDateTime.formatDateTime(this.record[i].t_timestamp);
+    }
+  },
+  mounted() {
+    console.log('monted now!');
+    // my shares
+    const that = this;
+    this.$store.dispatch('getShareInOneMarket', {
+      id: this.$route.params.id,
+      address: window.sessionStorage.address,
+      that,
+    }).then((res2) => {
+      console.log(this.options);
+      console.log('my share', res2);
+      // that.$nextTick(that.renderTick(res2));
+      that.renderTick(res2);
+      console.log(this);
     });
   },
-  computed: {
-  },
   methods: {
+    // tick render
+    renderTick(res) {
+      const that = this;
+      this.$nextTick(function (res2, v) {
+        console.log('now we begin to nextTick render our data');
+        for (let i = 0; i < v.options.length; i += 1) {
+          const item = v.options[i];
+          for (let j = 0; j < res2.data.shares.length; j += 1) {
+            const item2 = res2.data.shares[j];
+            if (item2.choice === item.choice) {
+              item.myShare = item2.share;
+            }
+          }
+        }
+      }(res, that));
+    },
     callSell(c) {
       this.isBuy = false;
       this.$store.commit('switchBlackSheepWall');

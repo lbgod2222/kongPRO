@@ -1,8 +1,8 @@
 <template>
   <div class="topic-exh-contain">
     <div class="exh-top">
-      <div class="img">
-        <img v-bind:src="item.image" alt="投票图片">
+      <div class="img" :style="{backgroundImage: 'url(' + img + ')'}">
+        <!-- <img v-bind:src="item.image" alt="投票图片"> -->
       </div>
       <div class="info">
         <div class="detail">
@@ -15,8 +15,8 @@
         </div>
         <div class="progress">
           <span>Status: {{this.item.status}}</span>
-          <span class="_top">TIME(N/E):60%</span>
-          <!--<progress max="100" value="60"></progress>-->
+          <span class="_top">TIME(N/E):{{this.progressInfo}}%</span>
+          <progress max="100" :value="Number(this.progressInfo)"></progress>
           <span class="_bottom"><b>{{this.item.status}}</b><b>END: {{this.item.timestamp}}</b></span>
         </div>
       </div>
@@ -31,6 +31,7 @@
   </div>
 </template>
 <script>
+/* eslint-disable*/
   // we need props here {params(number) marketID / QUERY:userID}
   import realTime from '../../../static/js/getRealTime';
 
@@ -39,10 +40,12 @@
     data() {
       return {
         item: '',
+        currentHeight: 0,
+        progressInfo: 0,
       };
     },
     created() {
-      console.log(realTime);
+      console.log(this.item);
       const that = this;
       this.$store.dispatch('getSepecificMarket', {
         id: this.$route.params.id,
@@ -64,12 +67,25 @@
         }
         that.item = a;
         that.item.imageUrl = myUrl;
-        that.item.timestamp = realTime(that.item.timestamp);
+        that.item.timestamp = realTime.formatDateTime(that.item.timestamp);
+        that.$store.dispatch('getBlockHeight', {
+          that,
+        }).then((res2) => {
+          that.currentHeight = res2.data.height;
+          that.progressInfo = Number((((Number(that.currentHeight) - Number(that.item.t_height)) / (Number(that.item.endHeight) - Number(that.item.t_height))) * 100).toFixed(3));
+        });
       });
       console.log(this);
     },
     computed: {
       status() {
+      },
+      img() {
+        return this.item.image;
+      },
+      currentTime() {
+        const now = new Date();
+        return now.getTime();
       },
     },
   };
@@ -94,6 +110,9 @@
     display: inline-block;
     width: 63%;
     height: 300px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
   }
 
   .exh-top .img img {
