@@ -1,20 +1,11 @@
  /* eslint-disable */
 <template>
   <div class="topic-group-contain">
-    <!-- <h1> {{title}} PAGE</h1> -->
-    <!-- 子组件占位<topic-item class="extra-content"></topic-item> -->
+    <!-- 黑幕 -->
+    <transition name="curtain-fade">
+      <div class="curtain" v-show="isCurtain">LOADING!!!!!</div>
+    </transition>
     <topic-item class="extra-content" v-for="(item, index) in this.topicAll" :item="item"></topic-item>
-    <!-- <div class="extra-content"></div>
-    <div class="extra-content"></div>
-    <div class="extra-content"></div>
-    <div class="extra-content"></div>
-    <div class="extra-content"></div>
-    <div class="extra-content"></div>
-    <div class="extra-content"></div>
-    <div class="extra-content"></div>
-    <div class="extra-content"></div>
-    <div class="extra-content"></div>
-    <div class="extra-content"></div> -->
   </div>
 </template>
 sadasd
@@ -30,6 +21,7 @@ export default {
   data() {
     return {
       topicAll: {},
+      isCurtain: false,
     };
   },
   // beforeRouteEnter(to, from, next) {
@@ -59,10 +51,14 @@ export default {
     console.log(this);
     if (this.$route.meta.current === 'all') {
       this.getData(null, 12, 0);
-    } else if (this.$route.meta.current === 'progress') {
+    } else if (this.$route.meta.current === 'ongoing') {
       this.getData(0, 12, 0);
-    } else if (this.$route.meta.current === 'public') {
+    } else if (this.$route.meta.current === 'revealing') {
+      this.getData(1, 12, 0);
+    } else if (this.$route.meta.current === 'announcing') {
       this.getData(2, 12, 0);
+    } else if (this.$route.meta.current === 'mediating') {
+      this.getData(3, 12, 0);
     } else if (this.$route.meta.current === 'done') {
       this.getData(4, 12, 0);
     }
@@ -93,6 +89,7 @@ export default {
   },
   methods: {
     getData(state, limit, offset) {
+      this.isCurtain = true;
       let that = this;
       this.$store.dispatch('getMarketOverview', {
         state: state,
@@ -109,21 +106,22 @@ export default {
           for (let i = 0; i < that.topicAll.length; i+=1) {
             that.topicAll[i].progressInfo = Number((((Number(that.currentHeight) - Number(that.topicAll[i].t_height)) / (Number(that.topicAll[i].endHeight) - Number(that.topicAll[i].t_height))) * 100).toFixed(3));
           }
+          that.isCurtain = false;
         });
       })
     },
     getDataForUpdate(){
       if (this.$route.meta.current === 'all') {
-        console.log('route changed! to all');
         this.getData(null, 12, 0);
-      } else if (this.$route.meta.current === 'progress') {
-        console.log('route changed! to pro');
+      } else if (this.$route.meta.current === 'ongoing') {
         this.getData(0, 12, 0);
-      } else if (this.$route.meta.current === 'public') {
-        console.log('route changed! to pub');
+      } else if (this.$route.meta.current === 'revealing') {
+        this.getData(1, 12, 0);
+      } else if (this.$route.meta.current === 'announcing') {
         this.getData(2, 12, 0);
+      } else if (this.$route.meta.current === 'mediating') {
+        this.getData(3, 12, 0);
       } else if (this.$route.meta.current === 'done') {
-        console.log('route changed! to done');
         this.getData(4, 12, 0);
       }
     }
@@ -133,13 +131,14 @@ export default {
 
 <style scoped>
   .topic-group-contain{
-      display: flex;
-      flex-flow:row wrap;
-      /* justify-content:space-between; */
-      margin-top: 30px;
-      /* background-color: rgb(37, 39, 40); */
-      width: 100%;
-      height: 600px;
+    position: relative;
+    display: flex;
+    flex-flow:row wrap;
+    /* justify-content:space-between; */
+    margin-top: 30px;
+    /* background-color: rgb(37, 39, 40); */
+    width: 100%;
+    height: 600px;
   }
   .extra-content{
     margin-bottom: 40px;
@@ -163,5 +162,21 @@ export default {
       width: 23%;
       background-color: rgb(37, 39, 40);
     }
+  }
+  /* 黑幕 */
+  .curtain{
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, .8);
+  }
+  /* curtain动画 */
+  /* 过程显示 */
+  .curtain-fade-enter-active, .curtain-fade-leave-active{
+    transition: all .2s ease;
+  }
+  .curtain-fade-enter, .curtain-fade-leave-active{
+    opacity: 0;
   }
 </style>

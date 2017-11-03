@@ -11,24 +11,25 @@
         MAKE SURE THAT YOU HAVE PLACED RIGHT INFO IN BLANKS
       </span>
       <div class="form">
+        <span class="currency">CURRENCY TYPE <input type="text" :placeholder="this.$store.state.transferType" disabled></span>
         <span class="receiveAddress">
           TRANSFER TO
-          <input type="text">
+          <input type="text" v-model="receiveAddress">
         </span>
         <span class="amount">
           AMOUNT
-          <input type="number">
+          <input type="number" v-model="amount">
         </span>
         <span class="fee">
           FEE
-          <input type="number">
+          <input type="number" v-model="fee" disabled>
         </span>
         <span class="extra">
           EXTRA
-          <input type="text">
+          <input type="text" v-model="extra">
         </span>
       </div>
-      <div class="btn">SUBMIT</div>
+      <div class="btn" @click="toTransfer">SUBMIT</div>
     </div>
   </div>
 </template>
@@ -38,15 +39,38 @@ export default {
   name: 'transfer',
   data() {
     return {
+      receiveAddress: null,
+      amount: 0,
+      fee: null,
+      extra: null,
     };
   },
+  created() {
+    console.log(this);
+  },
   computed: {
+    // 计算费用传入单位
+    trans_unit() {
+      return String(this.amount * 1e8);
+    },
   },
   methods: {
     // modal close
     close() {
+      this.$store.commit('transferInit');
       this.$store.commit('switchBlackSheepWall');
       this.$store.commit('switchModalTransfer');
+    },
+    toTransfer() {
+      const that = this;
+      this.$store.dispatch('toTransfer', {
+        type: this.$store.state.transferType,
+        amount: this.amount,
+        address: window.sessionStorage.address,
+        that,
+      }).then((res) => {
+        console.log(res);
+      });
     },
   },
 };
@@ -87,9 +111,9 @@ export default {
     display: block;
     height: 40px;
     line-height: 40px;
-    background-color: rgb(255, 124, 113);
+    /* background-color: rgb(255, 124, 113); */
     border-radius: 6px;
-    color: #fff;
+    color: #E93F2E;
     text-align: center;
   }
   .form span{

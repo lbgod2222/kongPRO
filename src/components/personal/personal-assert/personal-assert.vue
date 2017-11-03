@@ -26,23 +26,21 @@
         <table>
           <thead>
             <th>Currency</th>
-            <th>Address</th>
             <th>Amount</th>
             <th>OPT</th>
           </thead>
           <tbody>
-            <tr>
-              <td>XAS</td>
-              <td>Aod2AC0em123dfv</td>
-              <td>12333</td>
-              <td class="opt" @click="callTransfer">Transition</td>
+            <tr v-for="item in this.activeUser.resource.balances">
+              <td>{{item.currency}}</td>
+              <td>{{item.balance}}</td>
+              <td class="opt" @click="callTransfer(item.currency)">Transition</td>
             </tr>
-            <tr>
+            <!-- <tr>
               <td>ETH</td>
               <td>Aod2AC0em123dfv</td>
               <td>12333</td>
               <td class="opt" @click="callTransfer">Transition</td>
-            </tr>
+            </tr> -->
           </tbody>
         </table>
       </div>
@@ -58,21 +56,16 @@
             <th>Fee</th>
           </thead>
           <tbody>
-            <tr>
-              <td>0192</td>
-              <td>XAS</td>
-              <td>Ao029JK0df0d</td>
-              <td>AaPWDpd0JK0D</td>
-              <td>2009/08/08</td>
-              <td>1201</td>
-            </tr>
-            <tr>
-              <td>0195</td>
-              <td>ETH</td>
-              <td>Ao029JK0df0d</td>
-              <td>AaPWDpd0JK0D</td>
-              <td>2009/08/08</td>
-              <td>2333</td>
+            <transition name="curtain-fade">
+              <div class="curtain" v-show="this.isCurtain">LOADING</div>
+            </transition>
+            <tr v-for="(item, index) in this.transactionRecord">
+              <td>{{index}}</td>
+              <td>{{item.currency}}</td>
+              <td>{{item.senderId}}</td>
+              <td>{{item.recipientId}}</td>
+              <td>{{item.realTime}}</td>
+              <td>{{item.amount}}</td>
             </tr>
           </tbody>
         </table>
@@ -83,17 +76,56 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+import getRealTime from '../../../../static/js/getRealTime';
+
 export default {
   name: 'personal-assert',
   data() {
     return {
+      transactionRecord: null,
+      isCurtain: false,
     };
   },
+  async created() {
+    console.log(this);
+    const that = this;
+    this.isCurtain = true;
+    if (window.sessionStorage.isLogin) {
+      this.$store.commit('loginStatue');
+      this.$store.commit('loginBase', {
+        secret: window.sessionStorage.secret,
+      });
+      const loginAct = await this.$store.dispatch('loginAction', {
+        address: this.$store.state.user.address,
+        that,
+      });
+      this.$store.commit('login', {
+        resource: loginAct.data.account,
+      });
+      // 交易记录
+      const recordAct = await that.$store.dispatch('getTransactionInfo', {
+        limit: 10,
+        offset: 0,
+        currency: '',
+        that,
+      });
+      this.transactionRecord = recordAct.data.transfers;
+      const arr = this.transactionRecord;
+      for (let i = 0; i < this.transactionRecord.length; i += 1) {
+        arr[i].realTime = getRealTime.formatDateTime(arr[i].t_timestamp);
+      }
+      this.isCurtain = false;
+    }
+  },
   computed: {
+    ...mapGetters(['activeUser']),
   },
   methods: {
     // call up transfer modal
-    callTransfer() {
+    callTransfer(type) {
+      console.log(type);
+      this.$store.commit('envalueTransferType', { type });
       this.$store.commit('switchBlackSheepWall');
       this.$store.commit('switchModalTransfer');
     },
@@ -109,11 +141,16 @@ export default {
     width: 79.5%;
     height: 600px;
     box-shadow: 0px 0px 10px rgb(26, 29, 29);
+    padding-bottom: 40px;
+  }
+  .myAssert{
+    position: relative;
   }
   .myAssert:nth-child(2){
     margin-top: 30px;
   }
  .myAssert table{
+    position: relative;
     margin: 20px 0 0 0;
     width: 100%;
     text-align: center;
@@ -131,7 +168,7 @@ export default {
     height: 30px;
     line-height: 30px;
  }
- .myAssert .opt{
+ .opt{
    cursor: pointer;
  }
  .label{
@@ -142,6 +179,21 @@ export default {
  }
   .timeLeft span{
     float: right;
+  }
+  /* 动画 */
+ /* 黑幕 */
+  .curtain{
+    position: absolute;
+    top: 0;
+    height: 600px;
+    width: 100%;
+    background-color: rgba(0, 0, 0, .8);
+  }
+  .curtain-fade-enter-active, .curtain-fade-leave-active{
+    transition: all .2s ease;
+  }
+  .curtain-fade-enter, .curtain-fade-leave-active{
+    opacity: 0;
   }
   /* 进度条颜色控制 */
   .timeLeft progress {

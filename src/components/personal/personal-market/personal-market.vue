@@ -1,30 +1,31 @@
 <template>
   <div class="personal-right-contain">
     <div class="myMarket">
-        <span class="label">My Market</span>
-        <span class="label">
-          <b class="active">My Deal</b>
-          <b>My Initial</b>
-        </span>
+        <span class="label">My Own Market</span>
+        <!-- <span class="label">
+          <b :class="{ 'active': this.isDeal === true }" @click="toDeal">My Deal</b>
+          <b :class="{ 'active': this.isDeal === false }" @click="toInit">My Initial</b>
+        </span> -->
         <table>
           <thead>
-            <th>Currency</th>
-            <th>Address</th>
-            <th>Amount</th>
-            <th>OPT</th>
+            <th>TITLE</th>
+            <th>MARGIN</th>
+            <th>SHARE</th>
+            <th>TIMESTAMP</th>
+            <th>CURRENCY</th>
+            <th>STATUS</th>
+            <th colspan="2">OPT</th>
           </thead>
           <tbody>
-            <tr>
-              <td>XAS</td>
-              <td>Aod2AC0em123dfv</td>
-              <td>12333</td>
-              <td>Transition</td>
-            </tr>
-            <tr>
-              <td>ETH</td>
-              <td>Aod2AC0em123dfv</td>
-              <td>12333</td>
-              <td>Transition</td>
+            <tr v-for="(item, index) in this.initMarket">
+              <td>{{item.title}}</td>
+              <td>{{item.margin}}</td>
+              <td>{{item.share}}</td>
+              <td>{{item.realTime}}</td>
+              <td>{{item.currency}}</td>
+              <td>{{item.realState}}</td>
+              <td><span class="reveal" @click="callReveal(item.title, item.id)">REVEAL</span></td>
+              <td><router-link class="_btn" :to="{ path: `/topicExh/${item.id}`, params:{ id: item.id }}">MORE</router-link></td>
             </tr>
           </tbody>
         </table>
@@ -33,16 +34,79 @@
 </template>
 
 <script>
-export default { name: 'personal-help' };
+import getRealTime from '../../../../static/js/getRealTime';
+
+export default {
+  name: 'personal-help',
+  data() {
+    return {
+      isDeal: true,
+      // 发起内容
+      initMarket: {},
+      // 发起内容页码设置
+      initStatus: {
+        totalNum: 0,
+        currentPage: 0,
+        limit: 10,
+        offset: 0,
+      },
+    };
+  },
+  async created() {
+    const that = this;
+    const formState = function (state) {
+      if (state === 0) {
+        return '进行中';
+      }
+      if (state === 1) {
+        return '等待揭示';
+      }
+      if (state === 2) {
+        return '等待宣布';
+      }
+      if (state === 3) {
+        return '仲裁中';
+      }
+      return '已完成';
+    };
+    const personalMarket = await this.$store.dispatch('getOwnMarket', {
+      initiator: window.sessionStorage.address,
+      limit: this.initStatus.limit,
+      offset: this.initStatus.offset,
+      that,
+    });
+    console.log(personalMarket);
+    this.initMarket = personalMarket.data.markets;
+    this.initStatus.totalNum = personalMarket.count;
+    for (let i = 0; i < this.initMarket.length; i += 1) {
+      this.initMarket[i].realTime = getRealTime.formatDateTime(this.initMarket[i].t_timestamp);
+      this.initMarket[i].realState = formState(this.initMarket[i].state);
+    }
+    console.log(this.initMarket);
+    // asdasd
+  },
+  computed: {
+  },
+  methods: {
+    async callReveal(title, id) {
+      // envalue the pub state
+      this.$store.commit('envalueAnnounceTitle', { title, id });
+      // call up popup
+      this.$store.commit('switchBlackSheepWall');
+      this.$store.commit('switchModalAnnounce');
+    },
+  },
+};
 </script>
 
 <style scoped>
   .personal-right-contain{
-      float: left;
-      margin-left: 1.5%;
-      width: 79.5%;
-      height: 600px;
-      box-shadow: 0px 0px 10px rgb(26, 29, 29);
+    float: left;
+    margin-left: 1.5%;
+    width: 79.5%;
+    height: 600px;
+    box-shadow: 0px 0px 10px rgb(26, 29, 29);
+    padding-bottom: 40px;
   }
   .myMarket table{
     width: 100%;
@@ -55,7 +119,7 @@ export default { name: 'personal-help' };
     font-size: 1.2em;
  }
  .myMarket table tr{
-   border-top: 1px solid rgb(66, 71, 73);
+    border-top: 1px solid rgb(66, 71, 73);
  }
  .myMarket table td{
     height: 30px;
@@ -76,6 +140,9 @@ export default { name: 'personal-help' };
  }
  .label:nth-child(2) b{
    margin-right: 30px;
+   cursor: pointer;
+ }
+ .reveal{
    cursor: pointer;
  }
  .active{

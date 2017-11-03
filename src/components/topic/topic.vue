@@ -1,12 +1,14 @@
 <template>
   <div class="topic-contain">
     <ul>
-        <router-link to="/topic/all" @click="show">ALL</router-link>
-        <router-link to="/topic/progress" @click="show">PROGRESS</router-link>
-        <router-link to="/topic/public" @click="show">PUBLIC</router-link>
-        <router-link to="/topic/done" @click="show">DONE</router-link>
+        <router-link to="/topic/all" @click="show">全部</router-link>
+        <router-link to="/topic/ongoing" @click="show">进行中</router-link>
+        <router-link to="/topic/revealing" @click="show">等待揭示</router-link>
+        <router-link to="/topic/announcing" @click="show">宣布</router-link>
+        <router-link to="/topic/mediating" @click="show">审核中</router-link>
+        <router-link to="/topic/done" @click="show">已完成</router-link>
     </ul>
-    <span @click="launchTopic"> + Issue A Topic</span>
+    <span @click="launchTopic"> + 发布一个市场</span>
     <div class="clear"></div>
     <router-view></router-view>
   </div>
@@ -73,10 +75,11 @@ export default {
       height: 40px;
       line-height: 40px;
       text-align: center;
-      width: 15%;
+      width: 6%;
   }
   .topic-contain a.router-link-active{
     color: rgb(33, 133, 150);
+    border-bottom: 1px solid rgb(33, 133, 150);
   }
   .clear{
     clear: both;

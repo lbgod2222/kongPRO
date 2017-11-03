@@ -39,7 +39,7 @@
         </tr>
         <tr>
           <td>END TIME</td>
-          <td class="endTime"><input type="number" class="year" v-model="endTime.year">年<input type="number" class="month" v-model="endTime.month">月<input type="number" class="day" v-model="endTime.day">日</td>
+          <td class="endTime"><input type="number" class="year" v-model="endTime.year">年<input type="number" class="month" v-model="endTime.month">月<input type="number" class="day" v-model="endTime.day">日<input type="number" class="hour" v-model="endTime.hour">时<input type="number" class="minute" v-model="endTime.minute">分<input type="number" class="second" v-model="endTime.second">秒</td>
         </tr>
         <tr>
           <td>GUARANTEE</td>
@@ -86,6 +86,9 @@ export default {
         year: null,
         month: null,
         day: null,
+        hour: null,
+        minute: null,
+        second: null,
       },
     };
   },
@@ -98,8 +101,8 @@ export default {
     // timely count the block added number
     blockAdded() {
       const currentTime = new Date().getTime();
-      const finalTime = new Date(this.endTime.year, this.endTime.month, this.endTime.day).getTime();
-      return (finalTime - currentTime) / 10000;
+      const finalTime = new Date(this.endTime.year, Number(this.endTime.month) - 1, this.endTime.day, this.endTime.hour, this.endTime.minute, this.endTime.second).getTime();
+      return ((finalTime - currentTime) / 10000).toFixed();
     },
     // modal close
     close() {
@@ -121,7 +124,7 @@ export default {
       this.$store.dispatch('getBlockHeight', { that }).then((res) => {
         console.log('afer get blockheight', res);
         if (res.data.success === true) {
-          let blockHeight = Number(res.data.height) + that.blockAdded();
+          let blockHeight = Number(res.data.height) + Number(that.blockAdded());
           console.log('already get in', blockHeight);
           that.$store.dispatch('toIssueTopic', {
             title: that.topicTitle,
@@ -136,6 +139,7 @@ export default {
           }).then((res) => {
             console.log(res);
             alert('ISSUEED SUCCESSFULLY!');
+            that.close();
           });
         }
       });

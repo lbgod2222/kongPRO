@@ -35,6 +35,29 @@ const mutations = {
   switchModalLogin: (state) => {
     state.ModalLogin = !state.ModalLogin;
   },
+  // announce area
+  // switch announce modal
+  switchModalAnnounce: (state) => {
+    state.ModalAnnounce = !state.ModalAnnounce;
+  },
+  // envalue the pub state : 'announceTtitle'
+  envalueAnnounceTitle: (state, { title, id }) => {
+    state.announceTitle = title;
+    state.announceId = id;
+  },
+  // announceINIT
+  announceInit: (state) => {
+    state.announceTitle = null;
+    state.announceId = 0;
+  },
+  // evvalue
+  envalueTransferType: (state, type) => {
+    console.log(type);
+    state.transferType = type.type;
+  },
+  transferInit: (state) => {
+    state.transferType = null;
+  },
 };
 
 export default mutations;

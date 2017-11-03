@@ -1,5 +1,8 @@
 <template>
   <div class="comment-contain">
+    <transition name="curtain-fade">
+      <div class="curtain" v-show="this.isCurtain">Loading</div>
+    </transition>
     <div class="upper">
       <h1>SAY SOMETHING</h1>
       <div class="input">
@@ -31,6 +34,7 @@ export default {
       page: 1,
       allComment: {},
       content: '',
+      isCurtain: false,
     };
   },
   created() {
@@ -38,6 +42,7 @@ export default {
     console.log(this);
     console.log(this.$route.params.page);
     // get all comments
+    this.isCurtain = true;
     this.$store.dispatch('getAllcomment', {
       id: this.$route.params.id,
       that,
@@ -47,6 +52,7 @@ export default {
       for (let i = 0; i < that.allComment.length; i += 1) {
         that.allComment[i].realTime = getRealTime.formatDateTime(that.allComment[i].t_timestamp);
       }
+      that.isCurtain = false;
     });
   },
   computed: {
@@ -85,9 +91,11 @@ export default {
 
 <style scoped>
   .comment-contain{
+    position: relative;
     padding-top: 30px;
-      background-color: rgb(37, 39, 40);
-      width: 100%;
+    background-color: rgb(37, 39, 40);
+    width: 100%;
+    padding-bottom: 40px;
   }
   .upper{
     width: 42%;
@@ -143,5 +151,20 @@ export default {
   .commentContain .content{
     margin-top: 5px;
     display: block;
+  }
+  /* 动画 */
+  /* 黑幕 */
+  .curtain{
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, .8);
+  }
+  .curtain-fade-enter-active, .curtain-fade-leave-active{
+    transition: all .2s ease;
+  }
+  .curtain-fade-enter, .curtain-fade-leave-active{
+    opacity: 0;
   }
 </style>

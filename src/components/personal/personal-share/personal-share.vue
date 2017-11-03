@@ -11,10 +11,10 @@
           </thead>
           <tbody>
             <tr v-for="(item, index) in this.allShares">
-              <td>{{item.id}}</td>
+              <td>{{item.mid}}</td>
               <td>{{item.title}}</td>
               <td>{{item.choice}}</td>
-              <td>{{item.shares}}</td>
+              <td>{{item.share}}</td>
             </tr>
           </tbody>
         </table>
@@ -33,7 +33,7 @@ export default {
   created() {
     const that = this;
     this.$store.dispatch('getAllSharesOfOne', {
-      address: this.$store.state.user.address,
+      address: window.sessionStorage.address,
       that,
     }).then((res) => {
       console.log(res);
@@ -51,6 +51,7 @@ export default {
       width: 79.5%;
       height: 600px;
       box-shadow: 0px 0px 10px rgb(26, 29, 29);
+      padding-bottom: 40px;
   }
   .myShare table{
     margin: 20px 0 0 0;

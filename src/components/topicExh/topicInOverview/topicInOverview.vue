@@ -1,5 +1,9 @@
 <template>
   <div class="_overView-contain">
+    <!-- 黑幕 -->
+    <transition name="curtain-fade">
+      <div class="curtain" v-show="this.isCurtain">Loading</div>
+    </transition>
     <div class="_overView">
       <table>
           <thead>
@@ -19,7 +23,7 @@
               <td>{{item.myShare ? item.myShare : 0}}</td>
               <td><span @click="callSell(item.choice)">卖</span></td>
               <td><span @click="callBuy(item.choice)">买</span></td>
-              <td><span @click="callDeal(item.choice)">兑换</span></td>
+              <td><span @click="callDeal(item.choice, index)">兑换</span></td>
             </tr>
           </tbody>
         </table>
@@ -70,11 +74,11 @@
       <table>
         <tr>
           <td>TOTAL</td>
-          <td class="share">1000 SHARES</td>
+          <td class="share">{{this.showDeal.share}}</td>
         </tr>
         <tr>
           <td>FEE</td>
-          <td class="total">100000 XAS</td>
+          <td class="total">{{this.calcInfo}} XAS</td>
         </tr>
       </table>
       <div class="confirmBtn" @click="dealConfirm">确认</div>
@@ -94,14 +98,17 @@ export default {
       dealModal: false,
       isBuy: undefined,
       choice: null,
+      isCurtain: false,
       share: 0,
       calcInfo: '请输入',
       options: {},
       record: {},
+      showDeal: {},
     };
   },
   async created() {
     console.log(this);
+    this.isCurtain = true;
     this.isBuy = window.sessionStorage.isBuy;
     const that = this;
     // get market detail
@@ -134,6 +141,7 @@ export default {
     for (let i = 0; i < this.record.length; i += 1) {
       this.record[i].realTime = formatDateTime.formatDateTime(this.record[i].t_timestamp);
     }
+    this.isCurtain = false;
   },
   mounted() {
     console.log('monted now!');
@@ -180,8 +188,11 @@ export default {
       this.sellModal = true;
       this.choice = c;
     },
-    callDeal() {
+    callDeal(choice, index) {
       this.$store.commit('switchBlackSheepWall');
+      this.choice = choice;
+      this.getPrice();
+      this.showDeal = this.options[index];
       this.dealModal = true;
     },
     close() {
@@ -189,6 +200,7 @@ export default {
       this.buyModal = false;
       this.dealModal = false;
       this.isBuy = null;
+      this.showDeal = {};
       this.$store.commit('switchBlackSheepWall');
     },
     getPrice() {
@@ -247,10 +259,13 @@ export default {
     position: relative;
     background-color: rgb(37, 39, 40);
     width: 100%;
-    height: 300px;
+    padding-bottom: 40px;
   }
   ._overView{
     padding-top: 20px;
+  }
+  table thead th{
+    background-color: #2E2F30;
   }
   ._overView table{
     width: 80%;
@@ -360,4 +375,19 @@ export default {
    text-align: center;
    cursor: pointer;
  }
+ /* 动画 */
+ /* 黑幕 */
+  .curtain{
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, .8);
+  }
+  .curtain-fade-enter-active, .curtain-fade-leave-active{
+    transition: all .2s ease;
+  }
+  .curtain-fade-enter, .curtain-fade-leave-active{
+    opacity: 0;
+  }
 </style>

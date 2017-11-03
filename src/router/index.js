@@ -37,8 +37,10 @@ export default new Router({
       meta: { current: 'all' },
       children: [
         { path: 'all', component: topicGroup, meta: { current: 'all' } },
-        { path: 'progress', component: topicGroup, meta: { current: 'progress' } },
-        { path: 'public', component: topicGroup, meta: { current: 'public' } },
+        { path: 'ongoing', component: topicGroup, meta: { current: 'ongoing' } },
+        { path: 'revealing', component: topicGroup, meta: { current: 'revealing' } },
+        { path: 'announcing', component: topicGroup, meta: { current: 'announcing' } },
+        { path: 'mediating', component: topicGroup, meta: { current: 'mediating' } },
         { path: 'done', component: topicGroup, meta: { current: 'done' } },
       ],
     },
@@ -56,7 +58,7 @@ export default new Router({
     { path: '/personal',
       component: personal,
       children: [
-          { path: 'info', component: personalInfo },
+          { path: '/', component: personalInfo },
           { path: 'assert', component: personalAssert },
           { path: 'market', component: personalMarket },
           { path: 'share', component: personalShare },

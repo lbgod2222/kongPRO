@@ -1,7 +1,7 @@
 <template>
   <div class="topic-exh-contain">
     <div class="exh-top">
-      <div class="img" :style="{backgroundImage: 'url(' + img + ')'}">
+      <div class="img" :style="{backgroundImage: 'url(' + img + ')'}" @click="SHOW">
         <!-- <img v-bind:src="item.image" alt="投票图片"> -->
       </div>
       <div class="info">
@@ -88,6 +88,11 @@
         return now.getTime();
       },
     },
+    methods: {
+      SHOW() {
+        console.log(this);
+      },
+    },
   };
 </script>
 
@@ -133,13 +138,20 @@
 
   .topic-exh-contain ul a {
     display: inline-block;
-    width: 15%;
+    box-sizing: border-box;
+    width: 6%;
     text-align: center;
     height: 40px;
     line-height: 40px;
-    margin-left: 20px;
+    font-size: 1.2em;
   }
-
+  .topic-exh-contain ul a:nth-child(2), .topic-exh-contain ul a:nth-child(3){
+    margin-left: 40px;
+  }
+  a.router-link-exact-active{
+    color: #1EC2DB;
+    border-bottom: 2px solid #1EC2DB;
+  }
   .info {
     display: inline-flex;
     flex-direction: column;

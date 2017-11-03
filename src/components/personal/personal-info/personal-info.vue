@@ -94,6 +94,7 @@
     padding-left: 20px;
     width: 79.5%;
     height: 600px;
+    padding-bottom: 40px;
   }
   .info-top{
     width: 100%;

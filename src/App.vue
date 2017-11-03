@@ -4,11 +4,23 @@
     <nav-bar></nav-bar>
     <!-- 路由点 -->
     <router-view></router-view>
-    <div class="blackSheepWall" v-show="this.blackSheepWall">
-      <launch-topic v-show="this.ModalLaunchTopic"></launch-topic>
-      <transfer v-show="this.ModalTransfer"></transfer>
-      <login v-show="this.ModalLogin"></login>
-    </div>
+    <transition name="curtain-fade">
+      <div class="blackSheepWall" v-show="this.blackSheepWall">
+        <transition name="lanch-topic-ani">
+          <launch-topic v-if="this.ModalLaunchTopic"></launch-topic>
+        </transition>
+        <transition name="login-ani">
+          <login v-show="this.ModalLogin"></login>
+        </transition>
+        <transition name="transfer-ani">
+          <transfer v-if="this.ModalTransfer"></transfer>
+        </transition>
+        <transition name="announce-ani">
+          <announce v-if="this.ModalAnnounce"></announce>
+        </transition>
+
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -20,6 +32,7 @@ import launchTopic from './components/Modals/launchTopic/launchTopic';
 import login from './components/Modals/login/login';
 import popup from './components/Modals/popup/popup';
 import transfer from './components/Modals/transfer/transfer';
+import announce from './components/Modals/announce/announce';
 
 export default {
   name: 'app',
@@ -29,13 +42,14 @@ export default {
     login,
     popup,
     transfer,
+    announce,
   },
   data() {
     return {
     };
   },
   computed: {
-    ...mapState(['ModalLaunchTopic', 'blackSheepWall', 'ModalTransfer', 'ModalLogin']),
+    ...mapState(['ModalLaunchTopic', 'blackSheepWall', 'ModalTransfer', 'ModalLogin', 'ModalAnnounce']),
   },
 };
 </script>
@@ -54,8 +68,37 @@ export default {
   overflow-y: scroll;
   top: 0;
   width: 100%;
-  height: 100%;
+  height: 4000px;
   background-color: rgba(0, 0, 0, .8);
   z-index: 998;
+}
+/* 动画 */
+.lanch-topic-ani-enter-active, .lanch-topic-ani-leave-active{
+  transition: all, .6s ease-in;
+}
+.lanch-topic-ani-enter{
+  top: -2000px;
+}
+/* 动画 */
+.login-ani-enter-active, .login-ani-leave-active{
+  transition: all, .6s ease-in;
+}
+.login-ani-enter{
+  top: -2000px;
+}
+/* 动画 */
+.transfer-ani-enter-active, .transfer-ani-leave-active{
+  transition: all, .6s ease-in;
+}
+.transfer-ani-enter{
+  top: -2000px;
+}
+/* curtain动画 */
+/* 过程显示 */
+.curtain-fade-enter-active, .curtain-fade-leave-active{
+  transition: all .4s ease-in-out;
+}
+.curtain-fade-enter, .curtain-fade-leave-active{
+  top: -1000px;
 }
 </style>

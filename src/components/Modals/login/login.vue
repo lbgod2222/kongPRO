@@ -38,6 +38,7 @@ export default {
       if (!Mnemonic.isValid(this.secret)) {
         return alert('"未能通过"');
       }
+      that.close();
       this.$store.commit('loginBase', { secret: this.secret });
       return this.$store.dispatch('loginAction', {
         address: this.$store.state.user.address,
@@ -45,10 +46,10 @@ export default {
       }).then((res) => {
         // if (res.status === 200 && res.data.success) {
           // }
+        console.log(res);
         that.$store.commit('login', {
           resource: res.data.account,
         });
-        that.close();
       });
     },
   },
