@@ -1,14 +1,16 @@
 <template>
   <div class="comment-contain">
     <transition name="curtain-fade">
-      <div class="curtain" v-show="this.isCurtain">Loading</div>
+      <div class="curtain" v-show="this.isCurtain">
+        <iframe src="/static/img/loading-bars.svg" width="100" height="100"></iframe>
+      </div>
     </transition>
     <div class="upper">
-      <h1>SAY SOMETHING</h1>
+      <h1>评论区</h1>
       <div class="input">
-        <textarea name="" id="" cols="30" rows="10" placeholder="TYPE YOUR MIND..." v-model="content"></textarea>
+        <textarea name="" id="" cols="30" rows="10" placeholder="输入内容..." v-model="content"></textarea>
       </div>
-      <div class="_btn" @click="comment">Subit</div>
+      <div class="_btn" @click="comment">发布评论</div>
     </div>
     <div class="bottom">
       <!-- LOOP UNIT -->
@@ -160,6 +162,10 @@ export default {
     height: 100%;
     width: 100%;
     background-color: rgba(0, 0, 0, .8);
+  }
+  .curtain iframe{
+    display: block;
+    margin: 100px auto 0 auto;
   }
   .curtain-fade-enter-active, .curtain-fade-leave-active{
     transition: all .2s ease;

@@ -18,6 +18,7 @@
     "axios": "^0.16.2",
     "bitcore-mnemonic": "^1.2.5",
     "express-mockjs": "^0.4.8",
+    "identicon.js": "^2.3.1",
     "vue": "^2.4.2",
     "vue-echarts": "^2.4.1",
     "vue-router": "^2.7.0",

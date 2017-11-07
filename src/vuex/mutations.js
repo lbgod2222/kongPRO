@@ -35,6 +35,15 @@ const mutations = {
   switchModalLogin: (state) => {
     state.ModalLogin = !state.ModalLogin;
   },
+  // switch popup modal
+  switchModalPopup: (state) => {
+    state.ModalPopup = !state.ModalPopup;
+  },
+  // envalue popup
+  envaluePopup: (state, { status, msg }) => {
+    state.PopupStatus.status = status;
+    state.PopupStatus.msg = msg;
+  },
   // announce area
   // switch announce modal
   switchModalAnnounce: (state) => {
@@ -50,7 +59,7 @@ const mutations = {
     state.announceTitle = null;
     state.announceId = 0;
   },
-  // evvalue
+  // envalue
   envalueTransferType: (state, type) => {
     console.log(type);
     state.transferType = type.type;

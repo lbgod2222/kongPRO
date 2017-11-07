@@ -18,8 +18,10 @@
         <transition name="announce-ani">
           <announce v-if="this.ModalAnnounce"></announce>
         </transition>
-
       </div>
+    </transition>
+    <transition name="popup">
+      <popup v-show="this.ModalPopup"></popup>
     </transition>
   </div>
 </template>
@@ -49,7 +51,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(['ModalLaunchTopic', 'blackSheepWall', 'ModalTransfer', 'ModalLogin', 'ModalAnnounce']),
+    ...mapState(['ModalLaunchTopic', 'blackSheepWall', 'ModalTransfer', 'ModalLogin', 'ModalAnnounce', 'ModalPopup']),
   },
 };
 </script>
@@ -93,6 +95,16 @@ export default {
 .transfer-ani-enter{
   top: -2000px;
 }
+/* popup 弹窗 */
+.popup-enter-active{
+  animation: popup .8s ease-in-out 1 both;
+}
+.popup-leave-active{
+  animation: popup-fade .8s ease-in-out 1 both;
+}
+.popup-leave{
+  transform: scale(0);
+}
 /* curtain动画 */
 /* 过程显示 */
 .curtain-fade-enter-active, .curtain-fade-leave-active{
@@ -101,4 +113,34 @@ export default {
 .curtain-fade-enter, .curtain-fade-leave-active{
   top: -1000px;
 }
+/* key-frame popup */
+@keyframes popup {
+  0% {
+    transform: scale(0);
+  }
+  25% {
+    transform: scale(1.35);
+  }
+  45% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes popup-fade {
+  0% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.35);
+  }
+  45% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+
 </style>

@@ -1,12 +1,12 @@
 <template>
   <div class="navBar-contain">
     <h2>LOGO</h2>
-    <router-link to="/">首页</router-link>
-    <router-link to="/topic/all">市场</router-link>
+    <router-link to="/" :class="{'active_normal': this.active === 'home'}" @click.native="changeA(1)">首页</router-link>
+    <router-link to="/topic/all" :class="{'active_normal': this.active === 'market'}" @click.native="changeA(2)">市场</router-link>
     <!-- <router-link to="/login" exact>LOGIN</router-link> -->
     <a class="login" @click="popLogin" v-show="!this.$store.state.isLogin">登录</a>
     <a class="logOut" @click="logOut" v-show="this.$store.state.isLogin">登出</a>
-    <router-link class="personalClass" to="/personal" v-show="this.$store.state.isLogin" exact>个人中心</router-link>
+    <router-link class="personalClass" to="/personal" v-show="this.$store.state.isLogin" :class="{'active_p': this.active === 'personal'}" @click.native="changeA(3)">个人中心</router-link>
   </div>
 </template>
 
@@ -16,6 +16,7 @@ export default {
   data() {
     return {
       secret: '',
+      active: 'home',
     };
   },
   created() {
@@ -29,7 +30,6 @@ export default {
         address: this.$store.state.user.address,
         that,
       }).then((res) => {
-        console.log(res.data);
         that.$store.commit('login', {
           resource: res.data.account,
         });
@@ -37,16 +37,33 @@ export default {
     }
   },
   methods: {
+    // tempo func
+    // showPOP() {
+    //   console.log('hahahaahahahahah click');
+    //   this.$store.commit('envaluePopup', {
+    //     status: 0,
+    //     msg: 'HEY TEHRE!',
+    //   });
+    //   this.$store.commit('switchModalPopup');
+    // },
     popLogin() {
       this.$store.commit('switchBlackSheepWall');
       this.$store.commit('switchModalLogin');
     },
     logOut() {
-      console.log(this);
       window.sessionStorage.clear();
       this.$store.commit('loginStatue');
       if (this.$route.path.indexOf('personal') > -1) {
         this.$router.replace('/topic/all');
+      }
+    },
+    changeA(num) {
+      if (num === 1) {
+        this.active = 'home';
+      } else if (num === 2) {
+        this.active = 'market';
+      } else {
+        this.active = 'personal';
       }
     },
   },
@@ -72,12 +89,22 @@ export default {
     color: rgb(33, 133, 150);
     display: inline;
   }
-  .navBar-contain a.router-link-active{
+  .active_normal{
+    color: rgb(33, 133, 150);
+  }
+  .active_p{
+    color: rgb(33, 133, 150);
+    border: 1px solid rgb(33, 133, 150) !important;
+  }
+  .login{
+    border: 1px solid rgb(33, 133, 150) !important;
+    color: rgb(33, 133, 150);
+  }
+  /* .navBar-contain a.router-link-active{
     color: rgb(33, 133, 150);
   }
   .navBar-contain a:nth-child(6).router-link-exact-active{
-    border: 1px solid rgb(33, 133, 150);
-  }
+  } */
   .navBar-contain a:nth-child(4), .navBar-contain a:nth-child(5), .navBar-contain a:nth-child(6){
     padding: 0 10px;
     display: inline-block;

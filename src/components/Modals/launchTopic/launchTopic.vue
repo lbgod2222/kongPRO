@@ -2,34 +2,34 @@
   <div class="launchTopic-contain">
     <div class="upper">
       <span class="title">
-        ISSUE A TOPIC
+        发布一个市场
       </span>
       <span class="close" @click="close">X</span>
     </div>
     <div class="bottom">
       <table>
         <tr>
-          <td class="leftSpan">TITLE</td>
+          <td class="leftSpan">标题</td>
           <td class="rightSpan"><input type="text" class="title" v-model="topicTitle"></td>
         </tr>
         <tr>
-          <td>SPONSOR</td>
+          <td>发起人</td>
           <td class="sponsor">{{this.$store.state.user.address}}</td>
         </tr>
         <tr>
-          <td>IMAGE</td>
+          <td>图片</td>
           <td class="issueImage"><input type="url" v-model="topicUrl"></td>
         </tr>
         <tr>
-          <td class="detailTitle">DETAIL</td>
+          <td class="detailTitle">详情</td>
           <td class="detail"><textarea name="" id="" cols="30" rows="10" placeholder="TYPE WHATEVER" v-model="topicDesc"></textarea></td>
         </tr>
         <tr>
-          <td>OPT SETTING</td>
+          <td>市场选项</td>
           <td class="opt">
             <ul>
               <li class="setted" v-for="(item, index) in this.optList">
-                {{item}} <span class="set_delete" @click="deleteOpt(index)">DELETE</span>
+                {{item}} <span class="set_delete" @click="deleteOpt(index)">删除</span>
               </li>
               <li class="optInput">
                 <input type="text" placeholder="TYPE OPTIONS HERE" v-model="editOpt" @keyup.enter="confirmOpt">
@@ -38,23 +38,23 @@
           </td>
         </tr>
         <tr>
-          <td>END TIME</td>
+          <td>结束时间</td>
           <td class="endTime"><input type="number" class="year" v-model="endTime.year">年<input type="number" class="month" v-model="endTime.month">月<input type="number" class="day" v-model="endTime.day">日<input type="number" class="hour" v-model="endTime.hour">时<input type="number" class="minute" v-model="endTime.minute">分<input type="number" class="second" v-model="endTime.second">秒</td>
         </tr>
         <tr>
-          <td>GUARANTEE</td>
+          <td>保证金</td>
           <td class="guarantee"><input type="number" min="0" v-model="topicGuarantee"></td>
         </tr>
         <tr>
-          <td>INITIAL SHARES</td>
+          <td>初始股份</td>
           <td class="iniShare"><input type="number" min="0" v-model="topicShare"></td>
         </tr>
         <tr>
-          <td>CURRENCY TYPE</td>
+          <td>资金种类</td>
           <td class="currency"><input value="" v-model="topicCurrency"></td>
         </tr>
         <tr>
-          <td>FEE</td>
+          <td>小费</td>
           <td>1 %</td>
         </tr>
         <!-- <tr>
@@ -62,7 +62,7 @@
           <td class="topicType"><option value=""></option></td>
         </tr> -->
       </table>
-      <div class="btn" @click="issueTopic">SUBMIT</div>
+      <div class="btn" @click="issueTopic">发布</div>
     </div>
   </div>
 </template>
@@ -138,7 +138,20 @@ export default {
             that
           }).then((res) => {
             console.log(res);
-            alert('ISSUEED SUCCESSFULLY!');
+            if (res.data.success === true) {
+              this.$store.commit('envaluePopup', {
+                status: 0,
+                msg: '发布成功!',
+              });
+              this.$store.commit('switchModalPopup');
+            } else {
+              this.$store.commit('envaluePopup', {
+                status: 1,
+                msg: res.data.error,
+              });
+              this.$store.commit('switchModalPopup');
+              return;
+            }
             that.close();
           });
         }
@@ -157,6 +170,8 @@ export default {
     width: 500px;
     height: auto;
     z-index: 999;
+    max-height: 600px;
+    overflow-y: scroll;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
   }

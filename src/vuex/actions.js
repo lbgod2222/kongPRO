@@ -166,7 +166,7 @@ const actions = {
     })
   },
   // 申诉
-  toAppeal({ commit }, { id, content, amount }) {
+  toAppeal({ commit }, { id, content, amount, that }) {
     secret = that.$store.state.user.secret;
     let trs = aschJS.dapp.createInnerTransaction({
       fee: '10000000',
@@ -181,7 +181,7 @@ const actions = {
     })
   },
   // 仲裁
-  toArbitrate({ commit }, { id, choice, signatures}) {
+  toArbitrate({ commit }, { id, choice, signatures, that}) {
     secret = that.$store.state.user.secret;
     let trs = aschJS.dapp.createInnerTransaction({
       fee: '10000000',
@@ -189,6 +189,20 @@ const actions = {
       args: JSON.stringify([
         id,
         choice
+      ])
+    }, secret);
+    return that.$axios.put(signedUrl, {
+      transaction: trs,
+    });
+  },
+  // 修改用户名
+  toSetNickName({ commit }, { name, that }) {
+    secret = that.$store.state.user.secret;
+    let trs = aschJS.dapp.createInnerTransaction({
+      fee: '10000000',
+      type: 4,
+      args: JSON.stringify([
+        name,
       ])
     }, secret);
     return that.$axios.put(signedUrl, {

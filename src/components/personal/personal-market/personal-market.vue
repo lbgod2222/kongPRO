@@ -1,20 +1,20 @@
 <template>
   <div class="personal-right-contain">
     <div class="myMarket">
-        <span class="label">My Own Market</span>
+        <span class="label"><b>我的市场</b></span>
         <!-- <span class="label">
           <b :class="{ 'active': this.isDeal === true }" @click="toDeal">My Deal</b>
           <b :class="{ 'active': this.isDeal === false }" @click="toInit">My Initial</b>
         </span> -->
         <table>
           <thead>
-            <th>TITLE</th>
-            <th>MARGIN</th>
-            <th>SHARE</th>
-            <th>TIMESTAMP</th>
-            <th>CURRENCY</th>
-            <th>STATUS</th>
-            <th colspan="2">OPT</th>
+            <th>标题</th>
+            <th>保证金</th>
+            <th>股份</th>
+            <th>发起时间</th>
+            <th>代币种类</th>
+            <th>种类</th>
+            <th colspan="2">操作</th>
           </thead>
           <tbody>
             <tr v-for="(item, index) in this.initMarket">
@@ -24,8 +24,8 @@
               <td>{{item.realTime}}</td>
               <td>{{item.currency}}</td>
               <td>{{item.realState}}</td>
-              <td><span class="reveal" @click="callReveal(item.title, item.id)">REVEAL</span></td>
-              <td><router-link class="_btn" :to="{ path: `/topicExh/${item.id}`, params:{ id: item.id }}">MORE</router-link></td>
+              <td><span class="reveal" @click="callReveal(item.title, item.id)">揭示</span></td>
+              <td><router-link class="_btn" :to="{ path: `/topicExh/${item.id}`, params:{ id: item.id }}">更多</router-link></td>
             </tr>
           </tbody>
         </table>
@@ -133,6 +133,13 @@ export default {
     border-bottom: 4px solid rgb(30, 33, 35);
     padding-left: 20px;
     background-color: rgb(37, 39, 40);
+ }
+ .label b{
+   border-left: 5px solid rgb(33, 133, 150);
+   padding-left: 17px;
+   display: inline-block;
+   height: 1.1em;
+   line-height: 1.1em;
  }
  .label:nth-child(2){
    font-size: 1.2em;

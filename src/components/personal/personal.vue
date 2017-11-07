@@ -1,17 +1,43 @@
 <template>
   <div class="personal-contain">
     <ul>
-        <router-link to="/personal"><img src="/static/img/Personal.png">个人信息</router-link>
-        <router-link to="/personal/assert"><img src="/static/img/property.png">资产中心</router-link>
-        <router-link to="/personal/market"><img src="/static/img/marketplace.png">我的市场</router-link>
-        <router-link to="/personal/share"><img src="/static/img/stock.png">我的股份</router-link>
+      <img class="logo" :src="'data:image/png;base64,' + this.logo"></img>
+      <router-link to="/personal"><img src="/static/img/Personal.png">个人信息</router-link>
+      <router-link to="/personal/assert"><img src="/static/img/property.png">资产中心</router-link>
+      <router-link to="/personal/market"><img src="/static/img/marketplace.png">我的市场</router-link>
+      <router-link to="/personal/share"><img src="/static/img/stock.png">我的股份</router-link>
     </ul>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-export default { name: 'personal' };
+import Identicon from '../../../node_modules/identicon.js';
+
+export default {
+  name: 'personal',
+  data() {
+    return {
+      logo: null,
+    };
+  },
+  created() {
+    if (window.sessionStorage.isLogin === false) {
+      console.log('未登录');
+      this.$router.push('/');
+    }
+    this.logo = new Identicon(this.stringToHex(window.sessionStorage.address)).toString();
+  },
+  methods: {
+    stringToHex(str) {
+      let hex = '';
+      for (let i = 0; i < str.length; i += 1) {
+        hex += ` ${str.charCodeAt(i).toString(16)}`;
+      }
+      return hex;
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -33,6 +59,11 @@ export default { name: 'personal' };
     float: left;
     background-color: rgb(37, 39, 40);
   }
+  .personal-contain ul > img{
+    width: 45%;
+    border-radius: 60px;
+    margin: auto;
+  }
   .personal-contain ul a{
       display: block;
       box-sizing: border-box;
@@ -40,7 +71,7 @@ export default { name: 'personal' };
       height: 70px;
       line-height: 70px;
       font-size: 1.3em;
-      padding-left: 20%;
+      padding-left: 25%;
   }
   .personal-contain ul a img{
     vertical-align: text-bottom;

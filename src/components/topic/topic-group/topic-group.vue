@@ -3,7 +3,9 @@
   <div class="topic-group-contain">
     <!-- 黑幕 -->
     <transition name="curtain-fade">
-      <div class="curtain" v-show="isCurtain">LOADING!!!!!</div>
+      <div class="curtain" v-show="isCurtain">
+        <iframe src="/static/img/loading-bars.svg" width="100" height="100"></iframe>
+      </div>
     </transition>
     <topic-item class="extra-content" v-for="(item, index) in this.topicAll" :item="item"></topic-item>
   </div>
@@ -170,6 +172,10 @@ export default {
     height: 100%;
     width: 100%;
     background-color: rgba(0, 0, 0, .8);
+  }
+  .curtain iframe{
+    display: block;
+    margin: 100px auto 0 auto;
   }
   /* curtain动画 */
   /* 过程显示 */

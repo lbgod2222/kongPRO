@@ -2,7 +2,9 @@
   <div class="detail-contain">
     <!-- 黑幕 -->
     <transition name="curtain-fade">
-      <div class="curtain" v-show="this.isCurtain">Loading</div>
+      <div class="curtain" v-show="this.isCurtain">
+        <iframe src="/static/img/loading-bars.svg" width="100" height="100"></iframe>
+      </div>
     </transition>
     <h1>TOPIC DETAIL PAGE</h1>
   </div>
@@ -26,6 +28,10 @@ export default { name: 'topic-detail' };
     height: 100%;
     width: 100%;
     background-color: rgba(0, 0, 0, .8);
+  }
+  .curtain iframe{
+    display: block;
+    margin: 100px auto 0 auto;
   }
   .curtain-fade-enter-active, .curtain-fade-leave-active{
     transition: all .2s ease;

@@ -2,34 +2,34 @@
   <div class="transfer-contain">
     <div class="upper">
       <span class="title">
-        TRANSFER
+        转账
       </span>
       <span class="close" @click="close">X</span>
     </div>
     <div class="bottom">
       <span class="inform">
-        MAKE SURE THAT YOU HAVE PLACED RIGHT INFO IN BLANKS
+        请确认您在下列输入框中数据正确
       </span>
       <div class="form">
-        <span class="currency">CURRENCY TYPE <input type="text" :placeholder="this.$store.state.transferType" disabled></span>
+        <span class="currency">代币种类 <input type="text" :placeholder="this.$store.state.transferType" disabled></span>
         <span class="receiveAddress">
-          TRANSFER TO
+          转账到
           <input type="text" v-model="receiveAddress">
         </span>
         <span class="amount">
-          AMOUNT
+          数量
           <input type="number" v-model="amount">
         </span>
         <span class="fee">
-          FEE
+          小费
           <input type="number" v-model="fee" disabled>
         </span>
         <span class="extra">
-          EXTRA
+          消息
           <input type="text" v-model="extra">
         </span>
       </div>
-      <div class="btn" @click="toTransfer">SUBMIT</div>
+      <div class="btn" @click="toTransfer">转账</div>
     </div>
   </div>
 </template>
@@ -70,6 +70,19 @@ export default {
         that,
       }).then((res) => {
         console.log(res);
+        if (res.data.success === true) {
+          this.$store.commit('envaluePopup', {
+            status: 0,
+            msg: '转账成功!',
+          });
+          this.$store.commit('switchModalPopup');
+        } else {
+          this.$store.commit('envaluePopup', {
+            status: 1,
+            msg: res.data.error,
+          });
+          this.$store.commit('switchModalPopup');
+        }
       });
     },
   },
@@ -106,7 +119,7 @@ export default {
     margin: auto;
   }
   .bottom .inform{
-    font-size: 10px;
+    font-size: 14px;
     margin: 20px auto;
     display: block;
     height: 40px;

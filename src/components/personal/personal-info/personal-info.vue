@@ -2,88 +2,79 @@
   <div class="personal-right-contain">
     <div class="info-top">
       <div class="info-top-title">
-        <span>图标</span>
         <h3>个人信息</h3>
       </div>
       <div class="info-top-content">
-        <span>头像</span>
         <div class="right-content">
-          <p>昵称账号: 柠檬先生(县尉) (您还未申请昵称？)</p>
-          <p>账号ID: 863295696485698</p>
-          <p>注册时间: 01-04-2017 09:57:00</p>
+          <table>
+            <tr>
+              <td>昵称</td>
+              <td v-if="!this.isSetNick"><input type="text" class="nickName" v-model.trim="name"><span>根据注册字母数字长度，收取费用</span></td>
+              <td v-if="this.isSetNick">{{this.user.resource.extra}}</td>
+            </tr>
+            <tr>
+              <td>地址</td>
+              <td>{{this.address}}</td>
+            </tr>
+            <tr v-if="!this.isSetNick">
+              <td></td>
+              <td><div class="_btn" @click="toSetName">保存</div></td>
+            </tr>
+          </table>
         </div>
       </div>
     </div>
-    <!-- <div class="info-center">
-      <span>图标</span>
-      <span>资产预览</span>
-      <span>孔明币余额:$ 0.00</span>
-      <span class="info-center-turn">转</span>
-    </div>
-    <div class="info-bottom">
-      <div class="info-bottom-title">
-        <span>图标</span>
-        <span>我的投票</span>
-      </div>
-      <ul class="info-bottom-topic">
-        <li id="topic1" class="active">参与的话题</li>
-        <li id="topic2">发起的话题</li>
-      </ul>
-      <div id="table1">
-        <table class="info-table" border="0" cellpadding="0" cellspacing="0">
-          <thead class="info-table-title">
-          <th>序列号</th>
-          <th>标题</th>
-          <th>选择</th>
-          <th>状态</th>
-          <th>异常</th>
-          </thead>
-          <tbody class="info-table-content">
-          <tr>
-          <td>ax20170911</td>
-          <td>世界杯中国VS日本</td>
-          <td>中国男足</td>
-          <td>进行中</td>
-          <td>结果有异</td>
-          </tr>
-          <tr>
-          <td>ax20170911</td>
-          <td>世界杯中国VS日本</td>
-          <td>中国男足</td>
-          <td>进行中</td>
-          <td>结果有异</td>
-          </tr>
-          <tr>
-          <td>ax20170911</td>
-          <td>世界杯中国VS日本</td>
-          <td>中国男足</td>
-          <td>进行中</td>
-          <td>结果有异</td>
-          </tr>
-          <tr>
-          <td>ax20170911</td>
-          <td>世界杯中国VS日本</td>
-          <td>中国男足</td>
-          <td>进行中</td>
-          <td>结果有异</td>
-          </tr>
-          <tr>
-          <td>ax20170911</td>
-          <td>世界杯中国VS日本</td>
-          <td>中国男足</td>
-          <td>进行中</td>
-          <td>结果有异</td>
-          </tr>
-          <tr></tr>
-          </tbody>
-        </table>
-      </div>
-    </div> -->
   </div>
 </template>
 
 <script>
-  export default { name: 'personal-info' };
+import { mapState } from 'vuex';
+
+export default {
+  name: 'personal-info',
+  data() {
+    return {
+      address: '',
+      name: '',
+      isSetNick: false,
+    };
+  },
+  created() {
+    console.log(this.$store.state);
+    if (this.$store.state.user.resource.extra === null) {
+      this.isSetNick = false;
+    } else {
+      this.isSetNick = true;
+    }
+    this.address = window.sessionStorage.address;
+  },
+  computed: {
+    ...mapState(['user']),
+  },
+  methods: {
+    toSetName() {
+      const that = this;
+      this.$store.dispatch('toSetNickName', {
+        name,
+        that,
+      }).then((res) => {
+        if (res.data.success) {
+          this.$store.commit('envaluePopup', {
+            status: 0,
+            msg: '修改成功!',
+          });
+          this.$store.commit('switchModalPopup');
+        } else {
+          this.$store.commit('envaluePopup', {
+            status: 1,
+            msg: res.data.error,
+          });
+          this.$store.commit('switchModalPopup');
+        }
+      });
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -98,14 +89,14 @@
   }
   .info-top{
     width: 100%;
-    padding: 10px 10px;
+    padding: 20px 20px;
     background: #2a2c2d;
     box-sizing: border-box;
     box-shadow: 0px 0px 10px rgb(26, 29, 29);
   }
   .info-top .info-top-title{
-    height: 30px;
-    line-height: 30px;
+    border-left: 5px solid rgb(33, 133, 150);;
+    padding-left: 10px;
     text-align: left;
     font-size: 15px;
   }
@@ -114,29 +105,35 @@
   }
   .info-top .info-top-content{
     padding-left: 20px;
-    height: 120px;
-    line-height: 120px;
-  }
-  .info-top .info-top-content span{
-    display: inline-block;
-    width: 80px;
-    height: 80px;
-    line-height: 80px;
-    text-align: center;
-    border-radius: 50%;
-    background: #99CCCC;
+    margin-top: 40px;
   }
   .info-top .info-top-content .right-content{
     display: inline-block;
     font-size: 12px;
-    margin-left: 20px;
-    height: 100px;
+    margin-left: 15%;
     vertical-align:bottom;
+    color: #C9C9C9;
+  }
+  .right-content table{
+    border-collapse: separate;
+    border-spacing: 20px;
+  }
+  .right-content span{
+    display: block;
+    margin-top: 5px;
   }
   .info-top .info-top-content .right-content p{
     display: block;
     height: 25px;
     line-height: 25px;
+  }
+  input.nickName{
+    display: block;
+    outline: none;
+    border: 1px solid #434749;
+    background-color: #1D2020;
+    color: #666666;
+    height: 25px;
   }
   .info-center{
     height: 50px;
@@ -201,5 +198,13 @@
   }
   .active{
     color: rgb(33, 133, 150);
+  }
+  ._btn{
+    width: 80px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    cursor: pointer;
+    background-color: #404040;
   }
 </style>

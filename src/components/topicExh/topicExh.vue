@@ -14,10 +14,10 @@
           <span>市场ID: {{this.item.id}}</span>
         </div>
         <div class="progress">
-          <span>Status: {{this.item.status}}</span>
-          <span class="_top">TIME(N/E):{{this.progressInfo}}%</span>
+          <span>状态: {{this.item.status}}</span>
+          <span class="_top">TIME(N/E):{{this.progressInfo > 100 ? 100 : this.progressInfo}}%</span>
           <progress max="100" :value="Number(this.progressInfo)"></progress>
-          <span class="_bottom"><b>{{this.item.status}}</b><b>END: {{this.item.timestamp}}</b></span>
+          <span class="_bottom"><b>{{this.item.status}}</b><b>结束: {{this.item.timestamp}}</b></span>
         </div>
       </div>
     </div>

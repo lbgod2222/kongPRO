@@ -1,7 +1,9 @@
 <template>
   <div class="personal-right-contain">
     <div class="myShare">
-        <span class="label">我的股份</span>
+        <span class="label">
+          <b>我的股份</b>
+        </span>
         <table>
           <thead>
             <th>市场ID</th>
@@ -54,7 +56,6 @@ export default {
       padding-bottom: 40px;
   }
   .myShare table{
-    margin: 20px 0 0 0;
     width: 100%;
     text-align: center;
     background-color: rgb(37, 39, 40);
@@ -72,9 +73,19 @@ export default {
     line-height: 30px;
  }
  .label{
-    display: inline-block;
+    display: block;
+    height: 40px;
+    line-height: 40px;
     font-size: 1.3em;
-    border-left: solid 5px rgb(33, 133, 150);
+    border-bottom: 4px solid rgb(30, 33, 35);
     padding-left: 20px;
+    background-color: rgb(37, 39, 40);
+ }
+ .label b{
+    border-left: 5px solid rgb(33, 133, 150);
+    padding-left: 17px;
+    display: inline-block;
+    height: 1.1em;
+    line-height: 1.1em;
  }
 </style>
