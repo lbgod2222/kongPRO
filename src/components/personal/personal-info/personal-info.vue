@@ -80,12 +80,12 @@ export default {
 <style scoped>
   .personal-right-contain {
     box-sizing: border-box;
-    float: left;
+    float: right;
     margin-left: 1.5%;
     padding-left: 20px;
     width: 79.5%;
     height: 600px;
-    padding-bottom: 40px;
+    padding-bottom: 100px;
   }
   .info-top{
     width: 100%;

@@ -65,8 +65,8 @@ export default {
       const that = this;
       this.$store.dispatch('toTransfer', {
         type: this.$store.state.transferType,
-        amount: this.amount,
-        address: window.sessionStorage.address,
+        amount: this.trans_unit,
+        address: this.receiveAddress,
         that,
       }).then((res) => {
         console.log(res);

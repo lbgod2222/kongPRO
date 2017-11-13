@@ -74,7 +74,6 @@ const actions = {
   // 买卖行为
   tradeShare({ commit }, { id, share, choice, that}) {
     secret = that.$store.state.user.secret;
-    console.log('in action', id, share, choice);
     let trs = aschJS.dapp.createInnerTransaction({
       fee: '10000000',
       type: 1001,
@@ -108,7 +107,6 @@ const actions = {
   // 发布话题/创建市场
   toIssueTopic({ commit }, { title, image, desc, results, currency, gurantee, share, endHeight, that}) {
     secret = that.$store.state.user.secret;
-    console.log('now we start to issue a topic');
     console.log(title, image, desc, results, currency, gurantee, share, endHeight);
     let trs = aschJS.dapp.createInnerTransaction({
       fee: '10000000',

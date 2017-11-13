@@ -1,5 +1,10 @@
 <template>
   <div class="personal-right-contain">
+    <transition name="curtain-fade">
+      <div class="curtain" v-show="isCurtain">
+        <iframe src="/static/img/loading-bars.svg" width="100" height="100"></iframe>
+      </div>
+    </transition>
     <div class="myMarket">
         <span class="label"><b>我的市场</b></span>
         <!-- <span class="label">
@@ -40,6 +45,7 @@ export default {
   name: 'personal-help',
   data() {
     return {
+      isCurtain: false,
       isDeal: true,
       // 发起内容
       initMarket: {},
@@ -54,6 +60,7 @@ export default {
   },
   async created() {
     const that = this;
+    this.isCurtain = true;
     const formState = function (state) {
       if (state === 0) {
         return '进行中';
@@ -82,8 +89,8 @@ export default {
       this.initMarket[i].realTime = getRealTime.formatDateTime(this.initMarket[i].t_timestamp);
       this.initMarket[i].realState = formState(this.initMarket[i].state);
     }
+    this.isCurtain = false;
     console.log(this.initMarket);
-    // asdasd
   },
   computed: {
   },
@@ -101,12 +108,13 @@ export default {
 
 <style scoped>
   .personal-right-contain{
-    float: left;
+    position: relative;
+    float: right;
     margin-left: 1.5%;
     width: 79.5%;
     height: 600px;
     box-shadow: 0px 0px 10px rgb(26, 29, 29);
-    padding-bottom: 40px;
+    padding-bottom: 100px;
   }
   .myMarket table{
     width: 100%;
@@ -155,4 +163,28 @@ export default {
  .active{
    color: rgb(33, 133, 150);
  }
+ table tbody{
+   position: relative;
+ }
+ /* 黑幕 */
+.curtain{
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, .8);
+  z-index: 9;
+}
+.curtain iframe{
+  display: block;
+  margin: 100px auto 0 auto;
+}
+/* curtain动画 */
+/* 过程显示 */
+.curtain-fade-enter-active, .curtain-fade-leave-active{
+  transition: all .2s ease;
+}
+.curtain-fade-enter, .curtain-fade-leave-active{
+  opacity: 0;
+}
 </style>

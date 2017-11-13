@@ -15,11 +15,47 @@
     <div class="bottom">
       <!-- LOOP UNIT -->
       <div class="commentContain" v-for="(item, index) in this.allComment">
+        <canvas width="60" height="60" v-bind:data-jdenticon-value="item.authorId"></canvas>
         <span class="name">{{item.authorId}}</span>
         <span class="time">{{item.realTime}}</span>
         <span class="content">{{item.content}}</span>
       </div>
+      <div class="commentContain">
+        <canvas width="60" height="60" data-jdenticon-value="Ajdiiawdomcoawdm"></canvas>
+        <span class="name">Ajdiiawdomcoawdm</span>
+        <span class="time">2017-08-11</span>
+        <span class="content">“令人惊讶，阿斯顿从”</span>
+      </div>
+      <div class="commentContain">
+        <canvas width="60" height="60" data-jdenticon-value="AniNIlmod3omf9o"></canvas>
+        <span class="name">AniNIlmod3omf9o</span>
+        <span class="time">2017-08-11</span>
+        <span class="content">“令人惊讶，阿斯顿从擦完”</span>
+      </div>
+      <div class="commentContain">
+        <canvas width="60" height="60" data-jdenticon-value="AniNIlmodd3omf9o"></canvas>
+        <span class="name">AniNIlmod3omf9o</span>
+        <span class="time">2017-08-11</span>
+        <span class="content">“令人惊讶，阿斯顿从擦完5”</span>
+      </div>
+      <div class="commentContain">
+        <canvas width="60" height="60" data-jdenticon-value="AniNIlmocd3omf9o"></canvas>
+        <span class="name">AniNIlmod3omf9o</span>
+        <span class="time">2017-08-11</span>
+        <span class="content">“令人惊讶，阿斯顿从擦完1”</span>
+      </div>
+      <div class="commentContain">
+        <canvas width="60" height="60" data-jdenticon-value="AniNIlmod3omdf9o"></canvas>
+        <span class="name">AniNIlmod3omf9o</span>
+        <span class="time">2017-08-11</span>
+        <span class="content">“令人惊讶，阿斯顿从擦完3”</span>
+      </div>
     </div>
+    <!-- <div class="pageGroup">
+      <span class="pre_btn" @click="minPage()"></span>
+      <span class="num_btn" v-for="(value, index) in this.page" @click="goto(index)">{{Number(value)}}</span>
+      <span class="next_btn" @click="addPage()"></span>
+    </div> -->
     <!-- <h1>TOPIC COMMENT PAGE {{page}}</h1>
     <router-link to="/topicExh/123123/exhComment/5">TO PAGE 5</router-link>
     <router-link to="/topicExh/123123/exhComment/7">TO PAGE 7</router-link> -->
@@ -28,6 +64,7 @@
 
 <script>
 import getRealTime from '../../../../static/js/getRealTime';
+import Jdenticon from '../../../../node_modules/jdenticon';
 
 export default {
   name: 'topic-comment',
@@ -39,23 +76,23 @@ export default {
       isCurtain: false,
     };
   },
-  created() {
+  async created() {
     const that = this;
     console.log(this);
     console.log(this.$route.params.page);
     // get all comments
     this.isCurtain = true;
-    this.$store.dispatch('getAllcomment', {
+    const resData = await this.$store.dispatch('getAllcomment', {
       id: this.$route.params.id,
       that,
-    }).then((res) => {
-      console.log(res);
-      that.allComment = res.data.comments;
-      for (let i = 0; i < that.allComment.length; i += 1) {
-        that.allComment[i].realTime = getRealTime.formatDateTime(that.allComment[i].t_timestamp);
-      }
-      that.isCurtain = false;
     });
+    console.log(resData, 'hey there');
+    that.allComment = resData.data.comments;
+    for (let i = 0; i < that.allComment.length; i += 1) {
+      that.allComment[i].realTime = getRealTime.formatDateTime(that.allComment[i].t_timestamp);
+    }
+    that.isCurtain = false;
+    console.log('now should be false,');
   },
   computed: {
   },
@@ -63,16 +100,35 @@ export default {
     // 发布评论
     comment() {
       const that = this;
-      console.log(this.$route.params.id, this.content);
+      console.log(this);
       this.$store.dispatch('toComment', {
         id: this.$route.params.id,
         content: this.content,
         that,
       }).then((res) => {
-        console.log(res);
-        alert('COMMENT SUCCESSFULLY!');
+        console.log(res, 'after comment');
+        if (res.data.success === true) {
+          console.log('judge to true');
+          that.$store.commit('envaluePopup', {
+            status: 0,
+            msg: '评论成功!',
+          });
+          that.content = '';
+          this.$store.commit('switchModalPopup');
+        } else {
+          that.$store.commit('envaluePopup', {
+            status: 1,
+            msg: res.data.error,
+          });
+          this.$store.commit('switchModalPopup');
+        }
       });
     },
+  },
+  mounted() {
+    console.log(Jdenticon());
+    Jdenticon();
+    this.$nextTicket(Jdenticon());
   },
   beforeRouteUpdate(to, from, next) {
     console.log('to:  ', to);
@@ -140,8 +196,14 @@ export default {
   }
   .commentContain{
     margin-top: 30px;
+    min-height: 60px;
+  }
+  .commentContain canvas{
+    float: left;
   }
   .commentContain .name{
+    display: inline-block;
+    padding-top: 10px;
     font-size: 1.2em;
     font-weight: 600;
   }
@@ -151,6 +213,7 @@ export default {
     margin-left: 20px;
   }
   .commentContain .content{
+    display: flex;
     margin-top: 5px;
     display: block;
   }
@@ -160,6 +223,7 @@ export default {
     position: absolute;
     top: 0;
     height: 100%;
+    min-height: 600px;
     width: 100%;
     background-color: rgba(0, 0, 0, .8);
   }
@@ -172,5 +236,38 @@ export default {
   }
   .curtain-fade-enter, .curtain-fade-leave-active{
     opacity: 0;
+  }
+  /* 分页区域 */
+  .pageGroup{
+    position: absolute;
+    bottom: 0;
+    left: 17.3%;
+  }
+  .pageGroup span{
+    display: inline-block;
+    height: 24px;
+    width: 24px;
+    line-height: 24px;
+    text-align: center;
+    border: 1px solid #838383;
+    color: #8E8E93;
+    vertical-align: bottom;
+    cursor: pointer;
+  }
+  .pageGroup span.pre_btn{
+    background-image: url('/static/img/Previous page.png');
+    background-size: 35% 55%;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  .pageGroup span.next_btn{
+    background-image: url('/static/img/next page.png');
+    background-size: 35% 55%;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  .active_btn{
+    background-color: #00B9D7 !important;
+    color: #000 !important;
   }
 </style>

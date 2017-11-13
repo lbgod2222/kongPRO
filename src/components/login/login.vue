@@ -15,11 +15,10 @@ export default {
   },
   methods: {
     login() {
-      const that = this;
-      this.$store.dispatch('loginAction', {
+      this.$store.commit('loginBase', {
         secret: this.secret,
-        that,
       });
+      this.secret = '';
       this.$router.push('/');
     },
   },

@@ -1,5 +1,10 @@
 <template>
   <div class="personal-right-contain">
+    <transition name="curtain-fade">
+      <div class="curtain" v-show="isCurtain">
+        <iframe src="/static/img/loading-bars.svg" width="100" height="100"></iframe>
+      </div>
+    </transition>
     <div class="myShare">
         <span class="label">
           <b>我的股份</b>
@@ -30,17 +35,26 @@ export default {
   data() {
     return {
       allShares: {},
+      isCurtain: false,
     };
   },
   created() {
     const that = this;
+    this.isCurtain = true;
     this.$store.dispatch('getAllSharesOfOne', {
       address: window.sessionStorage.address,
       that,
     }).then((res) => {
-      console.log(res);
-      // 未经测试
-      that.allShares = res.data.shares;
+      if (res.data.success) {
+        that.allShares = res.data.shares;
+        this.isCurtain = false;
+      } else {
+        this.$store.commit('envaluePopup', {
+          status: 1,
+          msg: res.data.error,
+        });
+        this.isCurtain = false;
+      }
     });
   },
 };
@@ -48,12 +62,13 @@ export default {
 
 <style scoped>
   .personal-right-contain{
-      float: left;
-      margin-left: 1.5%;
-      width: 79.5%;
-      height: 600px;
-      box-shadow: 0px 0px 10px rgb(26, 29, 29);
-      padding-bottom: 40px;
+    position: relative;
+    float: right;
+    margin-left: 1.5%;
+    width: 79.5%;
+    height: 600px;
+    box-shadow: 0px 0px 10px rgb(26, 29, 29);
+    padding-bottom: 100px;
   }
   .myShare table{
     width: 100%;
@@ -88,4 +103,25 @@ export default {
     height: 1.1em;
     line-height: 1.1em;
  }
+ /* 黑幕 */
+.curtain{
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, .8);
+  z-index: 9;
+}
+.curtain iframe{
+  display: block;
+  margin: 100px auto 0 auto;
+}
+/* curtain动画 */
+/* 过程显示 */
+.curtain-fade-enter-active, .curtain-fade-leave-active{
+  transition: all .2s ease;
+}
+.curtain-fade-enter, .curtain-fade-leave-active{
+  opacity: 0;
+}
 </style>

@@ -1,7 +1,8 @@
 <template>
   <div class="personal-contain">
     <ul>
-      <img class="logo" :src="'data:image/png;base64,' + this.logo"></img>
+      <!-- <img class="logo" :src="'data:image/png;base64,' + this.logo"></img> -->
+      <canvas width="80" height="80" v-bind:data-jdenticon-value="address" ref="avatar"></canvas>
       <router-link to="/personal"><img src="/static/img/Personal.png">个人信息</router-link>
       <router-link to="/personal/assert"><img src="/static/img/property.png">资产中心</router-link>
       <router-link to="/personal/market"><img src="/static/img/marketplace.png">我的市场</router-link>
@@ -13,6 +14,7 @@
 
 <script>
 import Identicon from '../../../node_modules/identicon.js';
+import Jdenticon from '../../../node_modules/jdenticon';
 
 export default {
   name: 'personal',
@@ -37,6 +39,17 @@ export default {
       return hex;
     },
   },
+  mounted() {
+    // this.$refs.avatar.dataset.jdenticonValue = window.sessionStorage.address;
+    Jdenticon();
+    console.log(this.$refs);
+    console.log(this.$refs.avatar.dataset.jdenticonValue);
+  },
+  computed: {
+    address() {
+      return window.sessionStorage.address;
+    },
+  },
 };
 </script>
 
@@ -48,9 +61,11 @@ export default {
       width: 100%;
       height: 600px;
       padding: 0 1.5% 0;
+      box-sizing: border-box;
   }
   .personal-contain ul{
     display: flex;
+    position: fixed;
     flex-direction: column;
     justify-content: flex-end;
     box-shadow: 0px 0px 10px rgb(26, 29, 29);
@@ -59,7 +74,7 @@ export default {
     float: left;
     background-color: rgb(37, 39, 40);
   }
-  .personal-contain ul > img{
+  .personal-contain ul > canvas{
     width: 45%;
     border-radius: 60px;
     margin: auto;

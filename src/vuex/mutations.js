@@ -61,7 +61,6 @@ const mutations = {
   },
   // envalue
   envalueTransferType: (state, type) => {
-    console.log(type);
     state.transferType = type.type;
   },
   transferInit: (state) => {

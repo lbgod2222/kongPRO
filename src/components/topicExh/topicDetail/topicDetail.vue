@@ -28,6 +28,7 @@ export default { name: 'topic-detail' };
     height: 100%;
     width: 100%;
     background-color: rgba(0, 0, 0, .8);
+    min-height: 600px;
   }
   .curtain iframe{
     display: block;

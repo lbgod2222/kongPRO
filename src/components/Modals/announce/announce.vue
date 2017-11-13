@@ -62,7 +62,19 @@ export default {
         choice: this.showResult.choice,
         that,
       }).then((res) => {
-        console.log(res);
+        if (res.data.success === true) {
+            this.$store.commit('envaluePopup', {
+              status: 0,
+              msg: '答案宣布成功，请等待下一步!',
+            });
+            this.$store.commit('switchModalPopup');
+          } else {
+            this.$store.commit('envaluePopup', {
+              status: 1,
+              msg: res.data.error,
+            });
+            this.$store.commit('switchModalPopup');
+          }
         this.init();
       })
     },

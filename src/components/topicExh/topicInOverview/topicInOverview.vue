@@ -214,7 +214,7 @@ export default {
         share: that.share,
         that,
       }).then((res) => {
-        that.calcInfo = Number(res.data.amount);
+        that.calcInfo = ((Number(res.data.amount)) / 1e8).toFixed(2);
       });
     },
     dealConfirm() {
@@ -229,7 +229,19 @@ export default {
           that,
         }).then((res) => {
           console.log(res);
-          alert('BROUGHT SUCCESSFULLY');
+          if (res.data.success === true) {
+            this.$store.commit('envaluePopup', {
+              status: 0,
+              msg: '购买成功!',
+            });
+            this.$store.commit('switchModalPopup');
+          } else {
+            this.$store.commit('envaluePopup', {
+              status: 1,
+              msg: res.data.error,
+            });
+            this.$store.commit('switchModalPopup');
+          }
         });
       } else if (this.isBuy === false) {
         console.log('sell');
@@ -239,16 +251,38 @@ export default {
           choice: this.choice,
           that,
         }).then((res) => {
-          console.log(res);
-          alert('SELLED SUCCESSFULLY!');
+          if (res.data.success === true) {
+            this.$store.commit('envaluePopup', {
+              status: 0,
+              msg: '售卖成功!',
+            });
+            this.$store.commit('switchModalPopup');
+          } else {
+            this.$store.commit('envaluePopup', {
+              status: 1,
+              msg: res.data.error,
+            });
+            this.$store.commit('switchModalPopup');
+          }
         });
       } else {
         this.$store.dispatch('toDeal', {
           id: this.$route.params.id,
           that,
         }).then((res) => {
-          console.log(res);
-          alert('DEAL SUCCESSFULLY!');
+          if (res.data.success === true) {
+            this.$store.commit('envaluePopup', {
+              status: 0,
+              msg: '兑换成功!',
+            });
+            this.$store.commit('switchModalPopup');
+          } else {
+            this.$store.commit('envaluePopup', {
+              status: 1,
+              msg: res.data.error,
+            });
+            this.$store.commit('switchModalPopup');
+          }
         });
       }
     },
@@ -383,6 +417,7 @@ export default {
     position: absolute;
     top: 0;
     height: 100%;
+    min-height: 600px;
     width: 100%;
     background-color: rgba(0, 0, 0, .8);
   }

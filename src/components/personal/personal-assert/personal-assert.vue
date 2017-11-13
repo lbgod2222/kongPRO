@@ -2,7 +2,9 @@
   <div class="personal-right-contain">
     <div class="personal-assert">
       <div class="myAssert">
-        <span class="label">我的资产</span>
+        <span class="label">
+          <b>资产预览</b>
+        </span>
         <table>
           <thead>
             <th>资产名称</th>
@@ -12,14 +14,17 @@
           <tbody>
             <tr v-for="item in this.activeUser.resource.balances">
               <td>{{item.currency}}</td>
-              <td>{{item.balance}}</td>
+              <td>{{(item.balance / 1e8).toFixed(5)}}</td>
               <td class="opt" @click="callTransfer(item.currency)">转账</td>
             </tr>
           </tbody>
         </table>
       </div>
-      <div class="myAssert">
-        <span class="label">转账记录</span>
+      <!-- <div class="myAssert"> -->
+      <div class="transferRecord">
+        <span class="label">
+          <b>转账记录</b>
+        </span>
         <table>
           <thead>
             <th>ID</th>
@@ -41,7 +46,7 @@
               <td>{{item.senderId}}</td>
               <td>{{item.recipientId}}</td>
               <td>{{item.realTime}}</td>
-              <td>{{item.amount}}</td>
+              <td>{{(item.amount / 1e8).toFixed(2)}}</td>
             </tr>
           </tbody>
         </table>
@@ -112,30 +117,31 @@ export default {
 <style scoped>
   .personal-right-contain{
     /* background-color: rgb(37, 39, 40); */
-    float: left;
+    float: right;
     margin-left: 1.5%;
     width: 79.5%;
     height: 600px;
-    box-shadow: 0px 0px 10px rgb(26, 29, 29);
-    padding-bottom: 40px;
+    padding-bottom: 100px;
   }
   .myAssert{
     position: relative;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, .2);
   }
   .myAssert:nth-child(2){
     margin-top: 30px;
   }
  .myAssert table{
     position: relative;
-    margin: 20px 0 0 0;
     width: 100%;
     text-align: center;
     background-color: rgb(37, 39, 40);
+    border: 1px solid #3A3A3A;
  }
  .myAssert table th{
     height: 40px;
     line-height: 40px;
     font-size: 1.2em;
+    background-color: #2E2F30;
  }
  .myAssert table tr{
    border-top: 1px solid rgb(66, 71, 73);
@@ -143,16 +149,55 @@ export default {
  .myAssert table td{
     height: 30px;
     line-height: 30px;
+    border-right: 1px solid #3A3A3A;
+    background-color: #2A2C2D;
+ }
+ .transferRecord{
+    position: relative;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, .2);
+  }
+  .transferRecord:nth-child(2){
+    margin-top: 30px;
+  }
+ .transferRecord table{
+    position: relative;
+    width: 100%;
+    text-align: center;
+    background-color: rgb(37, 39, 40);
+ }
+ .transferRecord table th{
+    height: 40px;
+    line-height: 40px;
+    font-size: 1.2em;
+    background-color: #363636;
+ }
+ .transferRecord tbody tr:nth-child(odd){
+    background-color: #363636;
+ }
+ .transferRecord table td{
+    height: 30px;
+    line-height: 30px;
+    vertical-align: middle;
+    padding: 10px;
  }
  .opt{
    cursor: pointer;
    color: #1EC2DD;
  }
  .label{
-    display: inline-block;
+    display: block;
+    height: 40px;
+    line-height: 40px;
     font-size: 1.3em;
-    border-left: solid 5px rgb(33, 133, 150);
     padding-left: 20px;
+    background-color: rgb(37, 39, 40);
+ }
+ .label b{
+   border-left: 5px solid rgb(33, 133, 150);
+   padding-left: 17px;
+   display: inline-block;
+   height: 1.1em;
+   line-height: 1.1em;
  }
   .timeLeft span{
     float: right;

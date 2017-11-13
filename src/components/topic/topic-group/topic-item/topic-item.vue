@@ -11,7 +11,6 @@
       </div>
       <div class="_bottomContain">
         <div class="progress">
-          <progress max="100" :value="this.item.progressInfo"></progress>
           <span class="_bottom"><b>{{this.topicStatus}}</b><b>{{this.endTime}}</b></span>
         </div>
         <router-link class="_btn" :to="{ path: `/topicExh/${this.item.id}`, params:{ id: this.item.id }}">查看更多</router-link>

@@ -2,7 +2,7 @@
   <div class="login-contain">
     <div class="upper">
       <span class="title">
-        LOGIN
+        登录
       </span>
       <span class="close" @click="close">X</span>
     </div>
@@ -36,20 +36,31 @@ export default {
     toLogin() {
       const that = this;
       if (!Mnemonic.isValid(this.secret)) {
-        return alert('"未能通过"');
+        that.$store.commit('envaluePopup', {
+          status: 1,
+          msg: '密钥不符合规范',
+        });
+        this.secret = '';
+        return this.$store.commit('switchModalPopup');
       }
       that.close();
       this.$store.commit('loginBase', { secret: this.secret });
       return this.$store.dispatch('loginAction', {
-        address: this.$store.state.user.address,
+        address: window.sessionStorage.address,
         that,
       }).then((res) => {
-        // if (res.status === 200 && res.data.success) {
-          // }
-        console.log(res);
-        that.$store.commit('login', {
-          resource: res.data.account,
-        });
+        if (res.data.success === true) {
+          that.$store.commit('login', {
+            resource: res.data.account,
+          });
+          this.secret = '';
+        } else {
+          that.$store.commit('envaluePopup', {
+            status: 1,
+            msg: res.data.error,
+          });
+          this.$store.commit('switchModalPopup');
+        }
       });
     },
   },
@@ -111,6 +122,7 @@ export default {
   }
   ._btn .login{
     background-color: rgb(30, 194, 219);
+    color: #fff;
   }
   ._btn .official{
     background-color: rgb(64, 64, 64);

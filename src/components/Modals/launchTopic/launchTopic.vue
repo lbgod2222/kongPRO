@@ -132,7 +132,7 @@ export default {
             desc: that.topicDesc,
             results: that.optListString,
             currency: that.topicCurrency,
-            gurantee: String(that.topicGuarantee),
+            gurantee: String((that.topicGuarantee / 1e8).toFixed()),
             share: Number(that.topicShare),
             endHeight: Number(blockHeight),
             that
