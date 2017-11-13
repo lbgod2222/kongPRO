@@ -8,9 +8,10 @@
         <div class="detail">
           <h2>{{this.item.title}}</h2>
           <span>发起人：{{this.item.initiator}}</span>
-          <span>代币种类: {{this.item.currency}}</span>
-          <span>保证金: {{this.item.margin / 10000000}}</span>
-          <span>初始股份: {{this.item.share}}</span>
+          <span>币种: {{this.item.currency}}</span>
+          <span>保证金: {{this.item.margin}} {{this.item.currency}}</span>
+          <span>初始股: {{this.item.share}}股</span>
+          <span>市场总额: {{this.item.total}}</span>
           <span>市场ID: {{this.item.id}}</span>
         </div>
         <div class="progress">
@@ -101,14 +102,15 @@
     box-sizing: border-box;
     max-width: 1600px;
     min-width: 1024px;
-    margin: 90px auto 0;
+    margin: 80px auto 0;
     width: 100%;
     padding: 0 1.5% 0;
   }
 
   .exh-top {
     width: 100%;
-    height: 300px;
+    height: 200px;
+    background: #252728;
   }
 
   .exh-top .img {
@@ -129,11 +131,16 @@
   .topic-exh-contain ul {
     display: block;
     line-height: 40px;
-    margin-top: 30px;
+    margin: 10px 0;
     height: 40px;
     width: 100%;
     background-color: rgb(37, 39, 40);
-    border-bottom: 2px solid rgb(30, 33, 35);
+    border-bottom: 2px solid rgb(37, 39, 40);
+  }
+
+  .topic-exh-contain ul a:hover{
+    border-bottom: 2px solid #1aafc8;
+    color: #1aafc8;
   }
 
   .topic-exh-contain ul a {
@@ -156,22 +163,26 @@
     display: inline-flex;
     flex-direction: column;
     justify-content: space-between;
-    float: right;
-    width: 35%;
-    height: 300px;
+    width: 80%;
+    height: 200px;
+    vertical-align: top;
     margin-left: 1.5%;
     background-color: rgb(37, 39, 40);
   }
 
   .info .detail {
     width: 90%;
-    margin: auto;
+    /*margin: auto;*/
     padding: 20PX 0;
+    font-size: 12px;
   }
-
+  .info .detail h2{
+    margin-top: 10px;
+  }
   .info .detail span {
-    display: block;
-    margin-top: 5px;
+    display: inline-block;
+    margin-right: 10px;
+    margin-top: 30px;
   }
 
   .info .detail span:nth-child(2) {
@@ -198,9 +209,13 @@
 
   .progress {
     width: 90%;
-    margin: auto;
+    margin-bottom: 60px;
+    font-size: 12px;
   }
-
+  .progress span{
+    display: inline-block;
+    margin-right: 30px;
+  }
   /* 进度条颜色控制 */
   .progress progress {
     width: 100%;
@@ -222,4 +237,6 @@
   .progress progress::-webkit-progress-value {
     background: rgb(92, 96, 98);
   }
+
+
 </style>

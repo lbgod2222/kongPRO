@@ -60,19 +60,19 @@
           <td class="buy"><input v-model="share" type="number" @change="getPrice" @keyup="getPrice"> SHARES</td>
         </tr>
         <tr>
-          <td>TOTAL</td>
+          <td>总数</td>
           <td class="total">{{this.calcInfo}}</td>
         </tr>
         <tr>
-          <td>FEE</td>
+          <td>手续费</td>
           <td class="fee">1 XAS</td>
         </tr>
       </table>
-      <div class="confirmBtn" @click="dealConfirm">确认</div>
+      <div class="confirmBtn" @click="dealConfirm"><span>确认</span></div>
     </div>
     <div class="dealModal" v-show="this.dealModal">
       <span class="close" @click="close">X</span>
-      <h3>Exchange?</h3>
+      <h3>兑换?</h3>
       <table>
         <tr>
           <td>TOTAL</td>
@@ -83,7 +83,7 @@
           <td class="total">{{this.calcInfo}} XAS</td>
         </tr>
       </table>
-      <div class="confirmBtn" @click="dealConfirm">确认</div>
+      <div class="confirmBtn" @click="dealConfirm"><span>确认</span></div>
     </div>
   </div>
 </template>
@@ -304,7 +304,7 @@ export default {
     background-color: #2E2F30;
   }
   ._overView table{
-    width: 80%;
+    width: 100%;
     margin: auto;
     text-align: center;
     background-color: rgb(37, 39, 40);
@@ -313,16 +313,20 @@ export default {
  ._overView table th{
     height: 40px;
     line-height: 40px;
-    font-size: 1.2em;
+    font-size: 1em;
+    min-width: 100px;
+    background: #2e2f30;
     border-left: 1px solid rgb(66, 71, 73);
     border-right: 1px solid rgb(66, 71, 73);
  }
  ._overView table tr{
+   background: #252728;
    border-top: 1px solid rgb(66, 71, 73);
  }
  ._overView table td{
     height: 30px;
     line-height: 30px;
+    min-width: 50px;
     border-left: 1px solid rgb(66, 71, 73);
     border-right: 1px solid rgb(66, 71, 73);
  }
@@ -333,7 +337,7 @@ export default {
    margin-top: 30px;
  }
   .transitionDetail table{
-    width: 80%;
+    width: 100%;
     margin: auto;
     text-align: center;
     background-color: rgb(37, 39, 40);
@@ -342,7 +346,9 @@ export default {
  .transitionDetail table th{
     height: 40px;
     line-height: 40px;
-    font-size: 1.2em;
+    font-size: 1em;
+    background: #2e2f30;
+    min-width: 200px;
     border-left: 1px solid rgb(66, 71, 73);
     border-right: 1px solid rgb(66, 71, 73);
  }
@@ -356,23 +362,37 @@ export default {
     border-right: 1px solid rgb(66, 71, 73);
  }
  .sellModal{
-    background-color: rgba(37, 39, 40, .9);
-    width: 300px;
-    height: 140px;
-    position: absolute;
-    left: calc(50% - 150px);
-    top: 0px;
-    z-index: 999;
-    padding: 10px 20px;
+   background-color: #2a2c2d;
+   border-radius: 5px;
+   border-top: 30px solid #22c9df;
+   width: 300px;
+   height: 140px;
+   position: absolute;
+   left: calc(50% - 150px);
+   top: -60px;
+   z-index: 999;
+   padding: 10px 20px;
  }
  .sellModal .close{
-   float: right;
+   position: absolute;
+   right: 10px;
+   top: -25px;
    cursor: pointer;
+   display: block;
+   height: 20px;
+   line-height: 20px;
+   text-align: center;
+   width: 20px;
+   color: #ccc;
  }
  .sellModal table{
    border-collapse: separate;
-   border-spacing: 13px;
+   border-spacing: 10px;
+   font-size: 14px;
  }
+  .sellModal table tr{
+    display: block;
+  }
  .sellModal table input{
     border: 1px solid rgb(78, 78, 78);
     border-radius: 3px;
@@ -380,18 +400,23 @@ export default {
     font-size: .8em;
  }
  .dealModal{
-    background-color: rgba(37, 39, 40, .9);
-    width: 250px;
-    height: 120px;
-    position: absolute;
-    left: calc(50% - 150px);
-    top: 0px;
-    z-index: 999;
-    padding: 10px 20px;
+   background-color: rgba(37, 39, 40, .9);
+   border-radius: 10px;
+   border-top: 30px solid #22c9df;
+   width: 300px;
+   height: 120px;
+   position: absolute;
+   left: calc(50% - 150px);
+   top: -60px;
+   z-index: 999;
+   padding: 10px 20px;
  }
  .dealModal .close{
-   float: right;
+   right: 15px;
+   top: -22px;
+   position: absolute;
    cursor: pointer;
+   color: #ccc;
  }
  .dealModal h3{
    margin: auto;
