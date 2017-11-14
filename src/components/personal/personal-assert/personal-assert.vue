@@ -50,6 +50,11 @@
             </tr>
           </tbody>
         </table>
+        <div class="pageGroup">
+          <span class="pre_btn" @click="minPage()"></span>
+          <span class="num_btn" v-for="(value, index) in this.page" @click="goto(value)" :class="{'active_btn':currentPage == Number(value)}">{{Number(value)}}</span>
+          <span class="next_btn" @click="addPage()"></span>
+        </div>
       </div>
     </div>
 
@@ -57,6 +62,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 import { mapGetters } from 'vuex';
 import getRealTime from '../../../../static/js/getRealTime';
 
@@ -66,6 +72,10 @@ export default {
     return {
       transactionRecord: null,
       isCurtain: false,
+      // 分页states
+      pageSpots: 5,
+      currentPage: 1,
+      totalCount: 0,
     };
   },
   async created() {
@@ -81,6 +91,9 @@ export default {
         address: this.$store.state.user.address,
         that,
       });
+      if (loginAct.data.account.extra) {
+        that.$store.commit('hasSetNick');
+      }
       this.$store.commit('login', {
         resource: loginAct.data.account,
       });
@@ -89,9 +102,11 @@ export default {
         limit: 10,
         offset: 0,
         currency: '',
+        id: window.sessionStorage.address,
         that,
       });
       this.transactionRecord = recordAct.data.transfers;
+      this.totalCount = recordAct.data.count;
       const arr = this.transactionRecord;
       for (let i = 0; i < this.transactionRecord.length; i += 1) {
         arr[i].realTime = getRealTime.formatDateTime(arr[i].t_timestamp);
@@ -101,14 +116,92 @@ export default {
   },
   computed: {
     ...mapGetters(['activeUser']),
+    allPage() {
+      if (Math.ceil(this.totalCount / 12) === 0) {
+        return 1;
+      }
+      return Math.ceil(this.totalCount / 12);
+    },
+    offsetNum() {
+      return (this.currentPage - 1) * 12;
+    },
+    // 构造页签数组
+    page() {
+      let pag = []
+      if (this.currentPage < this.pageSpots) {
+        let i = Math.min(this.pageSpots, this.allPage);
+        while (i) {
+          pag.unshift(i--);
+        }
+      } else if (this.currentPage >= this.pageSpots) {
+        let middle = this.currentPage - Math.floor(this.pageSpots / 2);
+        let i = this.pageSpots;
+        if (middle > (this.allPage - this.pageSpots)) {
+          middle = (this.allPage - this.pageSpots) + 1;
+        }
+        while (i--) {
+          pag.push(middle++)
+        }
+      }
+      return pag;
+    },
   },
   methods: {
     // call up transfer modal
     callTransfer(type) {
       console.log(type);
+      if (!window.sessionStorage.hasNick) {
+        this.$store.commit('envaluePopup', {
+          status: 1,
+          msg: '请先登录',
+        });
+        this.$store.commit('switchModalPopup');
+        return;
+      }
       this.$store.commit('envalueTransferType', { type });
       this.$store.commit('switchBlackSheepWall');
       this.$store.commit('switchModalTransfer');
+    },
+    async getData(num, offset) {
+      const that = this;
+      this.isCurtain = true;
+      // 交易记录
+      const recordAct = await that.$store.dispatch('getTransactionInfo', {
+        limit: 10,
+        offset: that.offsetNum,
+        currency: '',
+        id: window.sessionStorage.address,
+        that,
+      });
+      this.transactionRecord = recordAct.data.transfers;
+      this.totalCount = recordAct.data.count;
+      const arr = this.transactionRecord;
+      for (let i = 0; i < this.transactionRecord.length; i += 1) {
+        arr[i].realTime = getRealTime.formatDateTime(arr[i].t_timestamp);
+      }
+      this.isCurtain = false;
+    },
+    // pagination methods
+    addPage() {
+      if (this.currentPage < this.allPage) {
+        this.currentPage = this.currentPage + 1;
+        // that.currentPage = that.currentPage + 1
+        this.getData(12, this.offsetNum);
+      }
+    },
+    minPage() {
+      if (this.currentPage > 1) {
+        this.currentPage = this.currentPage - 1;
+        this.getData(this.contentStatus, 12, this.offsetNum);
+      }
+    },
+    // 页面跳转
+    goto(value) {
+      console.log('goto', value, this.page, this.currentPage);
+      if (value === this.currentPage) return;
+      // that.currentPage = index
+      this.currentPage = value;
+      this.getData(this.contentStatus, 12, this.offsetNum);
     },
   },
 };
@@ -155,6 +248,7 @@ export default {
  .transferRecord{
     position: relative;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, .2);
+    padding-bottom: 40px;
   }
   .transferRecord:nth-child(2){
     margin-top: 30px;
@@ -201,6 +295,41 @@ export default {
  }
   .timeLeft span{
     float: right;
+  }
+  .pageGroup{
+    position: absolute;
+    bottom: 0;
+    right: 0;;
+  }
+  .pageGroup span{
+    display: inline-block;
+    height: 24px;
+    width: 24px;
+    line-height: 24px;
+    text-align: center;
+    border: 1px solid #838383;
+    color: #8E8E93;
+    vertical-align: bottom;
+    cursor: pointer;
+  }
+  .active_btn{
+    background-color: #00B9D7 !important;
+    color: #000 !important;
+  }
+  /* .pageGroup span img{
+    height: 70%;
+  } */
+  .pageGroup span.pre_btn{
+    background-image: url('/static/img/Previous page.png');
+    background-size: 35% 55%;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  .pageGroup span.next_btn{
+    background-image: url('/static/img/next page.png');
+    background-size: 35% 55%;
+    background-repeat: no-repeat;
+    background-position: center;
   }
   /* 动画 */
  /* 黑幕 */

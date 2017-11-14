@@ -9,8 +9,8 @@
           <table>
             <tr>
               <td>昵称</td>
-              <td v-if="!this.isSetNick"><input type="text" class="nickName" v-model.trim="name"><span>根据注册字母数字长度，收取费用</span></td>
-              <td v-if="this.isSetNick">{{this.user.resource.extra}}</td>
+              <td v-if="!this.isSetNick"><input type="text" class="nickName" v-model="name" @click.once="showRulesForNick"><span>根据注册字母数字长度，收取费用</span></td>
+              <td v-if="this.isSetNick">{{this.user.resource.extra.str1}}</td>
             </tr>
             <tr>
               <td>地址</td>
@@ -53,11 +53,13 @@ export default {
   },
   methods: {
     toSetName() {
+      console.log(this);
       const that = this;
       this.$store.dispatch('toSetNickName', {
-        name,
+        name: that.name,
         that,
       }).then((res) => {
+        console.log(res);
         if (res.data.success) {
           this.$store.commit('envaluePopup', {
             status: 0,
@@ -72,6 +74,10 @@ export default {
           this.$store.commit('switchModalPopup');
         }
       });
+    },
+    showRulesForNick() {
+      this.$store.commit('switchBlackSheepWall');
+      this.$store.commit('switchModalRule');
     },
   },
 };

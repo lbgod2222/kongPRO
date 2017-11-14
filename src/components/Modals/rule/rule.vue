@@ -2,23 +2,22 @@
   <div class="announce-contain">
     <div class="upper">
       <span class="title">
-        ANNOUNCE RESULT
+        设置昵称须知
       </span>
       <span class="close" @click="close">X</span>
     </div>
     <div class="bottom">
-      <h1>{{this.$store.state.announceTitle}}</h1>
-      <table>
-        <tr v-for="(item, index) in this.results">
-          <td @click="confirmResult(index)"><span>确认</span></td>
-          <td>{{item.desc}}&nbsp;(&nbsp;{{item.share}}&nbsp;shares&nbsp;)</td>
-        </tr>
-      </table>
-      <div class="showResult" v-if="this.showResult !== undefined">
-        <h2>是否要选择如下为答案？</h2>
-        <span class="active">{{this.showResult.desc}}</span>
-      </div>
-      <div class="btn" @click="confirmAnnounce()">提交</div>
+      <h2>
+        <ul>
+          <li>1.纯单字母注册收取1000个xas；</li>
+          <li>2.纯双字母注册收取500个xas;</li>
+          <li>3.纯三字母注册收取200个xas；</li>
+          <li>4.纯四字母含A、E、I、O、U的元音字母注册收取100xas；其他四字母收取2个xas;</li>
+          <li>5.注册后不可更改，不可转让；</li>
+          <li>6.四位数以上、字母+带数字及符号的均收取1xas；</li>
+        </ul>
+      </h2>
+      <div class="btn" @click="confirmAnnounce()">了解</div>
     </div>
   </div>
 </template>
@@ -26,63 +25,23 @@
 <script>
 /* eslint-disable */
 export default {
-  name: 'announce',
+  name: 'rule',
   data() {
     return {
-      activeIndex: 1,
-      results: {},
-      showResult: undefined,
     };
   },
   computed: {
   },
-  async created() {
-    const that = this;
-    console.log(this, 'hahahahahaahahahahahahahaahahahahahahaha');
-    let resultDetail = await this.$store.dispatch('getMarketResult', {
-      id: this.$store.state.announceId,
-      that,
-    });
-    console.log(this);
-    this.results = resultDetail.data.results;
-  },
   methods: {
     // modal close
     close() {
-      this.init();
-    },
-    confirmResult(index) {
-      this.activeIndex = index;
-      this.showResult = this.results[index];
+      this.$store.commit('switchBlackSheepWall');
+      this.$store.commit('switchModalRule');
     },
     confirmAnnounce() {
-      const that = this;
-      this.$store.dispatch('toReveal', {
-        id: this.$store.state.announceId,
-        choice: this.showResult.choice,
-        that,
-      }).then((res) => {
-        if (res.data.success === true) {
-            this.$store.commit('envaluePopup', {
-              status: 0,
-              msg: '答案宣布成功，请等待下一步!',
-            });
-            this.$store.commit('switchModalPopup');
-          } else {
-            this.$store.commit('envaluePopup', {
-              status: 1,
-              msg: res.data.error,
-            });
-            this.$store.commit('switchModalPopup');
-          }
-        this.init();
-      })
-    },
-    init() {
-      this.$store.commit('announceInit');
       this.$store.commit('switchBlackSheepWall');
-      this.$store.commit('switchModalAnnounce');
-    }
+      this.$store.commit('switchModalRule');
+    },
   },
 };
 </script>
@@ -117,6 +76,9 @@ export default {
     width: 80%;
     margin: 10px auto;
     padding-bottom: 10px;
+  }
+  .bottom li{
+    margin-top: 20px;
   }
   .leftSpan{
     width: 100px;

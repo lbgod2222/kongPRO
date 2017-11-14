@@ -10,6 +10,7 @@ import personalAssert from '@/components/personal/personal-assert/personal-asser
 import personalMarket from '@/components/personal/personal-market/personal-market';
 import personalInfo from '@/components/personal/personal-info/personal-info';
 import personalShare from '@/components/personal/personal-share/personal-share';
+import personalHistory from '@/components/personal/personal-history/personal-history';
 // 话题域
 import topic from '@/components/topic/topic';
 import topicGroup from '@/components/topic/topic-group/topic-group';
@@ -62,6 +63,7 @@ export default new Router({
           { path: 'assert', component: personalAssert },
           { path: 'market', component: personalMarket },
           { path: 'share', component: personalShare },
+          { path: 'history', component: personalHistory },
       ],
     },
   ],

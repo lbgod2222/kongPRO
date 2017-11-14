@@ -12,6 +12,7 @@
           <span>保证金: {{this.item.margin / 10000000}}</span>
           <span>初始股份: {{this.item.share}}</span>
           <span>市场ID: {{this.item.id}}</span>
+          <span>市场总额: {{this.item.total}}</span>
         </div>
         <div class="progress">
           <span>状态: {{this.item.status}}</span>

@@ -18,6 +18,9 @@
         <transition name="announce-ani">
           <announce v-if="this.ModalAnnounce"></announce>
         </transition>
+        <transition name="rule-ani">
+          <rule v-if="this.ModalRule"></rule>
+        </transition>
       </div>
     </transition>
     <transition name="popup">
@@ -35,6 +38,7 @@ import login from './components/Modals/login/login';
 import popup from './components/Modals/popup/popup';
 import transfer from './components/Modals/transfer/transfer';
 import announce from './components/Modals/announce/announce';
+import rule from './components/Modals/rule/rule';
 
 export default {
   name: 'app',
@@ -45,13 +49,14 @@ export default {
     popup,
     transfer,
     announce,
+    rule,
   },
   data() {
     return {
     };
   },
   computed: {
-    ...mapState(['ModalLaunchTopic', 'blackSheepWall', 'ModalTransfer', 'ModalLogin', 'ModalAnnounce', 'ModalPopup']),
+    ...mapState(['ModalLaunchTopic', 'blackSheepWall', 'ModalTransfer', 'ModalLogin', 'ModalAnnounce', 'ModalPopup', 'ModalRule']),
   },
 };
 </script>
@@ -93,6 +98,20 @@ export default {
   transition: all, .6s ease-in;
 }
 .transfer-ani-enter{
+  top: -2000px;
+}
+/* 动画 */
+.announce-ani-enter-active, .announce-ani-leave-active{
+  transition: all, .6s ease-in;
+}
+.announce-ani-enter{
+  top: -2000px;
+}
+/* 动画 */
+.rule-ani-enter-active, .rule-ani-leave-active{
+  transition: all, .6s ease-in;
+}
+.rule-ani-enter{
   top: -2000px;
 }
 /* popup 弹窗 */

@@ -7,6 +7,7 @@
       <router-link to="/personal/assert"><img src="/static/img/property.png">资产中心</router-link>
       <router-link to="/personal/market"><img src="/static/img/marketplace.png">我的市场</router-link>
       <router-link to="/personal/share"><img src="/static/img/stock.png">我的股份</router-link>
+      <router-link to="/personal/history"><img src="/static/img/stock.png">操作历史</router-link>
     </ul>
     <router-view></router-view>
   </div>
@@ -83,8 +84,8 @@ export default {
       display: block;
       box-sizing: border-box;
       width: 100%;
-      height: 70px;
-      line-height: 70px;
+      height: 65px;
+      line-height: 65px;
       font-size: 1.3em;
       padding-left: 25%;
   }

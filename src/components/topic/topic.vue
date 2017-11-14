@@ -38,6 +38,14 @@ export default {
         this.$store.commit('switchModalPopup');
         return;
       }
+      if (!window.sessionStorage.hasNick) {
+        this.$store.commit('envaluePopup', {
+          status: 1,
+          msg: '请先设置昵称',
+        });
+        this.$store.commit('switchModalPopup');
+        return;
+      }
       this.$store.commit('switchBlackSheepWall');
       this.$store.commit('switchModalLaunchTopic');
     },

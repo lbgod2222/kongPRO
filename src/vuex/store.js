@@ -15,6 +15,7 @@ const state = {
   ModalLogin: false,
   ModalAnnounce: false,
   ModalPopup: false,
+  ModalRule: false,
   // modal area end
   // modal popup status
   PopupStatus: {
@@ -30,6 +31,7 @@ const state = {
   // transfer status end
   // user status
   isLogin: false,
+  hasNick: false,
   user: {
   },
 };

@@ -208,13 +208,13 @@ const actions = {
     });
   },
   // 获取交易信息
-  getTransactionInfo({ commit }, { limit, offset, currency, that }) {
+  getTransactionInfo({ commit }, { limit, offset, currency, id, that }) {
     return that.$axios.get(recordUrl, {
       params: {
         limit: limit,
         offset: offset,
-        owerId: that.$store.state.user.address,
-        currency: currency
+        currency: currency,
+        owerId: id,
       }
     })
   },

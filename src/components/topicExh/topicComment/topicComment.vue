@@ -20,36 +20,6 @@
         <span class="time">{{item.realTime}}</span>
         <span class="content">{{item.content}}</span>
       </div>
-      <div class="commentContain">
-        <canvas width="60" height="60" data-jdenticon-value="Ajdiiawdomcoawdm"></canvas>
-        <span class="name">Ajdiiawdomcoawdm</span>
-        <span class="time">2017-08-11</span>
-        <span class="content">“令人惊讶，阿斯顿从”</span>
-      </div>
-      <div class="commentContain">
-        <canvas width="60" height="60" data-jdenticon-value="AniNIlmod3omf9o"></canvas>
-        <span class="name">AniNIlmod3omf9o</span>
-        <span class="time">2017-08-11</span>
-        <span class="content">“令人惊讶，阿斯顿从擦完”</span>
-      </div>
-      <div class="commentContain">
-        <canvas width="60" height="60" data-jdenticon-value="AniNIlmodd3omf9o"></canvas>
-        <span class="name">AniNIlmod3omf9o</span>
-        <span class="time">2017-08-11</span>
-        <span class="content">“令人惊讶，阿斯顿从擦完5”</span>
-      </div>
-      <div class="commentContain">
-        <canvas width="60" height="60" data-jdenticon-value="AniNIlmocd3omf9o"></canvas>
-        <span class="name">AniNIlmod3omf9o</span>
-        <span class="time">2017-08-11</span>
-        <span class="content">“令人惊讶，阿斯顿从擦完1”</span>
-      </div>
-      <div class="commentContain">
-        <canvas width="60" height="60" data-jdenticon-value="AniNIlmod3omdf9o"></canvas>
-        <span class="name">AniNIlmod3omf9o</span>
-        <span class="time">2017-08-11</span>
-        <span class="content">“令人惊讶，阿斯顿从擦完3”</span>
-      </div>
     </div>
     <!-- <div class="pageGroup">
       <span class="pre_btn" @click="minPage()"></span>
@@ -101,6 +71,22 @@ export default {
     comment() {
       const that = this;
       console.log(this);
+      if (!window.sessionStorage.isLogin) {
+        this.$store.commit('envaluePopup', {
+          status: 1,
+          msg: '请先登录',
+        });
+        this.$store.commit('switchModalPopup');
+        return;
+      }
+      if (!window.sessionStorage.hasNick) {
+        this.$store.commit('envaluePopup', {
+          status: 1,
+          msg: '请先设置昵称',
+        });
+        this.$store.commit('switchModalPopup');
+        return;
+      }
       this.$store.dispatch('toComment', {
         id: this.$route.params.id,
         content: this.content,
@@ -125,7 +111,7 @@ export default {
       });
     },
   },
-  mounted() {
+  updated() {
     console.log(Jdenticon());
     Jdenticon();
     this.$nextTicket(Jdenticon());

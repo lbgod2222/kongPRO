@@ -1,6 +1,6 @@
 <template>
   <div class="navBar-contain">
-    <h2>LOGO</h2>
+    <h2>Koumei</h2>
     <router-link to="/" :class="{'active_normal': this.active === 'home'}" @click.native="changeA(1)">首页</router-link>
     <router-link to="/topic/all" :class="{'active_normal': this.active === 'market'}" @click.native="changeA(2)">市场</router-link>
     <!-- <router-link to="/login" exact>LOGIN</router-link> -->
@@ -30,6 +30,9 @@ export default {
         address: this.$store.state.user.address,
         that,
       }).then((res) => {
+        if (res.data.account.extra) {
+          that.$store.commit('hasSetNick');
+        }
         that.$store.commit('login', {
           resource: res.data.account,
         });

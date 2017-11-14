@@ -35,7 +35,7 @@
           <thead>
             <!--<th></th>-->
             <th>交易时间</th>
-            <th>买卖</th>
+            <th>操作</th>
             <th>选项</th>
             <th>份额</th>
             <th>总额</th>
@@ -44,7 +44,7 @@
             <tr v-for="(item, index) in this.record">
               <!--<td>1</td>-->
               <td>{{item.realTime}}</td>
-              <td>{{item.share > 0 ? 'BUY' : 'SELL'}}</td>
+              <td>{{item.share > 0 ? '买' : '卖'}}</td>
               <td>{{item.choice}}</td>
               <td>{{item.share}}</td>
               <td>{{item.amount}}</td>
@@ -179,23 +179,77 @@ export default {
       }(res, that));
     },
     callSell(c) {
-      this.isBuy = false;
-      this.$store.commit('switchBlackSheepWall');
-      this.sellModal = true;
-      this.choice = c;
+      if (!window.sessionStorage.isLogin) {
+        this.$store.commit('envaluePopup', {
+          status: 1,
+          msg: '请先登录',
+        });
+        this.$store.commit('switchModalPopup');
+        return;
+      }
+      if (!window.sessionStorage.hasNick) {
+        this.$store.commit('envaluePopup', {
+          status: 1,
+          msg: '请先设置昵称',
+        });
+        this.$store.commit('switchModalPopup');
+        return;
+      }
+      if (window.sessionStorage.isLogin) {
+        this.isBuy = false;
+        this.$store.commit('switchBlackSheepWall');
+        this.sellModal = true;
+        this.choice = c;
+      }
     },
     callBuy(c) {
-      this.isBuy = true;
-      this.$store.commit('switchBlackSheepWall');
-      this.sellModal = true;
-      this.choice = c;
+      if (!window.sessionStorage.isLogin) {
+        this.$store.commit('envaluePopup', {
+          status: 1,
+          msg: '请先登录',
+        });
+        this.$store.commit('switchModalPopup');
+        return;
+      }
+      if (!window.sessionStorage.hasNick) {
+        this.$store.commit('envaluePopup', {
+          status: 1,
+          msg: '请先设置昵称',
+        });
+        this.$store.commit('switchModalPopup');
+        return;
+      }
+      if (window.sessionStorage.isLogin) {
+        this.isBuy = true;
+        this.$store.commit('switchBlackSheepWall');
+        this.sellModal = true;
+        this.choice = c;
+      }
     },
     callDeal(choice, index) {
-      this.$store.commit('switchBlackSheepWall');
-      this.choice = choice;
-      this.getPrice();
-      this.showDeal = this.options[index];
-      this.dealModal = true;
+      if (!window.sessionStorage.isLogin) {
+        this.$store.commit('envaluePopup', {
+          status: 1,
+          msg: '请先登录',
+        });
+        this.$store.commit('switchModalPopup');
+        return;
+      }
+      if (!window.sessionStorage.hasNick) {
+        this.$store.commit('envaluePopup', {
+          status: 1,
+          msg: '请先设置昵称',
+        });
+        this.$store.commit('switchModalPopup');
+        return;
+      }
+      if (window.sessionStorage.isLogin) {
+        this.$store.commit('switchBlackSheepWall');
+        this.choice = choice;
+        this.getPrice();
+        this.showDeal = this.options[index];
+        this.dealModal = true;
+      }
     },
     close() {
       this.sellModal = false;

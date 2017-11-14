@@ -50,6 +50,9 @@ export default {
         that,
       }).then((res) => {
         if (res.data.success === true) {
+          if (res.data.account.extra) {
+            that.$store.commit('hasSetNick');
+          }
           that.$store.commit('login', {
             resource: res.data.account,
           });

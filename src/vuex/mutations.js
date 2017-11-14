@@ -19,6 +19,11 @@ const mutations = {
   loginStatue: (state) => {
     state.isLogin = !state.isLogin;
   },
+  // nick monitor
+  hasSetNick: (state) => {
+    state.hasNick = true;
+    window.sessionStorage.setItem('hasNick', true);
+  },
   // switch blackSheepWall
   switchBlackSheepWall: (state) => {
     state.blackSheepWall = !state.blackSheepWall;
@@ -38,6 +43,10 @@ const mutations = {
   // switch popup modal
   switchModalPopup: (state) => {
     state.ModalPopup = !state.ModalPopup;
+  },
+  // switch rules modal
+  switchModalRule: (state) => {
+    state.ModalRule = !state.ModalRule;
   },
   // envalue popup
   envaluePopup: (state, { status, msg }) => {

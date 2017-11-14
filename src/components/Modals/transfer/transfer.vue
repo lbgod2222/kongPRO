@@ -35,6 +35,8 @@
 </template>
 
 <script>
+import aschJS from '../../../../node_modules/asch-js';
+
 export default {
   name: 'transfer',
   data() {
@@ -62,6 +64,13 @@ export default {
       this.$store.commit('switchModalTransfer');
     },
     toTransfer() {
+      if (!aschJS.isAddress(this.receiveAddress)) {
+        this.$store.commit('envaluePopup', {
+          status: 1,
+          msg: '您输入的地址不符合规范，请确认',
+        });
+        this.$store.commit('switchModalPopup');
+      }
       const that = this;
       this.$store.dispatch('toTransfer', {
         type: this.$store.state.transferType,

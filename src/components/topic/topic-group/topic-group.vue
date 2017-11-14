@@ -10,7 +10,7 @@
     <topic-item class="extra-content" v-for="(item, index) in this.topicAll" :item="item"></topic-item>
     <div class="pageGroup">
       <span class="pre_btn" @click="minPage()"></span>
-      <span class="num_btn" v-for="(value, index) in this.page" @click="goto(index)" :class="{'active_btn':currentPage + 1 == Number(value)}">{{Number(value)}}</span>
+      <span class="num_btn" v-for="(value, index) in this.page" @click="goto(value)" :class="{'active_btn':currentPage == Number(value)}">{{Number(value)}}</span>
       <span class="next_btn" @click="addPage()"></span>
     </div>
   </div>
@@ -178,10 +178,10 @@ export default {
     },
     // pagination methods
     addPage(){
-      console.log('+');
+      console.log('+', this.page, this.currentPage);
       let that = this;
-      if (this.currentPage < this.allPage - 1) {
-        this.currentPage = currentPage + 1;
+      if (this.currentPage < this.allPage) {
+        this.currentPage = this.currentPage + 1;
         // that.currentPage = that.currentPage + 1
         this.getData(this.contentStatus, 12, this.offsetNum);
       } else {
@@ -189,9 +189,9 @@ export default {
       }
     },
     minPage(){
-      console.log('-');
+      console.log('-', this.page, this.currentPage);
       let that = this;
-      if (that.currentPage_account > 0) {
+      if (that.currentPage > 1) {
         this.currentPage = this.currentPage - 1;
         this.getData(this.contentStatus, 12, this.offsetNum);
       } else {
@@ -199,12 +199,12 @@ export default {
       }
     },
     // 页面跳转
-    goto(index){
-      console.log('goto', index);
+    goto(value){
+      console.log('goto', value, this.page, this.currentPage);
       let that = this;
-      if (index === this.currentPage) return;
+      if (value === this.currentPage) return;
       // that.currentPage = index
-      this.currentPage = index;
+      this.currentPage = value;
       this.getData(this.contentStatus, 12, this.offsetNum);
     },
   }
@@ -218,6 +218,7 @@ export default {
     flex-flow:row wrap;
     /* justify-content:space-between; */
     margin-top: 30px;
+    min-height: 600px;
     /* background-color: rgb(37, 39, 40); */
     width: 100%;
   }
