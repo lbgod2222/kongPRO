@@ -271,6 +271,9 @@ export default {
       height: 480px;
       background-color: rgb(37, 39, 40);
     }
+    .extra-content .img{
+      height: 191px;
+    }
   }
   @media screen and ( min-width : 1024px) and (max-width: 1600px) {
     .extra-content{
@@ -278,6 +281,9 @@ export default {
       margin-bottom: 40px;
       width: 23%;
       background-color: rgb(37, 39, 40);
+    }
+    .extra-content .img{
+      height: 12vw;
     }
   }
   /* 黑幕 */

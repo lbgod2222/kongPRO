@@ -112,9 +112,7 @@ export default {
     },
   },
   updated() {
-    console.log(Jdenticon());
     Jdenticon();
-    this.$nextTicket(Jdenticon());
   },
   beforeRouteUpdate(to, from, next) {
     console.log('to:  ', to);

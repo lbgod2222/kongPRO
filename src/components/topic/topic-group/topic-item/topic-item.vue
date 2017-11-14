@@ -32,7 +32,7 @@ export default {
     };
   },
   created() {
-    console.log(this.item.progressInfo);
+    console.log(this.item);
     // 此时关闭公共state curtain
     // 调用mutation 关闭 公共 state curtain
   },
@@ -51,7 +51,8 @@ export default {
       }
     },
     endTime() {
-      return getRealTime.formatDateTime(this.item.t_timestamp);
+      const eTime = ((this.item.endHeight - this.item.t_height) * 10) + this.item.t_timestamp;
+      return getRealTime.formatDateTime(eTime);
     },
   },
   methods: {
@@ -65,15 +66,20 @@ export default {
   display: flex;
   flex-direction:column;
   justify-content:space-between;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, .2);
 }
 .img{
-  height: 171px;
   width: 100%;
   background-color: #f0f0f0;
 }
 .info{
   width: 90%;
   margin: 10px auto;
+}
+.info p{
+    display: block;
+    height: 5vw;
+    overflow: overlay;
 }
 ._top{
   float: right;
@@ -123,4 +129,15 @@ export default {
       width: 100%;
       height: 600px;
   } */
+  /* 响应式 */
+  @media screen and ( min-width : 1600px) {
+    .extra-content .img{
+      height: 191px;
+    }
+  }
+  @media screen and ( min-width : 900px) and (max-width: 1600px) {
+    .extra-content .img{
+      height: 12vw;
+    }
+  }
 </style>

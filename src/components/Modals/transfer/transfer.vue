@@ -48,7 +48,7 @@ export default {
     };
   },
   created() {
-    console.log(this);
+    console.log(aschJS);
   },
   computed: {
     // 计算费用传入单位
@@ -64,7 +64,7 @@ export default {
       this.$store.commit('switchModalTransfer');
     },
     toTransfer() {
-      if (!aschJS.isAddress(this.receiveAddress)) {
+      if (!aschJS.crypto.isAddress(this.receiveAddress)) {
         this.$store.commit('envaluePopup', {
           status: 1,
           msg: '您输入的地址不符合规范，请确认',
@@ -85,6 +85,7 @@ export default {
             msg: '转账成功!',
           });
           this.$store.commit('switchModalPopup');
+          this.close();
         } else {
           this.$store.commit('envaluePopup', {
             status: 1,

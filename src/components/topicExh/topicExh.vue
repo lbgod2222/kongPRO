@@ -28,7 +28,7 @@
       <router-link :to="{ path: `/topicExh/${this.$route.params.id}/exhDetail`}">详情</router-link>
       <router-link :to="{ path: `/topicExh/${this.$route.params.id}/exhComment/1`}">评论</router-link>
     </ul>
-    <router-view></router-view>
+    <router-view :item="this.item"></router-view>
   </div>
 </template>
 <script>
@@ -94,6 +94,12 @@
         console.log(this);
       },
     },
+    // 路由钩子传入item
+    beforeRouteEnter: (to, from, next) => {
+      console.log(to);
+      console.log(from);
+      next();
+    }
   };
 </script>
 

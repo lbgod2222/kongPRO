@@ -6,19 +6,55 @@
         <iframe src="/static/img/loading-bars.svg" width="100" height="100"></iframe>
       </div>
     </transition>
-    <h1>TOPIC DETAIL PAGE</h1>
+    <div class="content">
+      <h1>{{item.title}}</h1>
+      <h2>市场ID：{{item.id}}</h2>
+      <h2>发起人：{{item.initiator}}</h2>
+      <h2>发起币种：{{item.currency}}</h2>
+      <h2>发起时间：{{item.timestamp}}</h2>
+      <h2>市场总额：{{item.total}}</h2>
+      <h2>市场状态：<span>{{item.status}}</span></h2>
+      <h2>市场保证金：{{item.margin}}</h2>
+    </div>
+
   </div>
 </template>
 
 <script>
-export default { name: 'topic-detail' };
+export default {
+  name: 'topic-detail',
+  props: ['item'],
+  data() {
+    return {
+      isCurtain: false,
+    };
+  },
+  created() {
+    console.log(this.item);
+  },
+};
 </script>
 
 <style scoped>
   .detail-contain{
-      background-color: rgb(37, 39, 40);
-      width: 100%;
-      padding-bottom: 40px;
+    background-color: rgb(37, 39, 40);
+    width: 100%;
+    padding-bottom: 40px;
+  }
+  .content{
+    width: 90%;
+    margin: auto;
+    padding: 30px;
+  }
+  .content h1, h2{
+    line-height: 1.2em;
+  }
+  .content span{
+    display: inline-block;
+    background-color: #006489;
+    border-radius: 4px;
+    width: 95px;
+    text-align: center;
   }
   /* 动画 */
   /* 黑幕 */
