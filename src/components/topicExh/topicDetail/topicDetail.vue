@@ -12,9 +12,9 @@
       <h2>发起人：{{item.initiator}}</h2>
       <h2>发起币种：{{item.currency}}</h2>
       <h2>发起时间：{{item.timestamp}}</h2>
-      <h2>市场总额：{{item.total}}</h2>
+      <h2>市场总额：{{item.total / 1e8}}</h2>
       <h2>市场状态：<span>{{item.status}}</span></h2>
-      <h2>市场保证金：{{item.margin}}</h2>
+      <h2>市场保证金：{{item.margin / 1e8}}</h2>
     </div>
 
   </div>

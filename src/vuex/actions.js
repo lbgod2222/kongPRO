@@ -55,8 +55,13 @@ const actions = {
     return that.$axios.get(`${getMarketOverviewUrl}/${id}/trades`);
   },
   // 获取所有评论
-  getAllcomment({ commit }, { id, that }) {
-    return that.$axios.get(`${getMarketOverviewUrl}/${id}/comments`);
+  getAllcomment({ commit }, { id, limit, offset, that }) {
+    return that.$axios.get(`${getMarketOverviewUrl}/${id}/comments`, {
+      params: {
+        limit,
+        offset,
+      },
+    });
   },
   // 获取用户所有的股份
   getAllSharesOfOne({ commit }, { address, that }) {
@@ -64,21 +69,23 @@ const actions = {
   },
   // 计算购买金额
   getTotalPrice({ commit }, { id, choice, share, that }) {
+    console.log(typeof share);
     return that.$axios.get(`${getMarketOverviewUrl}/${id}/calc`, {
       params: {
         choice,
-        share,
+        share: Number(share),
       },
     });
   },
   // 买卖行为
   tradeShare({ commit }, { id, share, choice, that}) {
+    console.log(typeof share);
     secret = that.$store.state.user.secret;
     let trs = aschJS.dapp.createInnerTransaction({
       fee: '10000000',
       type: 1001,
       args: JSON.stringify([
-        id, share, choice,
+        id, Number(share), choice,
       ]),
     }, secret);
     return that.$axios.put(signedUrl, {
@@ -209,12 +216,13 @@ const actions = {
   },
   // 获取交易信息
   getTransactionInfo({ commit }, { limit, offset, currency, id, that }) {
+    console.log(limit, offset, id, currency);
     return that.$axios.get(recordUrl, {
       params: {
         limit: limit,
         offset: offset,
+        ownerId: id,
         currency: currency,
-        owerId: id,
       }
     })
   },

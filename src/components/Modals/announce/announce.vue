@@ -12,6 +12,7 @@
         <tr v-for="(item, index) in this.results">
           <td @click="confirmResult(index)"><span>确认</span></td>
           <td>{{item.desc}}&nbsp;(&nbsp;{{item.share}}&nbsp;shares&nbsp;)</td>
+          <td width="56%"><progress v-bind:max="totalNumber" :value="Number(item.share)"></progress></td>
         </tr>
       </table>
       <div class="showResult" v-if="this.showResult !== undefined">
@@ -35,6 +36,13 @@ export default {
     };
   },
   computed: {
+    totalNumber() {
+      let totalValut = 0;
+      for (let i = 0; i < this.results.length; i += 1) {
+        totalValut += this.results[i].share;
+      }
+      return totalValut;
+    },
   },
   async created() {
     const that = this;
@@ -43,8 +51,11 @@ export default {
       id: this.$store.state.announceId,
       that,
     });
-    console.log(this);
     this.results = resultDetail.data.results;
+    for (let i = 0; i < this.results.length; i += 1) {
+      this.results[i].share;
+    }
+    console.log(this);
   },
   methods: {
     // modal close
@@ -118,6 +129,9 @@ export default {
     margin: 10px auto;
     padding-bottom: 10px;
   }
+  .bottom h1{
+    font-size: 18px;
+  }
   .leftSpan{
     width: 100px;
     text-align: left;
@@ -133,6 +147,9 @@ export default {
     color: #fff;
     cursor: pointer;
     background-color: rgb(30, 194, 219);
+    display: inline-block;
+    width: 30px;
+    height: 15px;
   }
   table tr{
     height: 40px;
@@ -140,6 +157,17 @@ export default {
   }
   table td{
     line-height: 14px;
+  }
+  table progress{
+    width: 100%;
+    border: none;
+    background-color: #c5c5c5;
+  }
+  table progress::-webkit-progress-bar {
+    background: rgb(37, 39, 40);
+  }
+  table progress::-webkit-progress-value {
+    background: #c5c5c5;
   }
   .btn{
     background-color: rgb(30, 194, 219);

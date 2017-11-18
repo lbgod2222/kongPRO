@@ -9,16 +9,16 @@
           <h2>{{this.item.title}}</h2>
           <span>发起人：{{this.item.initiator}}</span>
           <span>代币种类: {{this.item.currency}}</span>
-          <span>保证金: {{this.item.margin / 10000000}}</span>
+          <span>保证金: {{this.item.margin / 1e8}}</span>
           <span>初始股份: {{this.item.share}}</span>
           <span>市场ID: {{this.item.id}}</span>
-          <span>市场总额: {{this.item.total}}</span>
+          <span>市场总额: {{this.item.total / 1e8}}</span>
         </div>
         <div class="progress">
-          <span>状态: {{this.item.status}}</span>
-          <span class="_top">TIME(N/E):{{this.progressInfo > 100 ? 100 : this.progressInfo}}%</span>
+          <span>状态: <b class="_status">{{this.item.status}}</b></span>
+          <span class="_top">时间进度&nbsp;:&nbsp;{{this.progressInfo > 100 ? 100 : this.progressInfo}}%</span>
           <progress max="100" :value="Number(this.progressInfo)"></progress>
-          <span class="_bottom"><b>{{this.item.status}}</b><b>结束: {{this.item.timestamp}}</b></span>
+          <span class="_bottom"><b>{{this.item.status}}</b><b>结束: {{this.endTime}}</b></span>
         </div>
       </div>
     </div>
@@ -46,7 +46,6 @@
       };
     },
     created() {
-      console.log(this.item);
       const that = this;
       this.$store.dispatch('getSepecificMarket', {
         id: this.$route.params.id,
@@ -88,6 +87,10 @@
         const now = new Date();
         return now.getTime();
       },
+      endTime() {
+        const eTime = ((this.item.endHeight - this.item.t_height) * 10) + this.item.t_timestamp;
+        return realTime.formatDateTime(eTime);
+      }
     },
     methods: {
       SHOW() {
@@ -202,7 +205,15 @@
   ._bottom b:nth-child(2) {
     float: right;
   }
-
+  ._status{
+    display: inline-block;
+    background-color: #006489;
+    border-radius: 4px;
+    width: 55px;
+    height: 1.3em;
+    line-height: 1.3em;
+    text-align: center;
+  }
   .progress {
     width: 90%;
     margin: auto;

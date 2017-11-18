@@ -47,7 +47,7 @@
               <td>{{item.share > 0 ? '买' : '卖'}}</td>
               <td>{{item.choice}}</td>
               <td>{{item.share}}</td>
-              <td>{{item.amount}}</td>
+              <td>{{item.amount / 1e8}}</td>
             </tr>
           </tbody>
         </table>
@@ -56,15 +56,15 @@
       <span class="close" @click="close">X</span>
       <table>
         <tr>
-          <td>{{this.isBuy === true ? '买' : '卖'}}</td>
-          <td class="buy"><input v-model="share" type="number" @change="getPrice" @keyup="getPrice"> SHARES</td>
+          <td>{{this.isBuy === true ? '买入' : '卖出'}}</td>
+          <td class="buy"><input v-model="share" min="0" type="number" @keyup="getPrice"> 份数</td>
         </tr>
         <tr>
-          <td>TOTAL</td>
+          <td>金额</td>
           <td class="total">{{this.calcInfo}}</td>
         </tr>
         <tr>
-          <td>FEE</td>
+          <td>手续费</td>
           <td class="fee">1 XAS</td>
         </tr>
       </table>
@@ -72,14 +72,14 @@
     </div>
     <div class="dealModal" v-show="this.dealModal">
       <span class="close" @click="close">X</span>
-      <h3>Exchange?</h3>
+      <h3>是否清算?</h3>
       <table>
         <tr>
-          <td>TOTAL</td>
+          <td>金额</td>
           <td class="share">{{this.showDeal.share}}</td>
         </tr>
         <tr>
-          <td>FEE</td>
+          <td>手续费</td>
           <td class="total">{{this.calcInfo}} XAS</td>
         </tr>
       </table>
@@ -196,6 +196,7 @@ export default {
         return;
       }
       if (window.sessionStorage.isLogin) {
+        this.calcInfo = '请输入';
         this.isBuy = false;
         this.$store.commit('switchBlackSheepWall');
         this.sellModal = true;
@@ -220,6 +221,7 @@ export default {
         return;
       }
       if (window.sessionStorage.isLogin) {
+        this.calcInfo = '请输入';
         this.isBuy = true;
         this.$store.commit('switchBlackSheepWall');
         this.sellModal = true;
@@ -244,10 +246,10 @@ export default {
         return;
       }
       if (window.sessionStorage.isLogin) {
+        this.showDeal = this.options[index];
+        this.getPrice();
         this.$store.commit('switchBlackSheepWall');
         this.choice = choice;
-        this.getPrice();
-        this.showDeal = this.options[index];
         this.dealModal = true;
       }
     },
@@ -261,13 +263,21 @@ export default {
     },
     getPrice() {
       const that = this;
+      if (that.share < 0) {
+        this.$store.commit('envaluePopup', {
+          status: 1,
+          msg: '请输入大于零的数字!',
+        });
+        this.$store.commit('switchModalPopup');
+      }
       this.calcInfo = '请稍后';
       this.$store.dispatch('getTotalPrice', {
         id: this.$route.params.id,
         choice: that.choice,
-        share: that.share,
+        share: Number(that.share),
         that,
       }).then((res) => {
+        console.log(res.data);
         that.calcInfo = ((Number(res.data.amount)) / 1e8).toFixed(2);
       });
     },
@@ -346,7 +356,7 @@ export default {
 
 <style scoped>
   ._overView-contain{
-    position: relative;
+    /* position: relative; */
     background-color: rgb(37, 39, 40);
     width: 100%;
     padding-bottom: 40px;
@@ -358,7 +368,7 @@ export default {
     background-color: #2E2F30;
   }
   ._overView table{
-    width: 80%;
+    width: 100%;
     margin: auto;
     text-align: center;
     background-color: rgb(37, 39, 40);
@@ -387,7 +397,7 @@ export default {
    margin-top: 30px;
  }
   .transitionDetail table{
-    width: 80%;
+    width: 100%;
     margin: auto;
     text-align: center;
     background-color: rgb(37, 39, 40);
@@ -411,21 +421,24 @@ export default {
  }
  .sellModal{
     background-color: rgba(37, 39, 40, .9);
-    width: 300px;
-    height: 140px;
+    width: 340px;
+    height: 190px;
     position: absolute;
     left: calc(50% - 150px);
-    top: 0px;
+    top: calc(50% - 50px);
     z-index: 999;
     padding: 10px 20px;
+    border-radius: 8px;
  }
  .sellModal .close{
    float: right;
    cursor: pointer;
  }
  .sellModal table{
+   margin: auto;
    border-collapse: separate;
    border-spacing: 13px;
+   margin-top: 15px;
  }
  .sellModal table input{
     border: 1px solid rgb(78, 78, 78);
@@ -435,19 +448,21 @@ export default {
  }
  .dealModal{
     background-color: rgba(37, 39, 40, .9);
-    width: 250px;
-    height: 120px;
+    width: 340px;
+    height: 190px;
     position: absolute;
     left: calc(50% - 150px);
-    top: 0px;
+    top: calc(50% - 50px);
     z-index: 999;
     padding: 10px 20px;
+    border-radius: 8px;
  }
  .dealModal .close{
    float: right;
    cursor: pointer;
  }
  .dealModal h3{
+   font-size: 1.3em;
    margin: auto;
    display: block;
    text-align: center;
@@ -457,6 +472,7 @@ export default {
    border-collapse: separate;
    border-spacing: 13px;
    margin: auto;
+   margin-top: 15px;
  }
  .confirmBtn{
    width: 100%;
@@ -464,6 +480,12 @@ export default {
    line-height: 16px;
    text-align: center;
    cursor: pointer;
+   background-color: #22C9DF;
+   color: #fff;
+   width: 140px;
+   height: 40px;
+   line-height: 40px;
+   margin: 20px auto;
  }
  /* 动画 */
  /* 黑幕 */

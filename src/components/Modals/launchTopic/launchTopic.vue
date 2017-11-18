@@ -14,7 +14,7 @@
         </tr>
         <tr>
           <td>发起人</td>
-          <td class="sponsor">{{this.$store.state.user.address}}</td>
+          <td class="sponsor">{{this.$store.state.user.resource.extra.str1}}</td>
         </tr>
         <tr>
           <td>图片</td>
@@ -51,7 +51,12 @@
         </tr>
         <tr>
           <td>资金种类</td>
-          <td class="currency"><input value="" v-model="topicCurrency"></td>
+          <td class="currency">
+            <!-- <input value="" v-model="topicCurrency"> -->
+            <select v-model="topicCurrency">
+              <option :value ="item.currency" v-for="item in this.activeUser.resource.balances">{{item.currency}}</option>
+            </select>
+          </td>
         </tr>
         <tr>
           <td>小费</td>
@@ -68,6 +73,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 /* eslint-disable */
 export default {
   name: 'launchTopic',
@@ -93,9 +100,13 @@ export default {
     };
   },
   computed: {
+    ...mapGetters(['activeUser']),
     optListString() {
       return this.optList.join();
     },
+  },
+  created() {
+    console.log(this);
   },
   methods: {
     // timely count the block added number
@@ -132,7 +143,7 @@ export default {
             desc: that.topicDesc,
             results: that.optListString,
             currency: that.topicCurrency,
-            gurantee: String((that.topicGuarantee / 1e8).toFixed()),
+            gurantee: String((that.topicGuarantee * 1e8).toFixed()),
             share: Number(that.topicShare),
             endHeight: Number(blockHeight),
             that
@@ -198,13 +209,22 @@ export default {
     width: 100px;
     text-align: left;
   }
-  input, textarea{
+  input, textarea, select{
     border: 1px solid rgb(78, 78, 78);
     border-radius: 3px;
     color: rgb(180, 180, 181);
     font-size: .8em;
+    background-color: transparent;
+    outline: none;
   }
-  input{
+  select option{
+    color: rgb(180, 180, 181);
+    font-size: .8em;
+    background-color: rgb(78, 78, 78);
+    outline: none;
+    border: none;
+  }
+  input, select{
     height: 1.2em;
     line-height: 1.2em;
   }

@@ -41,7 +41,7 @@
               </div>
             </transition>
             <tr v-for="(item, index) in this.transactionRecord">
-              <td>{{index}}</td>
+              <td>{{index + 1}}</td>
               <td>{{item.currency}}</td>
               <td>{{item.senderId}}</td>
               <td>{{item.recipientId}}</td>
@@ -249,6 +249,7 @@ export default {
     position: relative;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, .2);
     padding-bottom: 40px;
+    min-height: 500px;
   }
   .transferRecord:nth-child(2){
     margin-top: 30px;

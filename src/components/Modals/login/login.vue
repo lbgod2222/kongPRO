@@ -7,7 +7,7 @@
       <span class="close" @click="close">X</span>
     </div>
     <div class="bottom">
-      <input type="text" v-model.trim="secret" placeholder="请输入密钥">
+      <input type="password" v-model.trim="secret" placeholder="请输入密钥">
       <div class="_btn">
         <a href="#" class="login" @click.prevent="toLogin">登录</a>
         <a href="http://asch.so/" target="_blank" class="official">新账号</a>

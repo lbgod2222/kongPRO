@@ -16,10 +16,16 @@
       <!-- LOOP UNIT -->
       <div class="commentContain" v-for="(item, index) in this.allComment">
         <canvas width="60" height="60" v-bind:data-jdenticon-value="item.authorId"></canvas>
-        <span class="name">{{item.authorId}}</span>
+        <span class="name">{{item.nickname}}</span>
         <span class="time">{{item.realTime}}</span>
         <span class="content">{{item.content}}</span>
       </div>
+    </div>
+    <!-- 分页组件 -->
+    <div class="pageGroup">
+      <span class="pre_btn" @click="minPage()"></span>
+      <span class="num_btn" v-for="(value, index) in this.page" @click="goto(value)" :class="{'active_btn':currentPage == Number(value)}">{{Number(value)}}</span>
+      <span class="next_btn" @click="addPage()"></span>
     </div>
     <!-- <div class="pageGroup">
       <span class="pre_btn" @click="minPage()"></span>
@@ -33,6 +39,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 import getRealTime from '../../../../static/js/getRealTime';
 import Jdenticon from '../../../../node_modules/jdenticon';
 
@@ -40,24 +47,30 @@ export default {
   name: 'topic-comment',
   data() {
     return {
-      page: 1,
       allComment: {},
       content: '',
       isCurtain: false,
+      // 分页states
+      pageSpots: 5,
+      currentPage: 1,
+      totalCount: 0,
+      pageLimit: 10,
     };
   },
   async created() {
     const that = this;
     console.log(this);
-    console.log(this.$route.params.page);
     // get all comments
     this.isCurtain = true;
     const resData = await this.$store.dispatch('getAllcomment', {
       id: this.$route.params.id,
+      limit: this.pageLimit,
+      offset: this.offsetNum,
       that,
     });
     console.log(resData, 'hey there');
     that.allComment = resData.data.comments;
+    that.totalCount = resData.data.count;
     for (let i = 0; i < that.allComment.length; i += 1) {
       that.allComment[i].realTime = getRealTime.formatDateTime(that.allComment[i].t_timestamp);
     }
@@ -65,8 +78,95 @@ export default {
     console.log('now should be false,');
   },
   computed: {
+    allPage() {
+      if (Math.ceil(this.totalCount / 10) === 0) {
+        return 1;
+      } else {
+        return Math.ceil(this.totalCount / 10);
+      }
+    },
+    offsetNum() {
+      return (this.currentPage - 1) * 10;
+    },
+    // 构造页签数组
+    page: function () {
+      let pag = []
+      if (this.currentPage < this.pageSpots) {
+        let i = Math.min(this.pageSpots, this.allPage);
+        while (i) {
+          pag.unshift(i--);
+        }
+      } else if (this.currentPage >= this.pageSpots) {
+        let middle = this.currentPage - Math.floor(this.pageSpots / 2);
+        let i = this.pageSpots;
+        if (middle > (this.allPage - this.pageSpots)) {
+          middle = (this.allPage - this.pageSpots) + 1;
+        }
+        while (i--) {
+          pag.push(middle++)
+        }
+      }
+      return pag;
+    },
   },
   methods: {
+    // 获取数据
+    getData() {
+      this.isCurtain = true;
+      const that = this;
+      this.$store.dispatch('getAllcomment', {
+        id: this.$route.params.id,
+        limit: this.pageLimit,
+        offset: this.offsetNum,
+        that,
+      }).then((res) => {
+        if (res.data.success) {
+          that.allComment = res.data.comments;
+          for (let i = 0; i < that.allComment.length; i += 1) {
+            that.allComment[i].realTime = getRealTime.formatDateTime(that.allComment[i].t_timestamp);
+          }
+          this.isCurtain = false;
+        } else {
+          this.$store.commit('envaluePopup', {
+            status: 1,
+            msg: '网络错误',
+          });
+          this.$store.commit('switchModalPopup');
+          return;
+        }
+      })
+    },
+    // pagination methods
+    addPage(){
+      console.log('+', this.page, this.currentPage);
+      let that = this;
+      if (this.currentPage < this.allPage) {
+        this.currentPage = this.currentPage + 1;
+        // that.currentPage = that.currentPage + 1
+        this.getData(this.contentStatus, 12, this.offsetNum);
+      } else {
+        return;
+      }
+    },
+    minPage(){
+      console.log('-', this.page, this.currentPage);
+      let that = this;
+      if (that.currentPage > 1) {
+        this.currentPage = this.currentPage - 1;
+        this.getData(this.contentStatus, 12, this.offsetNum);
+      } else {
+        return;
+      }
+    },
+    // 页面跳转
+    goto(value){
+      console.log('goto', value, this.page, this.currentPage);
+      let that = this;
+      if (value === this.currentPage) return;
+      // that.currentPage = index
+      this.currentPage = value;
+      this.getData(this.contentStatus, 12, this.offsetNum);
+    },
     // 发布评论
     comment() {
       const that = this;
@@ -200,6 +300,42 @@ export default {
     display: flex;
     margin-top: 5px;
     display: block;
+  }
+  /* 分页 */
+  .pageGroup{
+    position: absolute;
+    bottom: 0;
+    right: 0;;
+  }
+  .pageGroup span{
+    display: inline-block;
+    height: 24px;
+    width: 24px;
+    line-height: 24px;
+    text-align: center;
+    border: 1px solid #838383;
+    color: #8E8E93;
+    vertical-align: bottom;
+    cursor: pointer;
+  }
+  .active_btn{
+    background-color: #00B9D7 !important;
+    color: #000 !important;
+  }
+  /* .pageGroup span img{
+    height: 70%;
+  } */
+  .pageGroup span.pre_btn{
+    background-image: url('/static/img/Previous page.png');
+    background-size: 35% 55%;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  .pageGroup span.next_btn{
+    background-image: url('/static/img/next page.png');
+    background-size: 35% 55%;
+    background-repeat: no-repeat;
+    background-position: center;
   }
   /* 动画 */
   /* 黑幕 */

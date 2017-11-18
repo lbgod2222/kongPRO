@@ -11,14 +11,14 @@
         </span>
         <table>
           <thead>
-            <th>市场ID</th>
+            <th>市场ID(点击查看详情)</th>
             <th>市场标题</th>
             <th>我的选项</th>
             <th>我的股份</th>
           </thead>
           <tbody>
             <tr v-for="(item, index) in this.allShares">
-              <td>{{item.mid}}</td>
+              <td><router-link class="_btn" :to="{ path: `/topicExh/${item.mid}`, params:{ id: item.mid }}">{{item.mid}}</router-link></td>
               <td>{{item.title}}</td>
               <td>{{item.choice}}</td>
               <td>{{item.share}}</td>
@@ -45,6 +45,7 @@ export default {
       address: window.sessionStorage.address,
       that,
     }).then((res) => {
+      console.log(res);
       if (res.data.success) {
         that.allShares = res.data.shares;
         this.isCurtain = false;
