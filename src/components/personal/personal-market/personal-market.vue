@@ -6,20 +6,20 @@
       </div>
     </transition>
     <div class="myMarket">
-        <span class="label"><b>我的市场</b></span>
+        <span class="label"><b>{{ $t('personal_market_myMarket') }}</b></span>
         <!-- <span class="label">
           <b :class="{ 'active': this.isDeal === true }" @click="toDeal">My Deal</b>
           <b :class="{ 'active': this.isDeal === false }" @click="toInit">My Initial</b>
         </span> -->
         <table>
           <thead>
-            <th>标题</th>
-            <th>保证金</th>
-            <th>股份</th>
-            <th>发起时间</th>
-            <th>代币种类</th>
-            <th>种类</th>
-            <th colspan="2">操作</th>
+            <th>{{ $t('personal_market_topic') }}</th>
+            <th>{{ $t('personal_market_margin') }}</th>
+            <th>{{ $t('personal_market_share') }}</th>
+            <th>{{ $t('personal_market_startTime') }}</th>
+            <th>{{ $t('personal_market_currency') }}</th>
+            <th>{{ $t('personal_market_currency') }}</th>
+            <th colspan="2">{{ $t('personal_market_operation') }}</th>
           </thead>
           <tbody>
             <tr v-for="(item, index) in this.initMarket">
@@ -29,8 +29,8 @@
               <td>{{item.realTime}}</td>
               <td>{{item.currency}}</td>
               <td>{{item.realState}}</td>
-              <td><span class="reveal" @click="callReveal(item.title, item.id)">揭示</span></td>
-              <td><router-link class="_btn" :to="{ path: `/topicExh/${item.id}`, params:{ id: item.id }}">更多</router-link></td>
+              <td><span class="reveal" @click="callReveal(item.title, item.id)">{{ $t('personal_market_reveal') }}</span></td>
+              <td><router-link class="_btn" :to="{ path: `/topicExh/${item.id}`, params:{ id: item.id }}">{{ $t('personal_market_more') }}</router-link></td>
             </tr>
           </tbody>
         </table>

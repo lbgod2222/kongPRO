@@ -2,23 +2,23 @@
   <div class="personal-right-contain">
     <div class="info-top">
       <div class="info-top-title">
-        <h3>个人信息</h3>
+        <h3>{{ $t('personal_info_detail') }}</h3>
       </div>
       <div class="info-top-content">
         <div class="right-content">
           <table>
             <tr>
-              <td>昵称</td>
-              <td v-if="!this.isSetNick"><input type="text" class="nickName" v-model="name" @click.once="showRulesForNick"><span>根据注册字母数字长度，收取费用</span></td>
+              <td>{{ $t('personal_info_nickname') }}</td>
+              <td v-if="!this.isSetNick"><input type="text" class="nickName" v-model="name" @click.once="showRulesForNick"><span>{{ $t('personal_info_tip') }}</span></td>
               <td v-if="this.isSetNick">{{this.user.resource.extra.str1}}</td>
             </tr>
             <tr>
-              <td>地址</td>
+              <td>{{ $t('personal_info_address') }}</td>
               <td>{{this.address}}</td>
             </tr>
             <tr v-if="!this.isSetNick">
               <td></td>
-              <td><div class="_btn" @click="toSetName">保存</div></td>
+              <td><div class="_btn" @click="toSetName">{{ $t('personal_info_save') }}</div></td>
             </tr>
           </table>
         </div>

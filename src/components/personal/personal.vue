@@ -3,11 +3,11 @@
     <ul>
       <!-- <img class="logo" :src="'data:image/png;base64,' + this.logo"></img> -->
       <canvas width="80" height="80" v-bind:data-jdenticon-value="address" ref="avatar"></canvas>
-      <router-link to="/personal"><img src="/static/img/Personal.png">个人信息</router-link>
-      <router-link to="/personal/assert"><img src="/static/img/property.png">资产中心</router-link>
-      <router-link to="/personal/market"><img src="/static/img/marketplace.png">我的市场</router-link>
-      <router-link to="/personal/share"><img src="/static/img/stock.png">我的股份</router-link>
-      <router-link to="/personal/history"><img src="/static/img/stock.png">操作历史</router-link>
+      <router-link to="/personal"><img src="/static/img/Personal.png">{{ $t('personal_detail') }}</router-link>
+      <router-link to="/personal/assert"><img src="/static/img/property.png">{{ $t('personal_assert') }}</router-link>
+      <router-link to="/personal/market"><img src="/static/img/marketplace.png">{{ $t('personal_myMarket') }}</router-link>
+      <router-link to="/personal/share"><img src="/static/img/stock.png">{{ $t('personal_myShare') }}</router-link>
+      <router-link to="/personal/history"><img src="/static/img/stock.png">{{ $t('personal_history') }}</router-link>
     </ul>
     <router-view></router-view>
   </div>
@@ -25,6 +25,7 @@ export default {
     };
   },
   created() {
+    console.log(this.$i18n, 'i18n!!!!');
     if (window.sessionStorage.isLogin === false) {
       console.log('未登录');
       this.$router.push('/');

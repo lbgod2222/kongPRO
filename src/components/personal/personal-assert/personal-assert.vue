@@ -3,19 +3,19 @@
     <div class="personal-assert">
       <div class="myAssert">
         <span class="label">
-          <b>资产预览</b>
+          <b>{{ $t('personal_assert_myAssert') }}</b>
         </span>
         <table>
           <thead>
-            <th>资产名称</th>
-            <th>数量</th>
-            <th>操作</th>
+            <th>{{ $t('personal_assert_name') }}</th>
+            <th>{{ $t('personal_assert_amount') }}</th>
+            <th>{{ $t('personal_assert_operation') }}</th>
           </thead>
           <tbody>
             <tr v-for="item in this.activeUser.resource.balances">
               <td>{{item.currency}}</td>
               <td>{{(item.balance / 1e8).toFixed(5)}}</td>
-              <td class="opt" @click="callTransfer(item.currency)">转账</td>
+              <td class="opt" @click="callTransfer(item.currency)">{{ $t('personal_assert_transfer') }}</td>
             </tr>
           </tbody>
         </table>
@@ -23,16 +23,16 @@
       <!-- <div class="myAssert"> -->
       <div class="transferRecord">
         <span class="label">
-          <b>转账记录</b>
+          <b>{{ $t('personal_assert_transferRec') }}</b>
         </span>
         <table>
           <thead>
             <th>ID</th>
-            <th>种类</th>
-            <th>转出方</th>
-            <th>转入方</th>
-            <th>转账时间</th>
-            <th>总额</th>
+            <th>{{ $t('personal_assert_currency') }}</th>
+            <th>{{ $t('personal_assert_sender') }}</th>
+            <th>{{ $t('personal_assert_receiver') }}</th>
+            <th>{{ $t('personal_assert_transferTime') }}</th>
+            <th>{{ $t('personal_assert_total') }}</th>
           </thead>
           <tbody>
             <transition name="curtain-fade">

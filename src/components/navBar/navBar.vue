@@ -1,12 +1,16 @@
 <template>
   <div class="navBar-contain">
     <h2>Koumei</h2>
-    <router-link to="/" :class="{'active_normal': this.active === 'home'}" @click.native="changeA(1)">首页</router-link>
-    <router-link to="/topic/all" :class="{'active_normal': this.active === 'market'}" @click.native="changeA(2)">市场</router-link>
+    <router-link to="/" :class="{'active_normal': this.active === 'home'}" @click.native="changeA(1)">{{ $t('navBar_home') }}</router-link>
+    <router-link to="/topic/all" :class="{'active_normal': this.active === 'market'}" @click.native="changeA(2)">{{ $t('navBar_market') }}</router-link>
     <!-- <router-link to="/login" exact>LOGIN</router-link> -->
-    <a class="login" @click="popLogin" v-show="!this.$store.state.isLogin">登录</a>
-    <a class="logOut" @click="logOut" v-show="this.$store.state.isLogin">登出</a>
-    <router-link class="personalClass" to="/personal" v-show="this.$store.state.isLogin" :class="{'active_p': this.active === 'personal'}" @click.native="changeA(3)">个人中心</router-link>
+    <a class="login" @click="popLogin" v-show="!this.$store.state.isLogin">{{ $t('navBar_login') }}</a>
+    <a class="logOut" @click="logOut" v-show="this.$store.state.isLogin">{{ $t('navBar_logout') }}</a>
+    <router-link class="personalClass" to="/personal" v-show="this.$store.state.isLogin" :class="{'active_p': this.active === 'personal'}" @click.native="changeA(3)">{{ $t('navBar_personal') }}</router-link>
+    <select v-model="locale">
+      <option value="ch">中文</option>
+      <option value="en">English</option>
+    </select>
   </div>
 </template>
 
@@ -17,7 +21,13 @@ export default {
     return {
       secret: '',
       active: 'home',
+      locale: 'ch',
     };
+  },
+  watch: {
+    locale(val) {
+      this.$i18n.locale = val;
+    },
   },
   created() {
     const that = this;
@@ -108,7 +118,7 @@ export default {
   }
   .navBar-contain a:nth-child(6).router-link-exact-active{
   } */
-  .navBar-contain a:nth-child(4), .navBar-contain a:nth-child(5), .navBar-contain a:nth-child(6){
+  .navBar-contain a:nth-child(4), .navBar-contain a:nth-child(5), .navBar-contain a:nth-child(6), .navBar-contain select{
     padding: 0 10px;
     display: inline-block;
     line-height: 25px;
@@ -119,6 +129,11 @@ export default {
     border: 1px solid rgb(180, 180, 181);
     border-radius: 30px;
     cursor: pointer;
+  }
+  .navBar-contain select{
+    background-color: transparent;
+    outline: none;
+    color: rgb(180, 180, 181);
   }
   .navBar-contain a:nth-child(2), .navBar-contain a:nth-child(3){
     margin-left: 30px;

@@ -3,6 +3,7 @@
 import Vue from 'vue';
 import axios from 'axios';
 import VueI18n from 'vue-i18n';
+import i18n from './i18n';
 import App from './App';
 import router from './router';
 import store from './vuex/store';
@@ -22,6 +23,7 @@ new Vue({
   router,
   axios,
   store,
+  i18n,
   template: '<App/>',
   components: { App },
 });

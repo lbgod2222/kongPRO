@@ -1,0 +1,40 @@
+{
+  "navBar_login": "登录",
+  "navBar_logout": "登出",
+  "navBar_home": "首页",
+  "navBar_market": "市场",
+  "navBar_personal": "个人中心",
+
+  "personal_detail": "个人信息",
+  "personal_assert": "个人资产",
+  "personal_myMarket": "我的市场",
+  "personal_myShare": "我的股份",
+  "personal_history": "操作历史",
+
+  "personal_info_detail": "个人信息",
+  "personal_info_nickname": "昵称",
+  "personal_info_address": "地址",
+  "personal_info_save": "保存",
+
+  "personal_assert_myAssert": "资产概览",
+  "personal_assert_name": "资产名称",
+  "personal_assert_amount": "资产数量",
+  "personal_assert_operation": "操作",
+  "personal_assert_transfer": "转账",
+  "personal_assert_transferRec": "转账记录",
+  "personal_assert_currency": "资产类型",
+  "personal_assert_sender": "发起者",
+  "personal_assert_receiver": "接收者",
+  "personal_assert_transferTime": "转账时间",
+  "personal_assert_total": "总额",
+
+  "personal_market_myMarket": "我的市场",
+  "personal_market_topic": "标题",
+  "personal_market_margin": "保证金",
+  "personal_market_share": "初始股份",
+  "personal_market_startTime": "起始时间",
+  "personal_market_currency": "币种",
+  "personal_market_operation": "操作",
+  "personal_market_reveal": "揭示",
+  "personal_market_more": "更多"
+}
