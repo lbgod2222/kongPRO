@@ -2,15 +2,15 @@
   <div class="login-contain">
     <div class="upper">
       <span class="title">
-        登录
+        {{ $t('login_title') }}
       </span>
       <span class="close" @click="close">X</span>
     </div>
     <div class="bottom">
-      <input type="password" v-model.trim="secret" placeholder="请输入密钥">
+      <input type="password" v-model.trim="secret" v-bind:placeholder="$t('login_placeholder')">
       <div class="_btn">
-        <a href="#" class="login" @click.prevent="toLogin">登录</a>
-        <a href="http://asch.so/" target="_blank" class="official">新账号</a>
+        <a href="#" class="login" @click.prevent="toLogin">{{ $t('login_login') }}</a>
+        <a href="http://asch.so/" target="_blank" class="official">{{ $t('login_newAccount') }}</a>
       </div>
     </div>
   </div>

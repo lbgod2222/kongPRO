@@ -6,11 +6,11 @@
       </div>
     </transition>
     <div class="upper">
-      <h1>评论区</h1>
+      <h1>{{ $t('topicExh_comment_title') }}</h1>
       <div class="input">
         <textarea name="" id="" cols="30" rows="10" placeholder="输入内容..." v-model="content"></textarea>
       </div>
-      <div class="_btn" @click="comment">发布评论</div>
+      <div class="_btn" @click="comment">{{ $t('topicExh_comment_submit') }}</div>
     </div>
     <div class="bottom">
       <!-- LOOP UNIT -->

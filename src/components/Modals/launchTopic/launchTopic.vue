@@ -2,34 +2,34 @@
   <div class="launchTopic-contain">
     <div class="upper">
       <span class="title">
-        发布一个市场
+        {{ $t('launchTopic_title') }}
       </span>
       <span class="close" @click="close">X</span>
     </div>
     <div class="bottom">
       <table>
         <tr>
-          <td class="leftSpan">标题</td>
+          <td class="leftSpan">{{ $t('launchTopic_topic') }}</td>
           <td class="rightSpan"><input type="text" class="title" v-model="topicTitle"></td>
         </tr>
         <tr>
-          <td>发起人</td>
+          <td>{{ $t('launchTopic_initiator') }}</td>
           <td class="sponsor">{{this.$store.state.user.resource.extra.str1}}</td>
         </tr>
         <tr>
-          <td>图片</td>
+          <td>{{ $t('launchTopic_picture') }}</td>
           <td class="issueImage"><input type="url" v-model="topicUrl"></td>
         </tr>
         <tr>
-          <td class="detailTitle">详情</td>
+          <td class="detailTitle">{{ $t('launchTopic_detail') }}</td>
           <td class="detail"><textarea name="" id="" cols="30" rows="10" placeholder="TYPE WHATEVER" v-model="topicDesc"></textarea></td>
         </tr>
         <tr>
-          <td>市场选项</td>
+          <td>{{ $t('launchTopic_options') }}</td>
           <td class="opt">
             <ul>
               <li class="setted" v-for="(item, index) in this.optList">
-                {{item}} <span class="set_delete" @click="deleteOpt(index)">删除</span>
+                {{item}} <span class="set_delete" @click="deleteOpt(index)">{{ $t('launchTopic_delete') }}</span>
               </li>
               <li class="optInput">
                 <input type="text" placeholder="TYPE OPTIONS HERE" v-model="editOpt" @keyup.enter="confirmOpt">
@@ -38,19 +38,19 @@
           </td>
         </tr>
         <tr>
-          <td>结束时间</td>
-          <td class="endTime"><input type="number" class="year" v-model="endTime.year">年<input type="number" class="month" v-model="endTime.month">月<input type="number" class="day" v-model="endTime.day">日<input type="number" class="hour" v-model="endTime.hour">时<input type="number" class="minute" v-model="endTime.minute">分<input type="number" class="second" v-model="endTime.second">秒</td>
+          <td>{{ $t('launchTopic_endTime') }}</td>
+          <td class="endTime"><input type="number" class="year" v-model="endTime.year">{{ $t('launchTopic_endTime_YEAR') }}<input type="number" class="month" v-model="endTime.month">{{ $t('launchTopic_endTime_MONTH') }}<input type="number" class="day" v-model="endTime.day">{{ $t('launchTopic_endTime_DAY') }}<input type="number" class="hour" v-model="endTime.hour">时<input type="number" class="minute" v-model="endTime.minute">分<input type="number" class="second" v-model="endTime.second">{{ $t('launchTopic_endTime_SECOND') }}</td>
         </tr>
         <tr>
-          <td>保证金</td>
+          <td>{{ $t('launchTopic_margin') }}</td>
           <td class="guarantee"><input type="number" min="0" v-model="topicGuarantee"></td>
         </tr>
         <tr>
-          <td>初始股份</td>
+          <td>{{ $t('launchTopic_shares') }}</td>
           <td class="iniShare"><input type="number" min="0" v-model="topicShare"></td>
         </tr>
         <tr>
-          <td>资金种类</td>
+          <td>{{ $t('launchTopic_currency') }}</td>
           <td class="currency">
             <!-- <input value="" v-model="topicCurrency"> -->
             <select v-model="topicCurrency">
@@ -59,7 +59,7 @@
           </td>
         </tr>
         <tr>
-          <td>小费</td>
+          <td>{{ $t('launchTopic_fee') }}</td>
           <td>1 %</td>
         </tr>
         <!-- <tr>
@@ -67,7 +67,7 @@
           <td class="topicType"><option value=""></option></td>
         </tr> -->
       </table>
-      <div class="btn" @click="issueTopic">发布</div>
+      <div class="btn" @click="issueTopic">{{ $t('launchTopic_submit') }}</div>
     </div>
   </div>
 </template>

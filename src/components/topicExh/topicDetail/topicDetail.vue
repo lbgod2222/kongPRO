@@ -8,15 +8,14 @@
     </transition>
     <div class="content">
       <h1>{{item.title}}</h1>
-      <h2>市场ID：{{item.id}}</h2>
-      <h2>发起人：{{item.initiator}}</h2>
-      <h2>发起币种：{{item.currency}}</h2>
-      <h2>发起时间：{{item.timestamp}}</h2>
-      <h2>市场总额：{{item.total / 1e8}}</h2>
-      <h2>市场状态：<span>{{item.status}}</span></h2>
-      <h2>市场保证金：{{item.margin / 1e8}}</h2>
+      <h2>ID：{{item.id}}</h2>
+      <h2>{{ $t('topicExh_initiator') }}：{{item.initiator}}</h2>
+      <h2>{{ $t('topicExh_currency') }}：{{item.currency}}</h2>
+      <h2>{{ $t('personal_market_startTime') }}：{{item.timestamp}}</h2>
+      <h2>{{ $t('topicExh_total') }}：{{item.total / 1e8}}</h2>
+      <h2>{{ $t('topicExh_status') }}：<span>{{item.status}}</span></h2>
+      <h2>{{ $t('topicExh_margin') }}：{{item.margin / 1e8}}</h2>
     </div>
-
   </div>
 </template>
 

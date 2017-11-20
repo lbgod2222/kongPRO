@@ -2,7 +2,7 @@
   <div class="announce-contain">
     <div class="upper">
       <span class="title">
-        ANNOUNCE RESULT
+        {{ $t('announce_title') }}
       </span>
       <span class="close" @click="close">X</span>
     </div>
@@ -10,16 +10,16 @@
       <h1>{{this.$store.state.announceTitle}}</h1>
       <table>
         <tr v-for="(item, index) in this.results">
-          <td @click="confirmResult(index)"><span>确认</span></td>
+          <td @click="confirmResult(index)"><span>{{ $t('announce_confirm') }}</span></td>
           <td>{{item.desc}}&nbsp;(&nbsp;{{item.share}}&nbsp;shares&nbsp;)</td>
           <td width="56%"><progress v-bind:max="totalNumber" :value="Number(item.share)"></progress></td>
         </tr>
       </table>
       <div class="showResult" v-if="this.showResult !== undefined">
-        <h2>是否要选择如下为答案？</h2>
+        <h2>{{ $t('announce_tip') }}</h2>
         <span class="active">{{this.showResult.desc}}</span>
       </div>
-      <div class="btn" @click="confirmAnnounce()">提交</div>
+      <div class="btn" @click="confirmAnnounce()">{{ $t('announce_submit') }}</div>
     </div>
   </div>
 </template>

@@ -11,9 +11,9 @@
       </div>
       <div class="_bottomContain">
         <div class="progress">
-          <span class="_bottom"><b>{{this.topicStatus}}</b><b>结束时间：{{this.endTime}}</b></span>
+          <span class="_bottom"><b>{{this.topicStatus}}</b><b>{{ $t('topic_item_endTime') }}：{{this.endTime}}</b></span>
         </div>
-        <router-link class="_btn" :to="{ path: `/topicExh/${this.item.id}`, params:{ id: this.item.id }}">查看更多</router-link>
+        <router-link class="_btn" :to="{ path: `/topicExh/${this.item.id}`, params:{ id: this.item.id }}">{{ $t('topic_item_more') }}</router-link>
       </div>
     </div>
   </div>

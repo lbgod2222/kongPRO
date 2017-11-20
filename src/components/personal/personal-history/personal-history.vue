@@ -7,14 +7,14 @@
     </transition>
     <div class="myShare">
         <span class="label">
-          <b>操作记录</b>
+          <b>{{ $t('personal_history_topic') }}</b>
         </span>
         <table>
           <thead>
-            <th>市场ID</th>
-            <th>市场标题</th>
-            <th>我的选项</th>
-            <th>我的股份</th>
+            <th>{{ $t('personal_history_id') }}</th>
+            <th>{{ $t('personal_history_title') }}</th>
+            <th>{{ $t('personal_history_myOption') }}</th>
+            <th>{{ $t('personal_history_myShare') }}</th>
           </thead>
           <tbody>
             <tr v-for="(item, index) in this.allShares">

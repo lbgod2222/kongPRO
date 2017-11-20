@@ -2,34 +2,34 @@
   <div class="transfer-contain">
     <div class="upper">
       <span class="title">
-        转账
+        {{ $t('transfer_title') }}
       </span>
       <span class="close" @click="close">X</span>
     </div>
     <div class="bottom">
       <span class="inform">
-        请确认您在下列输入框中数据正确
+        {{ $t('transfer_tip') }}
       </span>
       <div class="form">
-        <span class="currency">代币种类 <input type="text" :placeholder="this.$store.state.transferType" disabled></span>
+        <span class="currency">{{ $t('transfer_currency') }} <input type="text" :placeholder="this.$store.state.transferType" disabled></span>
         <span class="receiveAddress">
-          转账到
+          {{ $t('transfer_transferTo') }}
           <input type="text" v-model="receiveAddress">
         </span>
         <span class="amount">
-          数量
+          {{ $t('transfer_amount') }}
           <input type="number" v-model="amount">
         </span>
         <span class="fee">
-          小费
+          {{ $t('transfer_fee') }}
           <input type="number" v-model="fee" disabled>
         </span>
         <span class="extra">
-          消息
+          {{ $t('transfer_msg') }}
           <input type="text" v-model="extra">
         </span>
       </div>
-      <div class="btn" @click="toTransfer">转账</div>
+      <div class="btn" @click="toTransfer">{{ $t('transfer_submit') }}</div>
     </div>
   </div>
 </template>

@@ -9,12 +9,12 @@
     <div class="_overView">
       <table>
           <thead>
-            <th>选项</th>
-            <th>内容</th>
-            <th>股份</th>
-            <th>几率</th>
-            <th>我持有的股份</th>
-            <th colspan="3">操作</th>
+            <th>{{ $t('topicExh_InOverview_option') }}</th>
+            <th>{{ $t('topicExh_InOverview_content') }}</th>
+            <th>{{ $t('topicExh_InOverview_share') }}</th>
+            <th>{{ $t('topicExh_InOverview_possibility') }}</th>
+            <th>{{ $t('topicExh_InOverview_myShare') }}</th>
+            <th colspan="3">{{ $t('topicExh_InOverview_opt') }}</th>
           </thead>
           <tbody>
             <tr v-for="(item, index) in this.options">
@@ -23,9 +23,9 @@
               <td>{{item.share}}</td>
               <td>{{(item.probability*100).toFixed(2)}}%</td>
               <td>{{item.myShare ? item.myShare : 0}}</td>
-              <td><span @click="callSell(item.choice)">卖</span></td>
-              <td><span @click="callBuy(item.choice)">买</span></td>
-              <td><span @click="callDeal(item.choice, index)">兑换</span></td>
+              <td><span @click="callSell(item.choice)">{{ $t('topicExh_InOverview_sell') }}</span></td>
+              <td><span @click="callBuy(item.choice)">{{ $t('topicExh_InOverview_buy') }}</span></td>
+              <td><span @click="callDeal(item.choice, index)">{{ $t('topicExh_InOverview_exchange') }}</span></td>
             </tr>
           </tbody>
         </table>
@@ -34,11 +34,11 @@
       <table>
           <thead>
             <!--<th></th>-->
-            <th>交易时间</th>
-            <th>操作</th>
-            <th>选项</th>
-            <th>份额</th>
-            <th>总额</th>
+            <th>{{ $t('topicExh_InOverview_dealTime') }}</th>
+            <th>{{ $t('topicExh_InOverview_opt') }}</th>
+            <th>{{ $t('topicExh_InOverview_option') }}</th>
+            <th>{{ $t('topicExh_InOverview_share') }}</th>
+            <th>{{ $t('topicExh_InOverview_total') }}</th>
           </thead>
           <tbody>
             <tr v-for="(item, index) in this.record">
@@ -57,33 +57,33 @@
       <table>
         <tr>
           <td>{{this.isBuy === true ? '买入' : '卖出'}}</td>
-          <td class="buy"><input v-model="share" min="0" type="number" @keyup="getPrice"> 份数</td>
+          <td class="buy"><input v-model="share" min="0" type="number" @keyup="getPrice">{{ $t('topicExh_InOverview_share') }}</td>
         </tr>
         <tr>
-          <td>金额</td>
+          <td>{{ $t('topicExh_InOverview_total') }}</td>
           <td class="total">{{this.calcInfo}}</td>
         </tr>
         <tr>
-          <td>手续费</td>
+          <td>{{ $t('topicExh_InOverview_fee') }}</td>
           <td class="fee">1 XAS</td>
         </tr>
       </table>
-      <div class="confirmBtn" @click="dealConfirm">确认</div>
+      <div class="confirmBtn" @click="dealConfirm">{{ $t('topicExh_InOverview_confirm') }}</div>
     </div>
     <div class="dealModal" v-show="this.dealModal">
       <span class="close" @click="close">X</span>
-      <h3>是否清算?</h3>
+      <h3>{{ $t('topicExh_InOverview_ratherToExchange') }}?</h3>
       <table>
         <tr>
-          <td>金额</td>
+          <td>{{ $t('topicExh_InOverview_total') }}</td>
           <td class="share">{{this.showDeal.share}}</td>
         </tr>
         <tr>
-          <td>手续费</td>
+          <td>{{ $t('topicExh_InOverview_fee') }}</td>
           <td class="total">{{this.calcInfo}} XAS</td>
         </tr>
       </table>
-      <div class="confirmBtn" @click="dealConfirm">确认</div>
+      <div class="confirmBtn" @click="dealConfirm">{{ $t('topicExh_InOverview_confirm') }}</div>
     </div>
   </div>
 </template>

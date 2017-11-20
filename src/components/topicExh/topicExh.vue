@@ -7,26 +7,26 @@
       <div class="info">
         <div class="detail">
           <h2>{{this.item.title}}</h2>
-          <span>发起人：{{this.item.initiator}}</span>
-          <span>代币种类: {{this.item.currency}}</span>
-          <span>保证金: {{this.item.margin / 1e8}}</span>
-          <span>初始股份: {{this.item.share}}</span>
-          <span>市场ID: {{this.item.id}}</span>
-          <span>市场总额: {{this.item.total / 1e8}}</span>
+          <span>{{ $t('topicExh_initiator') }}：{{this.item.initiator}}</span>
+          <span>{{ $t('topicExh_currency') }}: {{this.item.currency}}</span>
+          <span>{{ $t('topicExh_margin') }}: {{this.item.margin / 1e8}}</span>
+          <span>{{ $t('topicExh_share') }}: {{this.item.share}}</span>
+          <span>{{ $t('topicExh_market') }}: {{this.item.id}}</span>
+          <span>{{ $t('topicExh_total') }}: {{this.item.total / 1e8}}</span>
         </div>
         <div class="progress">
-          <span>状态: <b class="_status">{{this.item.status}}</b></span>
-          <span class="_top">时间进度&nbsp;:&nbsp;{{this.progressInfo > 100 ? 100 : this.progressInfo}}%</span>
+          <span>{{ $t('topicExh_status') }}: <b class="_status">{{this.item.status}}</b></span>
+          <span class="_top">{{ $t('topicExh_progress') }}&nbsp;:&nbsp;{{this.progressInfo > 100 ? 100 : this.progressInfo}}%</span>
           <progress max="100" :value="Number(this.progressInfo)"></progress>
-          <span class="_bottom"><b>{{this.item.status}}</b><b>结束: {{this.endTime}}</b></span>
+          <span class="_bottom"><b>{{this.item.status}}</b><b>{{ $t('topicExh_endTime') }}: {{this.endTime}}</b></span>
         </div>
       </div>
     </div>
     <ul>
       <!-- <router-link to="/topicExh/{{project id}}/exhProgress">EXH_PROGRESS</router-link> -->
-      <router-link :to="{ path: `/topicExh/${this.$route.params.id}`}">概览</router-link>
-      <router-link :to="{ path: `/topicExh/${this.$route.params.id}/exhDetail`}">详情</router-link>
-      <router-link :to="{ path: `/topicExh/${this.$route.params.id}/exhComment/1`}">评论</router-link>
+      <router-link :to="{ path: `/topicExh/${this.$route.params.id}`}">{{ $t('topicExh_about') }}</router-link>
+      <router-link :to="{ path: `/topicExh/${this.$route.params.id}/exhDetail`}">{{ $t('topicExh_detail') }}</router-link>
+      <router-link :to="{ path: `/topicExh/${this.$route.params.id}/exhComment/1`}">{{ $t('topicExh_comment') }}</router-link>
     </ul>
     <router-view :item="this.item"></router-view>
   </div>
