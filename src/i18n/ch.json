@@ -15,6 +15,7 @@
   "personal_info_nickname": "昵称",
   "personal_info_address": "地址",
   "personal_info_save": "保存",
+  "personal_info_tip": "设置名称将按照规则来收取手续费",
 
   "personal_assert_myAssert": "资产概览",
   "personal_assert_name": "资产名称",

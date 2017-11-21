@@ -92,7 +92,7 @@ export default {
       height: 40px;
       line-height: 40px;
       text-align: center;
-      width: 7%;
+      width: 10%;
   }
   .topic-contain a.router-link-active{
     color: rgb(33, 133, 150);

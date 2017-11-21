@@ -41,12 +41,13 @@ export default {
   },
   created() {
     console.log(this.$store.state);
+    this.address = window.sessionStorage.address;
     if (this.$store.state.user.resource.extra === null) {
       this.isSetNick = false;
     } else {
       this.isSetNick = true;
     }
-    this.address = window.sessionStorage.address;
+    console.log('"after inspect the is setNick"');
   },
   computed: {
     ...mapState(['user']),

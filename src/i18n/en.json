@@ -15,6 +15,7 @@
   "personal_info_nickname": "Nickname",
   "personal_info_address": "Address",
   "personal_info_save": "SAVE",
+  "personal_info_tip": "We charge depend on what you typed",
 
   "personal_assert_myAssert": "Assert",
   "personal_assert_name": "AssertName",
