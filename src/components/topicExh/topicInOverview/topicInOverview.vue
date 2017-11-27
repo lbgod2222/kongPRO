@@ -17,7 +17,7 @@
             <th colspan="3">{{ $t('topicExh_InOverview_opt') }}</th>
           </thead>
           <tbody ref="tablebody" class="tableBody">
-            <tr class="hiddenTr">
+            <tr class="hiddenTr" v-if="this.statue === 3">
               <td></td>
               <td></td>
               <td></td>
@@ -103,7 +103,7 @@ import formatDateTime from '../../../../static/js/getRealTime';
 
 export default {
   name: 'topic-_overView',
-  props: ['answer'],
+  props: ['answer', 'statue'],
   data() {
     return {
       sellModal: false,

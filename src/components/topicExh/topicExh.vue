@@ -28,7 +28,7 @@
       <router-link :to="{ path: `/topicExh/${this.$route.params.id}/exhDetail`}">{{ $t('topicExh_detail') }}</router-link>
       <router-link :to="{ path: `/topicExh/${this.$route.params.id}/exhComment/1`}">{{ $t('topicExh_comment') }}</router-link>
     </ul>
-    <router-view :item="this.item" :answer="this.item.revealChoice"></router-view>
+    <router-view :item="this.item" :answer="this.item.revealChoice" :status="this.item.statue"></router-view>
   </div>
 </template>
 <script>
