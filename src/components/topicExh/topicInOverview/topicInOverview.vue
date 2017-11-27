@@ -161,19 +161,59 @@ export default {
     this.isCurtain = false;
   },
   mounted() {
-    // my shares
-    const that = this;
-    this.$store.dispatch('getShareInOneMarket', {
-      id: this.$route.params.id,
-      address: window.sessionStorage.address,
-      that,
-    }).then((res2) => {
-      console.log(this.options);
-      console.log('my share', res2);
-      // that.$nextTick(that.renderTick(res2));
-      that.renderTick(res2);
-      console.log(this);
+    // minitor the the refresh comand from father componment
+    this.$on('refresh', async () => {
+      this.isCurtain = true;
+      const that = this;
+      // get market detail
+      const a = await this.$store.dispatch('getMarketResult', {
+        id: this.$route.params.id,
+        that,
+      });
+      this.options = a.data.results;
+      this.options.answer = this.answer;
+      // my shares
+      const b = await this.$store.dispatch('getShareInOneMarket', {
+        id: this.$route.params.id,
+        address: window.sessionStorage.address,
+        that,
+      });
+      for (let i = 0; i < this.options.length; i += 1) {
+        const item = this.options[i];
+        if (this.answer === i) {
+          item.isAnswer = true;
+        }
+        for (let j = 0; j < b.data.shares.length; j += 1) {
+          const item2 = b.data.shares[j];
+          if (item2.choice === item.choice) {
+            item.myShare = item2.share;
+          }
+        }
+      }
+      // trade record in one market
+      const c = await this.$store.dispatch('getAllTradeRecord', {
+        id: this.$route.params.id,
+        that,
+      });
+      this.record = c.data.trades;
+      for (let i = 0; i < this.record.length; i += 1) {
+        this.record[i].realTime = formatDateTime.formatDateTime(this.record[i].t_timestamp);
+      }
+      this.isCurtain = false;
     });
+    // // my shares
+    // const that = this;
+    // this.$store.dispatch('getShareInOneMarket', {
+    //   id: this.$route.params.id,
+    //   address: window.sessionStorage.address,
+    //   that,
+    // }).then((res2) => {
+    //   console.log(this.options);
+    //   console.log('my share', res2);
+    //   // that.$nextTick(that.renderTick(res2));
+    //   that.renderTick(res2);
+    //   console.log(this);
+    // });
   },
   methods: {
     // tick render

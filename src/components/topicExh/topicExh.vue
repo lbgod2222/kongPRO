@@ -27,6 +27,7 @@
       <router-link :to="{ path: `/topicExh/${this.$route.params.id}`}">{{ $t('topicExh_about') }}</router-link>
       <router-link :to="{ path: `/topicExh/${this.$route.params.id}/exhDetail`}">{{ $t('topicExh_detail') }}</router-link>
       <router-link :to="{ path: `/topicExh/${this.$route.params.id}/exhComment/1`}">{{ $t('topicExh_comment') }}</router-link>
+      <a class="refreshBtn" @click="refresh"><img src="/static/img/refresh.png" alt="fresh"></a>
     </ul>
     <router-view :item="this.item" :answer="this.item.revealChoice" :status="this.item.statue"></router-view>
   </div>
@@ -97,6 +98,9 @@
       SHOW() {
         console.log(this);
       },
+      refresh() {
+        this.$emit('refresh');
+      },
     },
     // 路由钩子传入item
     beforeRouteEnter: (to, from, next) => {
@@ -137,6 +141,17 @@
     height: 100%;
   }
 
+  .refreshBtn{
+    cursor: pointer;
+    height: 30px !important;
+    width: 30px !important;
+    margin-right: 20px;
+    margin-top: 5px;
+    float: right;
+  }
+  .refreshBtn img{
+    width: 100%;
+  }
   .topic-exh-contain ul {
     display: block;
     line-height: 40px;

@@ -214,6 +214,12 @@ export default {
   updated() {
     Jdenticon();
   },
+  mounted() {
+    // monitor the refresh command from the father component
+    this.$on('refresh', () => {
+      getData();
+    });
+  },
   beforeRouteUpdate(to, from, next) {
     console.log('to:  ', to);
     console.log('from:  ', from);
