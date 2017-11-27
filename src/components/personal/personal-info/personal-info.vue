@@ -9,7 +9,7 @@
           <table>
             <tr>
               <td>{{ $t('personal_info_nickname') }}</td>
-              <td v-if="!this.isSetNick"><input type="text" class="nickName" v-model="name" @click.once="showRulesForNick"><span>{{ $t('personal_info_tip') }}</span></td>
+              <td v-if="!this.isSetNick"><input type="text" class="nickName" v-model="name" @click.once="showRulesForNick"><span class="nickTip">{{ $t('personal_info_tip') }}</span></td>
               <td v-if="this.isSetNick">{{this.user.resource.extra.str1}}</td>
             </tr>
             <tr>
@@ -40,21 +40,36 @@ export default {
     };
   },
   created() {
-    console.log(this.$store.state);
+    console.log(this, 'created!!!!!!!');
     this.address = window.sessionStorage.address;
-    if (this.$store.state.user.resource.extra === null) {
-      this.isSetNick = false;
-    } else {
-      this.isSetNick = true;
-    }
+    // if (this.$store.state.user.resource.extra === null) {
+    //   this.isSetNick = false;
+    // } else {
+    //   this.isSetNick = true;
+    // }
+    this.updateInfo();
     console.log('"after inspect the is setNick"');
   },
   computed: {
     ...mapState(['user']),
+    isSetSwitch() {
+      if (this.$store.state.user.resource.extra === null) {
+        return false;
+      }
+      return true;
+    },
   },
   methods: {
+    // update info
+    updateInfo() {
+      if (this.$store.state.user.resource.extra === null) {
+        this.isSetNick = false;
+      } else {
+        this.isSetNick = true;
+      }
+    },
     toSetName() {
-      console.log(this);
+      console.log('Start to set name');
       const that = this;
       this.$store.dispatch('toSetNickName', {
         name: that.name,
@@ -64,9 +79,13 @@ export default {
         if (res.data.success) {
           this.$store.commit('envaluePopup', {
             status: 0,
-            msg: '修改成功!',
+            msg: '修改成功,请等待同步!',
           });
           this.$store.commit('switchModalPopup');
+          setTimeout(() => {
+            console.log('更新！');
+            this.$forceUpdate();
+          }, 5000);
         } else {
           this.$store.commit('envaluePopup', {
             status: 1,
@@ -141,6 +160,9 @@ export default {
     background-color: #1D2020;
     color: #666666;
     height: 25px;
+  }
+  .nickTip{
+    color: red;
   }
   .info-center{
     height: 50px;

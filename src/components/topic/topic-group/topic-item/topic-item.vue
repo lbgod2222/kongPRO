@@ -86,6 +86,8 @@ export default {
     display: block;
     height: 5vw;
     overflow: overlay;
+    box-sizing: border-box;
+    padding-top: 10px;
 }
 ._top{
   float: right;

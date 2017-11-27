@@ -16,16 +16,26 @@
             <th>{{ $t('topicExh_InOverview_myShare') }}</th>
             <th colspan="3">{{ $t('topicExh_InOverview_opt') }}</th>
           </thead>
-          <tbody>
-            <tr v-for="(item, index) in this.options">
-              <td>{{item.choice}}</td>
+          <tbody ref="tablebody" class="tableBody">
+            <tr class="hiddenTr">
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td rowspan="64" @click="callDeal()">{{ $t('topicExh_InOverview_exchange') }}</td>
+            </tr>
+            <tr v-for="(item, index) in this.options" :class="{ '_answer': item.isAnswer }">
+              <td v-if="!item.isAnswer">{{item.choice}}</td>
+              <td v-if="item.isAnswer">{{$t('topicExh_InOverview_answer')}}</td>
               <td>{{item.desc}}</td>
               <td>{{item.share}}</td>
               <td>{{(item.probability*100).toFixed(2)}}%</td>
               <td>{{item.myShare ? item.myShare : 0}}</td>
               <td><span @click="callSell(item.choice)">{{ $t('topicExh_InOverview_sell') }}</span></td>
               <td><span @click="callBuy(item.choice)">{{ $t('topicExh_InOverview_buy') }}</span></td>
-              <td><span @click="callDeal(item.choice, index)">{{ $t('topicExh_InOverview_exchange') }}</span></td>
             </tr>
           </tbody>
         </table>
@@ -46,8 +56,8 @@
               <td>{{item.realTime}}</td>
               <td>{{item.share > 0 ? '买' : '卖'}}</td>
               <td>{{item.choice}}</td>
-              <td>{{item.share}}</td>
-              <td>{{item.amount / 1e8}}</td>
+              <td>{{Math.abs(item.share)}}</td>
+              <td>{{Math.abs(item.amount / 1e8)}}</td>
             </tr>
           </tbody>
         </table>
@@ -57,7 +67,7 @@
       <table>
         <tr>
           <td>{{this.isBuy === true ? '买入' : '卖出'}}</td>
-          <td class="buy"><input v-model="share" min="0" type="number" @keyup="getPrice">{{ $t('topicExh_InOverview_share') }}</td>
+          <td class="buy"><input v-model="share" min="0" type="number" @change="getPrice" @keyup="getPrice">{{ $t('topicExh_InOverview_share') }}</td>
         </tr>
         <tr>
           <td>{{ $t('topicExh_InOverview_total') }}</td>
@@ -93,6 +103,7 @@ import formatDateTime from '../../../../static/js/getRealTime';
 
 export default {
   name: 'topic-_overView',
+  props: ['answer'],
   data() {
     return {
       sellModal: false,
@@ -119,6 +130,7 @@ export default {
       that,
     });
     this.options = a.data.results;
+    this.options.answer = this.answer;
     // my shares
     const b = await this.$store.dispatch('getShareInOneMarket', {
       id: this.$route.params.id,
@@ -127,6 +139,9 @@ export default {
     });
     for (let i = 0; i < this.options.length; i += 1) {
       const item = this.options[i];
+      if (this.answer === i) {
+        item.isAnswer = true;
+      }
       for (let j = 0; j < b.data.shares.length; j += 1) {
         const item2 = b.data.shares[j];
         if (item2.choice === item.choice) {
@@ -146,7 +161,6 @@ export default {
     this.isCurtain = false;
   },
   mounted() {
-    console.log('monted now!');
     // my shares
     const that = this;
     this.$store.dispatch('getShareInOneMarket', {
@@ -228,7 +242,7 @@ export default {
         this.choice = c;
       }
     },
-    callDeal(choice, index) {
+    callDeal() {
       if (!window.sessionStorage.isLogin) {
         this.$store.commit('envaluePopup', {
           status: 1,
@@ -246,10 +260,7 @@ export default {
         return;
       }
       if (window.sessionStorage.isLogin) {
-        this.showDeal = this.options[index];
-        this.getPrice();
         this.$store.commit('switchBlackSheepWall');
-        this.choice = choice;
         this.dealModal = true;
       }
     },
@@ -389,6 +400,7 @@ export default {
     line-height: 30px;
     border-left: 1px solid rgb(66, 71, 73);
     border-right: 1px solid rgb(66, 71, 73);
+    border-bottom: 1px solid rgb(66, 71, 73);
  }
  ._overView table span{
    cursor: pointer;
@@ -418,6 +430,18 @@ export default {
     line-height: 30px;
     border-left: 1px solid rgb(66, 71, 73);
     border-right: 1px solid rgb(66, 71, 73);
+ }
+ .hiddenTr > td{
+   height: 0px !important;
+   line-height: 0px !important;
+ }
+ .hiddenTr > td:nth-child(8){
+   cursor: pointer;
+   vertical-align: middle !important;
+ }
+ /* answer class */
+ ._answer>td:nth-child(1), ._answer>td:nth-child(2), ._answer>td:nth-child(3), ._answer>td:nth-child(4), ._answer>td:nth-child(5){
+   background-color: #474B4E;
  }
  .sellModal{
     background-color: rgba(37, 39, 40, .9);

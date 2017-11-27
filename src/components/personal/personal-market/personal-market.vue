@@ -18,18 +18,18 @@
             <th>{{ $t('personal_market_share') }}</th>
             <th>{{ $t('personal_market_startTime') }}</th>
             <th>{{ $t('personal_market_currency') }}</th>
-            <th>{{ $t('personal_market_currency') }}</th>
+            <th>{{ $t('personal_market_status') }}</th>
             <th colspan="2">{{ $t('personal_market_operation') }}</th>
           </thead>
           <tbody>
             <tr v-for="(item, index) in this.initMarket">
               <td>{{item.title}}</td>
-              <td>{{item.margin}}</td>
+              <td>{{(item.margin / 1e8).toFixed(2)}}</td>
               <td>{{item.share}}</td>
               <td>{{item.realTime}}</td>
               <td>{{item.currency}}</td>
               <td>{{item.realState}}</td>
-              <td><span class="reveal" @click="callReveal(item.title, item.id)">{{ $t('personal_market_reveal') }}</span></td>
+              <td><span v-show="item.state === 1" class="reveal" @click="callReveal(item.title, item.id)">{{ $t('personal_market_reveal') }}</span></td>
               <td><router-link class="_btn" :to="{ path: `/topicExh/${item.id}`, params:{ id: item.id }}">{{ $t('personal_market_more') }}</router-link></td>
             </tr>
           </tbody>
