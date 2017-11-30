@@ -8,7 +8,7 @@
     <div class="upper">
       <h1>{{ $t('topicExh_comment_title') }}</h1>
       <div class="input">
-        <textarea name="" id="" cols="30" rows="10" placeholder="输入内容..." v-model="content"></textarea>
+        <textarea name="" id="" cols="30" rows="10" placeholder="输入内容..." v-model.trim="content"></textarea>
       </div>
       <div class="_btn" @click="comment">{{ $t('topicExh_comment_submit') }}</div>
     </div>
@@ -171,6 +171,14 @@ export default {
     comment() {
       const that = this;
       console.log(this);
+      if (!this.content) {
+        this.$store.commit('envaluePopup', {
+          status: 1,
+          msg: '内容不能为空',
+        });
+        this.$store.commit('switchModalPopup');
+        return;
+      }
       if (!window.sessionStorage.isLogin) {
         this.$store.commit('envaluePopup', {
           status: 1,
