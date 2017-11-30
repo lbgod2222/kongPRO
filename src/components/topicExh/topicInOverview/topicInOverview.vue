@@ -350,6 +350,7 @@ export default {
               status: 0,
               msg: '购买成功!',
             });
+            that.close();
             this.$store.commit('switchModalPopup');
           } else {
             this.$store.commit('envaluePopup', {
@@ -372,6 +373,7 @@ export default {
               status: 0,
               msg: '售卖成功!',
             });
+            that.close();
             this.$store.commit('switchModalPopup');
           } else {
             this.$store.commit('envaluePopup', {
@@ -391,6 +393,7 @@ export default {
               status: 0,
               msg: '兑换成功!',
             });
+            that.close();
             this.$store.commit('switchModalPopup');
           } else {
             this.$store.commit('envaluePopup', {
