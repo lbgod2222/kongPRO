@@ -62,6 +62,16 @@ export default {
 </script>
 
 <style>
+@media screen and ( min-width: 1360px ) {
+  #app {
+    font-size: 14px;
+  }
+}
+@media screen and ( max-width: 1359px ) {
+  #app {
+    font-size: 9px;
+  }
+}
 #app {
   overflow: hidden;
   width: 100%;
@@ -69,7 +79,7 @@ export default {
   background-color: rgb(29, 32, 32);
   color: rgb(180, 180, 181);
   overflow-y: scroll;
-  font-size: 14px;
+  min-width: 1100px;
 }
 .blackSheepWall{
   position: fixed;
