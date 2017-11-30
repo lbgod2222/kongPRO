@@ -226,14 +226,14 @@ export default {
     this.page = to.params.page;
     next();
   },
-  beforeRouteLeave(to, from, next) {
-    console.log('Gonna leave anyway?');
-    const r = confirm('"Press a button"');
-    if (r) {
-      next();
-    }
-    // next();
-  },
+  // beforeRouteLeave(to, from, next) {
+  //   console.log('Gonna leave anyway?');
+  //   const r = confirm('"Press a button"');
+  //   if (r) {
+  //     next();
+  //   }
+  //   // next();
+  // },
 };
 </script>
 
