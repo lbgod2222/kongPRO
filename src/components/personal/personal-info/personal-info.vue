@@ -84,8 +84,18 @@ export default {
           this.$store.commit('switchModalPopup');
           setTimeout(() => {
             console.log('更新！');
-            this.$forceUpdate();
-          }, 5000);
+            that.$store.dispatch('loginAction', {
+              address: that.$store.state.user.address,
+              that,
+            }).then((res2) => {
+              if (res2.data.account.extra) {
+                that.$store.commit('hasSetNick');
+              }
+              that.$store.commit('login', {
+                resource: res2.data.account,
+              });
+            });
+          }, 10000);
         } else {
           this.$store.commit('envaluePopup', {
             status: 1,

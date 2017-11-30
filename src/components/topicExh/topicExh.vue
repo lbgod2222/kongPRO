@@ -1,3 +1,4 @@
+
 <template>
   <div class="topic-exh-contain">
     <div class="exh-top">
@@ -29,7 +30,7 @@
       <router-link :to="{ path: `/topicExh/${this.$route.params.id}/exhComment/1`}">{{ $t('topicExh_comment') }}</router-link>
       <a class="refreshBtn" @click="refresh"><img src="/static/img/refresh.png" alt="fresh"></a>
     </ul>
-    <router-view :item="this.item" :answer="this.item.revealChoice" :status="this.item.statue"></router-view>
+    <router-view ref="child" :item="this.item" :answer="this.item.revealChoice" :status="this.item.statue"></router-view>
   </div>
 </template>
 <script>
@@ -99,7 +100,8 @@
         console.log(this);
       },
       refresh() {
-        this.$emit('refresh');
+        this.$refs.child.$emit('refresh');
+        // eventBus.$emit('refresh');
       },
     },
     // 路由钩子传入item

@@ -217,7 +217,7 @@ export default {
   mounted() {
     // monitor the refresh command from the father component
     this.$on('refresh', () => {
-      getData();
+      this.getData();
     });
   },
   beforeRouteUpdate(to, from, next) {

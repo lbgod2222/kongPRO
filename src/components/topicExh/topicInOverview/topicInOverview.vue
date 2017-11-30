@@ -163,6 +163,7 @@ export default {
   mounted() {
     // minitor the the refresh comand from father componment
     this.$on('refresh', async () => {
+      console.log('Received the event');
       this.isCurtain = true;
       const that = this;
       // get market detail

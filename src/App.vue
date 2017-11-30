@@ -69,6 +69,7 @@ export default {
   background-color: rgb(29, 32, 32);
   color: rgb(180, 180, 181);
   overflow-y: scroll;
+  font-size: 14px;
 }
 .blackSheepWall{
   position: fixed;
