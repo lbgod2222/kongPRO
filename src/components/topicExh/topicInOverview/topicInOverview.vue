@@ -34,7 +34,8 @@
               <td>{{item.share}}</td>
               <td>{{(item.probability*100).toFixed(2)}}%</td>
               <td>{{item.myShare ? item.myShare : 0}}</td>
-              <td><span @click="callSell(item.choice)">{{ $t('topicExh_InOverview_sell') }}</span></td>
+              <td v-if="item.myShare"><span @click="callSell(item.choice)">{{ $t('topicExh_InOverview_sell') }}</span></td>
+              <td v-if="!item.myShare"><span class="invalid_btn" @click="callIncalid">{{ $t('topicExh_InOverview_sell') }}</span></td>
               <td><span @click="callBuy(item.choice)">{{ $t('topicExh_InOverview_buy') }}</span></td>
             </tr>
           </tbody>
@@ -232,6 +233,14 @@ export default {
           }
         }
       }(res, that));
+    },
+    // to popup your insufficient balance
+    callIncalid() {
+      this.$store.commit('envaluePopup', {
+        status: 1,
+        msg: '股份不足',
+      });
+      this.$store.commit('switchModalPopup');
     },
     callSell(c) {
       if (!window.sessionStorage.isLogin) {
@@ -486,6 +495,9 @@ export default {
  /* answer class */
  ._answer>td:nth-child(1), ._answer>td:nth-child(2), ._answer>td:nth-child(3), ._answer>td:nth-child(4), ._answer>td:nth-child(5){
    background-color: #474B4E;
+ }
+ .invalid_btn{
+   color: orange;
  }
  .sellModal{
     background-color: rgba(37, 39, 40, .9);
