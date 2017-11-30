@@ -153,7 +153,7 @@ export default {
       if (!window.sessionStorage.hasNick) {
         this.$store.commit('envaluePopup', {
           status: 1,
-          msg: '请先登录',
+          msg: '请先设置昵称',
         });
         this.$store.commit('switchModalPopup');
         return;
