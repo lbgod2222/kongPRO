@@ -47,7 +47,7 @@
         </tr>
         <tr>
           <td>{{ $t('launchTopic_shares') }}</td>
-          <td class="iniShare"><input type="number" min="0" v-model="topicShare"></td>
+          <td class="iniShare"><input type="number" min="0" v-model="topicShare" v-bind:placeholder="$t('launchTopic_shareTip')"></td>
         </tr>
         <tr>
           <td>{{ $t('launchTopic_currency') }}</td>
@@ -138,6 +138,14 @@ export default {
     },
     issueTopic() {
       let that = this;
+      if (this.topicTitle === '' || this.topicDesc === '' || this.topicCurrency === '' || this.topicGuarantee === '' || this.topicShare === '') {
+        this.$store.commit('envaluePopup', {
+          status: 1,
+          msg: '表格需要填写完整！',
+        });
+        this.$store.commit('switchModalPopup');
+        return;
+      }
       if (this.optList.length < 2) {
         this.$store.commit('envaluePopup', {
           status: 1,
