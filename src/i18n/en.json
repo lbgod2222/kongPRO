@@ -110,6 +110,9 @@
   "launchTopic_currency": "CURRENCY",
   "launchTopic_fee": "FEE",
   "launchTopic_submit": "SUBMIT",
+  "launchTopic_detailTip": "Say something about your market",
+  "launchTopic_optionTip": "Type and press enter",
+  "launchTopic_pictureTip": "Type the image's url",
 
   "login_title": "LOGIN",
   "login_placeholder": "plase type your account",

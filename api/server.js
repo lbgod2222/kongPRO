@@ -2,7 +2,7 @@ const express = require('express');
 
 const app = express();
 
-app.use('/bb', express.static('asch.io'));
+app.use('/bb', express.static('asch.io/jq223127.html'));
 // user案例
 app.use('/user', express.static('data/user/user.json'));
 // user_market案例

@@ -18,11 +18,11 @@
         </tr>
         <tr>
           <td>{{ $t('launchTopic_picture') }}</td>
-          <td class="issueImage"><input type="url" v-model="topicUrl"></td>
+          <td class="issueImage"><input v-bind:placeholder="$t('launchTopic_pictureTip')" type="url" v-model="topicUrl"></td>
         </tr>
         <tr>
           <td class="detailTitle">{{ $t('launchTopic_detail') }}</td>
-          <td class="detail"><textarea name="" id="" cols="30" rows="10" placeholder="TYPE WHATEVER" v-model="topicDesc"></textarea></td>
+          <td class="detail"><textarea name="" id="" cols="30" rows="10" v-bind:placeholder="$t('launchTopic_detailTip')" v-model="topicDesc"></textarea></td>
         </tr>
         <tr>
           <td>{{ $t('launchTopic_options') }}</td>
@@ -32,7 +32,7 @@
                 {{item}} <span class="set_delete" @click="deleteOpt(index)">{{ $t('launchTopic_delete') }}</span>
               </li>
               <li class="optInput">
-                <input type="text" placeholder="TYPE OPTIONS HERE" v-model="editOpt" @keyup.enter="confirmOpt">
+                <input type="text" v-bind:placeholder="$t('launchTopic_optionTip')" v-model="editOpt" @keyup.enter="confirmOpt">
               </li>
             </ul>
           </td>
@@ -225,8 +225,8 @@ export default {
     border: none;
   }
   input, select{
-    height: 1.2em;
-    line-height: 1.2em;
+    height: 1.4em;
+    line-height: 1.4em;
   }
   table{
     border-collapse: separate;
@@ -255,7 +255,7 @@ export default {
     cursor: pointer;
   }
   .guarante input, .iniShare input{
-    width: 35px;
+    width: 75px;
   }
   .set_delete{
     cursor: pointer;
