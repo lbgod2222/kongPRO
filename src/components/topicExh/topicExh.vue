@@ -30,7 +30,7 @@
       <router-link :to="{ path: `/topicExh/${this.$route.params.id}/exhComment/1`}">{{ $t('topicExh_comment') }}</router-link>
       <a class="refreshBtn" @click="refresh"><img src="/static/img/refresh.png" alt="fresh"></a>
     </ul>
-    <router-view ref="child" :item="this.item" :answer="this.item.revealChoice" :status="this.item.statue"></router-view>
+    <router-view ref="child" :item="this.item" :answer="this.item.revealChoice" :statue="this.item.state"></router-view>
   </div>
 </template>
 <script>
@@ -64,8 +64,6 @@
         } else if (a.state === 2) {
           a.status = '正在公布';
         } else if (a.state === 3) {
-          a.status = '等待仲裁';
-        } else {
           a.status = '已结束';
         }
         that.item = a;

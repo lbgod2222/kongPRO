@@ -41,7 +41,7 @@
           <td>{{ $t('launchTopic_endTime') }}</td>
           <td class="endTime">
             <!-- <input type="number" class="year" v-model="endTime.year">{{ $t('launchTopic_endTime_YEAR') }}<input type="number" class="month" v-model="endTime.month">{{ $t('launchTopic_endTime_MONTH') }}<input type="number" class="day" v-model="endTime.day">{{ $t('launchTopic_endTime_DAY') }}<input type="number" class="hour" v-model="endTime.hour">时<input type="number" class="minute" v-model="endTime.minute">分<input type="number" class="second" v-model="endTime.second">{{ $t('launchTopic_endTime_SECOND') }} -->
-            <date-picker :time.sync="startTime" :option="option" :limit="limit"></date-picker>
+            <date-picker :time.sync="startTime" :option="option" :limit="limit" :date="{time: startTime}"></date-picker>
           </td>
         </tr>
         <tr>
@@ -109,11 +109,11 @@ export default {
         time: '',
       },
       option: {
-        type: 'day',
-        week: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
-        month: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-        format: 'YYYY-MM-DD',
-        placeholder: 'when?',
+        type: 'min',
+        week: ['一|Mo', '二|Tu', '三|We', '四|Th', '五|Fr', '六|Sa', '日|Su'],
+        month: ['一月|January', '二月|February', '三月|March', '四月|April', '五月|May', '六月|June', '七月|July', '八月|August', '九月|September', '十月|October', '十一月|November', '十二月|December'],
+        format: 'YYYY-MM-DD HH:mm:ss',
+        placeholder: 'End Time',
         inputStyle: {
           'display': 'inline-block',
           'padding': '6px',
@@ -139,13 +139,13 @@ export default {
         type: 'min',
         week: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
         month: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-        format: 'YYYY-MM-DD HH:mm'
+        format: 'YYYY-MM-DD HH:mm:ss'
       },
       multiOption: {
         type: 'multi-day',
         week: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
         month: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-        format:"YYYY-MM-DD HH:mm"
+        format:"YYYY-MM-DD HH:mm:ss"
       },
       limit: [{
         type: 'weekday',
