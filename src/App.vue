@@ -62,12 +62,12 @@ export default {
 </script>
 
 <style>
-@media screen and ( min-width: 1360px ) {
+@media screen and ( min-width: 1367px ) {
   #app {
     font-size: 14px;
   }
 }
-@media screen and ( max-width: 1359px ) {
+@media screen and ( max-width: 1366px ) {
   #app {
     font-size: 9px;
   }

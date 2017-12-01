@@ -227,7 +227,6 @@
     display: inline-block;
     background-color: #006489;
     border-radius: 4px;
-    width: 55px;
     height: 1.3em;
     line-height: 1.3em;
     text-align: center;
