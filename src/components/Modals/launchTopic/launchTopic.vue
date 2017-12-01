@@ -41,7 +41,7 @@
           <td>{{ $t('launchTopic_endTime') }}</td>
           <td class="endTime">
             <!-- <input type="number" class="year" v-model="endTime.year">{{ $t('launchTopic_endTime_YEAR') }}<input type="number" class="month" v-model="endTime.month">{{ $t('launchTopic_endTime_MONTH') }}<input type="number" class="day" v-model="endTime.day">{{ $t('launchTopic_endTime_DAY') }}<input type="number" class="hour" v-model="endTime.hour">时<input type="number" class="minute" v-model="endTime.minute">分<input type="number" class="second" v-model="endTime.second">{{ $t('launchTopic_endTime_SECOND') }} -->
-            <date-picker :time.sync="startTime" :option="option" :limit="limit" :date="{time: startTime}"></date-picker>
+            <date-picker :date="date" :option="option" :limit="limit"></date-picker>
           </td>
         </tr>
         <tr>
@@ -102,6 +102,9 @@ export default {
       //   second: null,
       // },
       // for Vue 2.0
+      date: {
+        time: '',
+      },
       startTime: {
         time: '2017-11-11',
       },
@@ -117,12 +120,12 @@ export default {
         inputStyle: {
           'display': 'inline-block',
           'padding': '6px',
-          'line-height': '22px',
-          'font-size': '16px',
-          'border': '2px solid #fff',
+          'line-height': '1.4em',
+          'font-size': '1em',
+          'border': '1px solid rgb(78, 78, 78)',
           'box-shadow': '0 1px 3px 0 rgba(0, 0, 0, 0.2)',
-          'border-radius': '2px',
-          'color': '#5F5F5F'
+          'border-radius': '3px',
+          'color': 'rgb(180, 180, 181)'
         },
         color: {
           header: '#ccc',
@@ -136,7 +139,7 @@ export default {
         dismissible: true // as true as default
       },
       timeoption: {
-        type: 'min',
+        type: 'day',
         week: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
         month: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
         format: 'YYYY-MM-DD HH:mm:ss'
@@ -149,12 +152,7 @@ export default {
       },
       limit: [{
         type: 'weekday',
-        available: [1, 2, 3, 4, 5]
-      },
-      {
-        type: 'fromto',
-        from: '2016-02-01',
-        to: '2016-02-20'
+        available: [0, 1, 2, 3, 4, 5, 6]
       }]
     };
   },
@@ -171,7 +169,7 @@ export default {
     // timely count the block added number
     blockAdded() {
       const currentTime = new Date().getTime();
-      const finalTime = new Date(this.endTime.year, Number(this.endTime.month) - 1, this.endTime.day, this.endTime.hour, this.endTime.minute, this.endTime.second).getTime();
+      const finalTime = new Date(this.date.time).getTime();
       return ((finalTime - currentTime) / 10000).toFixed();
     },
     // modal close
