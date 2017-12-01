@@ -32,7 +32,7 @@
                 {{item}} <span class="set_delete" @click="deleteOpt(index)">{{ $t('launchTopic_delete') }}</span>
               </li>
               <li class="optInput">
-                <input type="text" v-bind:placeholder="$t('launchTopic_optionTip')" v-model="editOpt" @keyup.enter="confirmOpt">
+                <input type="text" v-bind:placeholder="$t('launchTopic_optionTip')" v-model.trim="editOpt" @keyup.enter="confirmOpt">
               </li>
             </ul>
           </td>
@@ -125,6 +125,12 @@ export default {
       if (presetOpt !== '') {
         this.optList.push(presetOpt);
         this.editOpt = '';
+      } else {
+        this.$store.commit('envaluePopup', {
+          status: 1,
+          msg: '选项不能为空！',
+        });
+        this.$store.commit('switchModalPopup');
       }
     },
     deleteOpt(index) {
@@ -132,6 +138,14 @@ export default {
     },
     issueTopic() {
       let that = this;
+      if (this.optList.length < 2) {
+        this.$store.commit('envaluePopup', {
+          status: 1,
+          msg: '选项数量不正确！',
+        });
+        this.$store.commit('switchModalPopup');
+        return;
+      }
       this.$store.dispatch('getBlockHeight', { that }).then((res) => {
         console.log('afer get blockheight', res);
         if (res.data.success === true) {
