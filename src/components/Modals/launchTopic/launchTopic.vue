@@ -39,7 +39,10 @@
         </tr>
         <tr>
           <td>{{ $t('launchTopic_endTime') }}</td>
-          <td class="endTime"><input type="number" class="year" v-model="endTime.year">{{ $t('launchTopic_endTime_YEAR') }}<input type="number" class="month" v-model="endTime.month">{{ $t('launchTopic_endTime_MONTH') }}<input type="number" class="day" v-model="endTime.day">{{ $t('launchTopic_endTime_DAY') }}<input type="number" class="hour" v-model="endTime.hour">时<input type="number" class="minute" v-model="endTime.minute">分<input type="number" class="second" v-model="endTime.second">{{ $t('launchTopic_endTime_SECOND') }}</td>
+          <td class="endTime">
+            <!-- <input type="number" class="year" v-model="endTime.year">{{ $t('launchTopic_endTime_YEAR') }}<input type="number" class="month" v-model="endTime.month">{{ $t('launchTopic_endTime_MONTH') }}<input type="number" class="day" v-model="endTime.day">{{ $t('launchTopic_endTime_DAY') }}<input type="number" class="hour" v-model="endTime.hour">时<input type="number" class="minute" v-model="endTime.minute">分<input type="number" class="second" v-model="endTime.second">{{ $t('launchTopic_endTime_SECOND') }} -->
+            <date-picker :time.sync="startTime" :option="option" :limit="limit"></date-picker>
+          </td>
         </tr>
         <tr>
           <td>{{ $t('launchTopic_margin') }}</td>
@@ -74,6 +77,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import myDatepicker from 'vue-datepicker/vue-datepicker-es6';
 
 /* eslint-disable */
 export default {
@@ -89,14 +93,69 @@ export default {
       topicCurrency: '',
       topicGuarantee: null,
       topicShare: null,
-      endTime: {
-        year: null,
-        month: null,
-        day: null,
-        hour: null,
-        minute: null,
-        second: null,
+      // endTime: {
+      //   year: null,
+      //   month: null,
+      //   day: null,
+      //   hour: null,
+      //   minute: null,
+      //   second: null,
+      // },
+      // for Vue 2.0
+      startTime: {
+        time: '2017-11-11',
       },
+      endtime: {
+        time: '',
+      },
+      option: {
+        type: 'day',
+        week: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
+        month: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        format: 'YYYY-MM-DD',
+        placeholder: 'when?',
+        inputStyle: {
+          'display': 'inline-block',
+          'padding': '6px',
+          'line-height': '22px',
+          'font-size': '16px',
+          'border': '2px solid #fff',
+          'box-shadow': '0 1px 3px 0 rgba(0, 0, 0, 0.2)',
+          'border-radius': '2px',
+          'color': '#5F5F5F'
+        },
+        color: {
+          header: '#ccc',
+          headerText: '#f00'
+        },
+        buttons: {
+          ok: 'Ok',
+          cancel: 'Cancel'
+        },
+        overlayOpacity: 0.5, // 0.5 as default
+        dismissible: true // as true as default
+      },
+      timeoption: {
+        type: 'min',
+        week: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
+        month: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        format: 'YYYY-MM-DD HH:mm'
+      },
+      multiOption: {
+        type: 'multi-day',
+        week: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
+        month: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        format:"YYYY-MM-DD HH:mm"
+      },
+      limit: [{
+        type: 'weekday',
+        available: [1, 2, 3, 4, 5]
+      },
+      {
+        type: 'fromto',
+        from: '2016-02-01',
+        to: '2016-02-20'
+      }]
     };
   },
   computed: {
@@ -191,6 +250,9 @@ export default {
       });
     },
   },
+  components: {
+    'date-picker': myDatepicker
+  }
 };
 </script>
 
