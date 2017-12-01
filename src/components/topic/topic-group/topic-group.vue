@@ -69,10 +69,8 @@ export default {
       this.getData(1, 12, 0);
     } else if (this.$route.meta.current === 'announcing') {
       this.getData(2, 12, 0);
-    } else if (this.$route.meta.current === 'mediating') {
-      this.getData(3, 12, 0);
     } else if (this.$route.meta.current === 'done') {
-      this.getData(4, 12, 0);
+      this.getData(3, 12, 0);
     }
     console.log(this);
     // 此时关闭公共state curtain
@@ -168,12 +166,9 @@ export default {
       } else if (this.$route.meta.current === 'announcing') {
         this.getData(2, 12, 0);
         this.contentStatus = 2;
-      } else if (this.$route.meta.current === 'mediating') {
+      } else if (this.$route.meta.current === 'done') {
         this.getData(3, 12, 0);
         this.contentStatus = 3;
-      } else if (this.$route.meta.current === 'done') {
-        this.getData(4, 12, 0);
-        this.contentStatus = 4;
       }
     },
     // pagination methods

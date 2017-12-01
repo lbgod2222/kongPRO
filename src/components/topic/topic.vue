@@ -5,7 +5,7 @@
       <router-link to="/topic/ongoing" @click="show">{{ $t('topic_onProgress') }}</router-link>
       <router-link to="/topic/revealing" @click="show">{{ $t('topic_onReview') }}</router-link>
       <router-link to="/topic/announcing" @click="show">{{ $t('topic_onPublic') }}</router-link>
-      <router-link to="/topic/mediating" @click="show">{{ $t('topic_onJudge') }}</router-link>
+      <!-- <router-link to="/topic/mediating" @click="show">{{ $t('topic_onJudge') }}</router-link> -->
       <router-link to="/topic/done" @click="show">{{ $t('topic_done') }}</router-link>
     </ul>
     <span @click="launchTopic"> + {{ $t('topic_lunch') }}</span>

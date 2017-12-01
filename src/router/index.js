@@ -41,7 +41,7 @@ export default new Router({
         { path: 'ongoing', component: topicGroup, meta: { current: 'ongoing' } },
         { path: 'revealing', component: topicGroup, meta: { current: 'revealing' } },
         { path: 'announcing', component: topicGroup, meta: { current: 'announcing' } },
-        { path: 'mediating', component: topicGroup, meta: { current: 'mediating' } },
+        // { path: 'mediating', component: topicGroup, meta: { current: 'mediating' } },
         { path: 'done', component: topicGroup, meta: { current: 'done' } },
       ],
     },
