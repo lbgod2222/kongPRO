@@ -33,7 +33,7 @@ export default {
       if (!this.$store.state.isLogin) {
         this.$store.commit('envaluePopup', {
           status: 1,
-          msg: '请先登录',
+          msg: 'topic_lunch',
         });
         this.$store.commit('switchModalPopup');
         return;

@@ -43,9 +43,7 @@ export default {
       } else if (this.item.state === 1) {
         return '等待揭晓';
       } else if (this.item.state === 2) {
-        return '公示答案';
-      } else if (this.item.state === 3) {
-        return '等待仲裁';
+        return '正在公示';
       } else {
         return '已结束';
       }

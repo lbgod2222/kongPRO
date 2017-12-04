@@ -10,7 +10,7 @@
       <table>
         <tr>
           <td class="leftSpan">{{ $t('launchTopic_topic') }}</td>
-          <td class="rightSpan"><input type="text" class="title" v-model="topicTitle"></td>
+          <td class="rightSpan"><input type="text" class="title" v-model.trim="topicTitle"></td>
         </tr>
         <tr>
           <td>{{ $t('launchTopic_initiator') }}</td>
@@ -18,11 +18,11 @@
         </tr>
         <tr>
           <td>{{ $t('launchTopic_picture') }}</td>
-          <td class="issueImage"><input v-bind:placeholder="$t('launchTopic_pictureTip')" type="url" v-model="topicUrl"></td>
+          <td class="issueImage"><input v-bind:placeholder="$t('launchTopic_pictureTip')" type="url" v-model.trim="topicUrl"></td>
         </tr>
         <tr>
           <td class="detailTitle">{{ $t('launchTopic_detail') }}</td>
-          <td class="detail"><textarea name="" id="" cols="30" rows="10" v-bind:placeholder="$t('launchTopic_detailTip')" v-model="topicDesc"></textarea></td>
+          <td class="detail"><textarea name="" id="" cols="30" rows="10" v-bind:placeholder="$t('launchTopic_detailTip')" v-model.trim="topicDesc"></textarea></td>
         </tr>
         <tr>
           <td>{{ $t('launchTopic_options') }}</td>
@@ -46,17 +46,17 @@
         </tr>
         <tr>
           <td>{{ $t('launchTopic_margin') }}</td>
-          <td class="guarantee"><input type="number" min="0" v-model="topicGuarantee"></td>
+          <td class="guarantee"><input type="number" min="0" v-model.trim="topicGuarantee"></td>
         </tr>
         <tr>
           <td>{{ $t('launchTopic_shares') }}</td>
-          <td class="iniShare"><input type="number" min="0" v-model="topicShare" v-bind:placeholder="$t('launchTopic_shareTip')"></td>
+          <td class="iniShare"><input type="number" min="0" v-model.trim="topicShare" v-bind:placeholder="$t('launchTopic_shareTip')"></td>
         </tr>
         <tr>
           <td>{{ $t('launchTopic_currency') }}</td>
           <td class="currency">
             <!-- <input value="" v-model="topicCurrency"> -->
-            <select v-model="topicCurrency">
+            <select v-model.trim="topicCurrency">
               <option :value ="item.currency" v-for="item in this.activeUser.resource.balances">{{item.currency}}</option>
             </select>
           </td>
@@ -199,6 +199,22 @@ export default {
         this.$store.commit('envaluePopup', {
           status: 1,
           msg: '表格需要填写完整！',
+        });
+        this.$store.commit('switchModalPopup');
+        return;
+      }
+      if (this.topicGuarantee <= 0) {
+        this.$store.commit('envaluePopup', {
+          status: 1,
+          msg: '保证金不正确',
+        });
+        this.$store.commit('switchModalPopup');
+        return;
+      }
+      if (this.topicShare <= 0) {
+        this.$store.commit('envaluePopup', {
+          status: 1,
+          msg: '初始股份不正确，推荐份数是十的正整倍数',
         });
         this.$store.commit('switchModalPopup');
         return;

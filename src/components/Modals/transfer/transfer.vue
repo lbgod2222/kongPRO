@@ -22,7 +22,7 @@
         </span>
         <span class="fee">
           {{ $t('transfer_fee') }}
-          <input type="number" v-model="fee" disabled>
+          <input type="number" placeholder="0.1XAS" v-model="fee" disabled>
         </span>
         <span class="extra">
           {{ $t('transfer_msg') }}
