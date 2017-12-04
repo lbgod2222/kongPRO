@@ -24,7 +24,7 @@
       </div>
     </transition>
     <transition name="popup">
-      <popup v-show="this.ModalPopup"></popup>
+      <popup v-if="this.ModalPopup"></popup>
     </transition>
   </div>
 </template>
