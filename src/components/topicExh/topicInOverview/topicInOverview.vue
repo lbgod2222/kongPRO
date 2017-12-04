@@ -114,7 +114,7 @@ export default {
       choice: null,
       isCurtain: false,
       share: 0,
-      calcInfo: '请输入',
+      calcInfo: '请在输入栏中输入',
       options: {},
       record: {},
       showDeal: {},
@@ -260,7 +260,7 @@ export default {
         return;
       }
       if (window.sessionStorage.isLogin) {
-        this.calcInfo = '请输入';
+        this.calcInfo = '请在输入栏中输入';
         this.isBuy = false;
         this.$store.commit('switchBlackSheepWall');
         this.sellModal = true;
@@ -285,7 +285,7 @@ export default {
         return;
       }
       if (window.sessionStorage.isLogin) {
-        this.calcInfo = '请输入';
+        this.calcInfo = '请在输入栏中输入';
         this.isBuy = true;
         this.$store.commit('switchBlackSheepWall');
         this.sellModal = true;
@@ -327,7 +327,7 @@ export default {
       if (that.share < 0) {
         this.$store.commit('envaluePopup', {
           status: 1,
-          msg: '请输入大于零的数字!',
+          msg: '请在输入栏中输入大于零的数字!',
         });
         this.$store.commit('switchModalPopup');
       }

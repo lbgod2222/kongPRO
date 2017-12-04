@@ -24,9 +24,11 @@ export default {
   },
   created() {
     console.log(this, 'this!!!!!!!!!!!!!!!');
-    setTimeout(() => {
-      this.close();
-    }, 2000);
+    if (this.PopupStatus.status === 0) {
+      setTimeout(() => {
+        this.close();
+      }, 2000);
+    }
   },
   computed: {
     ...mapState(['PopupStatus']),
