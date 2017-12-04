@@ -125,7 +125,7 @@
   "transfer_tip": "请确认您的输入正确",
   "transfer_currency": "币种",
   "transfer_transferTo": "转账到",
-  "transfer_amount": "账户",
+  "transfer_amount": "数额",
   "transfer_fee": "费用",
   "transfer_msg": "消息",
   "transfer_submit": "转账",

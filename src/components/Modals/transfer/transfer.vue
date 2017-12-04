@@ -18,7 +18,7 @@
         </span>
         <span class="amount">
           {{ $t('transfer_amount') }}
-          <input type="number" v-model="amount">
+          <input type="number" min="0" v-model="amount">
         </span>
         <span class="fee">
           {{ $t('transfer_fee') }}
@@ -64,12 +64,23 @@ export default {
       this.$store.commit('switchModalTransfer');
     },
     toTransfer() {
+      // 地址合理性检查
       if (!aschJS.crypto.isAddress(this.receiveAddress)) {
         this.$store.commit('envaluePopup', {
           status: 1,
           msg: '您输入的地址不符合规范，请确认',
         });
         this.$store.commit('switchModalPopup');
+        return;
+      }
+      // 整数检查
+      if (this.amount < 0) {
+        this.$store.commit('envaluePopup', {
+          status: 1,
+          msg: '转账数额不能为负数',
+        });
+        this.$store.commit('switchModalPopup');
+        return;
       }
       const that = this;
       this.$store.dispatch('toTransfer', {
