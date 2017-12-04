@@ -10,7 +10,7 @@
             <tr>
               <td>{{ $t('personal_info_nickname') }}</td>
               <td v-if="!this.isSetNick"><input type="text" class="nickName" v-model="name" @click.once="showRulesForNick"><span class="nickTip">{{ $t('personal_info_tip') }}</span></td>
-              <td v-if="this.isSetNick">{{this.user.resource.extra.str1}}</td>
+              <td v-if="this.isSetNick">{{this.storeName}}</td>
             </tr>
             <tr>
               <td>{{ $t('personal_info_address') }}</td>
@@ -36,19 +36,25 @@ export default {
     return {
       address: '',
       name: '',
+      storeName: '',
       isSetNick: false,
     };
   },
   created() {
     console.log(this, 'created!!!!!!!');
     this.address = window.sessionStorage.address;
-    // if (this.$store.state.user.resource.extra === null) {
-    //   this.isSetNick = false;
-    // } else {
-    //   this.isSetNick = true;
-    // }
+    this.storeName = window.sessionStorage.name;
+    if (!window.sessionStorage.hasNick) {
+      this.isSetNick = false;
+    } else {
+      this.storeName = window.sessionStorage.nickName;
+      this.isSetNick = true;
+    }
     this.updateInfo();
     console.log('"after inspect the is setNick"');
+  },
+  beforeMount() {
+    this.updateInfo();
   },
   computed: {
     ...mapState(['user']),
@@ -89,7 +95,7 @@ export default {
               that,
             }).then((res2) => {
               if (res2.data.account.extra) {
-                that.$store.commit('hasSetNick');
+                that.$store.commit('hasSetNick', { name: res2.data.account.extra.str1 });
               }
               that.$store.commit('login', {
                 resource: res2.data.account,

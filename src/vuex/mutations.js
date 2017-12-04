@@ -20,9 +20,12 @@ const mutations = {
     state.isLogin = !state.isLogin;
   },
   // nick monitor
-  hasSetNick: (state) => {
+  hasSetNick: (state, { name }) => {
     state.hasNick = true;
-    window.sessionStorage.setItem('hasNick', true);
+    if (name !== null) {
+      window.sessionStorage.nickName = name;
+      window.sessionStorage.setItem('hasNick', true);
+    }
   },
   // switch blackSheepWall
   switchBlackSheepWall: (state) => {

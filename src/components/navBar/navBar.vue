@@ -41,7 +41,7 @@ export default {
         that,
       }).then((res) => {
         if (res.data.account.extra) {
-          that.$store.commit('hasSetNick');
+          that.$store.commit('hasSetNick', { name: null });
         }
         that.$store.commit('login', {
           resource: res.data.account,
