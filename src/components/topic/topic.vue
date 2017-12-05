@@ -46,6 +46,7 @@ export default {
         this.$store.commit('switchModalPopup');
         return;
       }
+      this.$store.commit('whatTime');
       this.$store.commit('switchBlackSheepWall');
       this.$store.commit('switchModalLaunchTopic');
     },
