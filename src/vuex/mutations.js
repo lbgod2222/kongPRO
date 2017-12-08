@@ -27,6 +27,15 @@ const mutations = {
       window.sessionStorage.setItem('hasNick', true);
     }
   },
+  // envalue rightbow time
+  whatTime: () => {
+    const rightnow = new Date();
+    const rightnowYear = rightnow.getFullYear();
+    const rightnowDay = rightnow.getDate();
+    const rightnowMonth = rightnow.getMonth() + 1;
+    const strDead = `${rightnowYear}-${rightnowMonth}-${rightnowDay}`;
+    window.sessionStorage.today = strDead;
+  },
   // switch blackSheepWall
   switchBlackSheepWall: (state) => {
     state.blackSheepWall = !state.blackSheepWall;

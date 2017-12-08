@@ -39,7 +39,7 @@
         </tr>
         <tr>
           <td>{{ $t('launchTopic_endTime') }}</td>
-          <td class="endTime">
+          <td class="endTime" @click="envalueDead">
             <!-- <input type="number" class="year" v-model="endTime.year">{{ $t('launchTopic_endTime_YEAR') }}<input type="number" class="month" v-model="endTime.month">{{ $t('launchTopic_endTime_MONTH') }}<input type="number" class="day" v-model="endTime.day">{{ $t('launchTopic_endTime_DAY') }}<input type="number" class="hour" v-model="endTime.hour">时<input type="number" class="minute" v-model="endTime.minute">分<input type="number" class="second" v-model="endTime.second">{{ $t('launchTopic_endTime_SECOND') }} -->
             <date-picker :date="date" :option="option" :limit="limit"></date-picker>
           </td>
@@ -151,8 +151,9 @@ export default {
         format:"YYYY-MM-DD HH:mm:ss"
       },
       limit: [{
-        type: 'weekday',
-        available: [0, 1, 2, 3, 4, 5, 6]
+        type: 'fromto',
+        from: window.sessionStorage.today,
+        to: '2038-12-5'
       }]
     };
   },
@@ -163,9 +164,19 @@ export default {
     },
   },
   created() {
-    console.log(this);
+    
   },
   methods: {
+    // envalue the deadline of datepicker
+    envalueDead() {
+      const rightnow = new Date();
+      const rightnow_year = rightnow.getFullYear();
+      const rightnow_day = rightnow.getDate();
+      const rightnow_month = rightnow.getMonth() + 1;
+      const str_dead = `${rightnow_year}-${rightnow_month}-${rightnow_day}`
+      console.log(str_dead);
+      this.limit.from = str_dead;
+    },
     // timely count the block added number
     blockAdded() {
       const currentTime = new Date().getTime();
