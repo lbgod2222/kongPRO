@@ -222,7 +222,7 @@ export default {
       if (this.optList.length < 2) {
         this.$store.commit('envaluePopup', {
           status: 1,
-          msg: '选项数量不正确！',
+          msg: '请至少提供两个选项！',
         });
         this.$store.commit('switchModalPopup');
         return;
