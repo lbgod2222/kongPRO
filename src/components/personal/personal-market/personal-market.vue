@@ -69,10 +69,7 @@ export default {
         return '等待揭示';
       }
       if (state === 2) {
-        return '等待宣布';
-      }
-      if (state === 3) {
-        return '仲裁中';
+        return '公示中';
       }
       return '已完成';
     };
