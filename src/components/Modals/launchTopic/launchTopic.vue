@@ -63,7 +63,7 @@
         </tr>
         <tr>
           <td>{{ $t('launchTopic_fee') }}</td>
-          <td>1 %</td>
+          <td>0.1 XAS</td>
         </tr>
         <!-- <tr>
           <td>TOPIC TYPE</td>
