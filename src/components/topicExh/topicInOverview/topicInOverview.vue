@@ -236,6 +236,14 @@ export default {
     },
     // to popup your insufficient balance
     callIncalid() {
+      if (!window.sessionStorage.isLogin) {
+        this.$store.commit('envaluePopup', {
+          status: 1,
+          msg: '请先登录',
+        });
+        this.$store.commit('switchModalPopup');
+        return;
+      }
       this.$store.commit('envaluePopup', {
         status: 1,
         msg: '股份不足',
