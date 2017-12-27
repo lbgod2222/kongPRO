@@ -47,8 +47,8 @@ export default {
   .popup-contain{
       position: fixed;
       box-sizing: border-box;
-      top: 40%;
-      left: 40%;
+      top: calc(50% - 125px);
+      left: calc(50% - 125px);
       background-color: #2A2C2D;
       width: 250px;
       height: 250px;
