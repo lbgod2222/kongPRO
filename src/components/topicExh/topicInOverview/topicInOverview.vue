@@ -103,7 +103,7 @@
 import formatDateTime from '../../../../static/js/getRealTime';
 
 export default {
-  name: 'topic-_overView',
+  name: 'topic-overView',
   props: ['answer', 'statue'],
   data() {
     return {

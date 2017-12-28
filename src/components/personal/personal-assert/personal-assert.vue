@@ -91,9 +91,12 @@ export default {
         address: this.$store.state.user.address,
         that,
       });
+      console.log('after login action');
       if (loginAct.data.account.extra) {
-        that.$store.commit('hasSetNick');
+        that.$store.commit('hasSetNick',{name: loginAct.data.account.extra.str1});
+        console.log('str1 detected!');
       }
+      console.log('login action process!');
       this.$store.commit('login', {
         resource: loginAct.data.account,
       });
@@ -105,6 +108,7 @@ export default {
         id: window.sessionStorage.address,
         that,
       });
+      console.log('here is the record!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!',recordAct);
       this.transactionRecord = recordAct.data.transfers;
       this.totalCount = recordAct.data.count;
       const arr = this.transactionRecord;

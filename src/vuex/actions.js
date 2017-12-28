@@ -217,7 +217,7 @@ const actions = {
   },
   // 获取交易信息
   getTransactionInfo({ commit }, { limit, offset, currency, id, that }) {
-    console.log(limit, offset, id, currency);
+    console.log(limit, offset, id, currency, 'come from action');
     return that.$axios.get(recordUrl, {
       params: {
         limit: limit,
