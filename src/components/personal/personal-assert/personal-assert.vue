@@ -339,6 +339,7 @@ export default {
   /* 动画 */
  /* 黑幕 */
   .curtain{
+    z-index: 99;
     position: absolute;
     top: 0;
     height: 600px;

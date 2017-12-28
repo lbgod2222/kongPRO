@@ -288,7 +288,7 @@ export default {
     height: 100%;
     width: 100%;
     background-color: rgba(0, 0, 0, .8);
-    z-index: 9;
+    z-index: 99;
   }
   .curtain iframe{
     display: block;

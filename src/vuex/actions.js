@@ -52,8 +52,13 @@ const actions = {
     return that.$axios.get(`${getMarketOverviewUrl}/${id}/shares/${address}`);
   },
   // 获取交易记录
-  getAllTradeRecord({ commit }, { id, that }) {
-    return that.$axios.get(`${getMarketOverviewUrl}/${id}/trades`);
+  getAllTradeRecord({ commit }, { id, limit, offset, that }) {
+    return that.$axios.get(`${getMarketOverviewUrl}/${id}/trades`, {
+      params: {
+        limit,
+        offset,
+      }
+    });
   },
   // 获取所有评论
   getAllcomment({ commit }, { id, limit, offset, that }) {

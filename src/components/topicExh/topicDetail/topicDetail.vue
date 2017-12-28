@@ -64,6 +64,7 @@ export default {
     width: 100%;
     background-color: rgba(0, 0, 0, .8);
     min-height: 600px;
+    z-index: 99;
   }
   .curtain iframe{
     display: block;

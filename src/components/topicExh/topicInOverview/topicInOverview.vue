@@ -62,6 +62,12 @@
             </tr>
           </tbody>
         </table>
+        <!-- 分页组件 -->
+      <div class="pageGroup">
+        <span class="pre_btn" @click="minPage()"></span>
+        <span class="num_btn" v-for="(value, index) in this.page" @click="goto(value)" :class="{'active_btn':currentPage == Number(value)}">{{Number(value)}}</span>
+        <span class="next_btn" @click="addPage()"></span>
+      </div>
     </div>
     <div class="sellModal" v-show="this.sellModal">
       <span class="close" @click="close">X</span>
@@ -100,6 +106,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 import formatDateTime from '../../../../static/js/getRealTime';
 
 export default {
@@ -118,6 +125,11 @@ export default {
       options: {},
       record: {},
       showDeal: {},
+      // 分页states
+      pageSpots: 5,
+      currentPage: 1,
+      totalCount: 0,
+      pageLimit: 20,
     };
   },
   async created() {
@@ -153,6 +165,8 @@ export default {
     // trade record in one market
     const c = await this.$store.dispatch('getAllTradeRecord', {
       id: this.$route.params.id,
+      limit: 20,
+      offset: 0,
       that,
     });
     this.record = c.data.trades;
@@ -160,6 +174,38 @@ export default {
       this.record[i].realTime = formatDateTime.formatDateTime(this.record[i].t_timestamp);
     }
     this.isCurtain = false;
+  },
+  computed: {
+    allPage() {
+      if (Math.ceil(this.totalCount / 10) === 0) {
+        return 1;
+      } else {
+        return Math.ceil(this.totalCount / 10);
+      }
+    },
+    offsetNum() {
+      return (this.currentPage - 1) * 10;
+    },
+    // 构造页签数组
+    page: function () {
+      let pag = []
+      if (this.currentPage < this.pageSpots) {
+        let i = Math.min(this.pageSpots, this.allPage);
+        while (i) {
+          pag.unshift(i--);
+        }
+      } else if (this.currentPage >= this.pageSpots) {
+        let middle = this.currentPage - Math.floor(this.pageSpots / 2);
+        let i = this.pageSpots;
+        if (middle > (this.allPage - this.pageSpots)) {
+          middle = (this.allPage - this.pageSpots) + 1;
+        }
+        while (i--) {
+          pag.push(middle++)
+        }
+      }
+      return pag;
+    },
   },
   mounted() {
     // minitor the the refresh comand from father componment
@@ -195,6 +241,8 @@ export default {
       // trade record in one market
       const c = await this.$store.dispatch('getAllTradeRecord', {
         id: this.$route.params.id,
+        limit: 20,
+        offset: 0,
         that,
       });
       this.record = c.data.trades;
@@ -218,6 +266,63 @@ export default {
     // });
   },
   methods: {
+    // 获取数据
+    getData() {
+      this.isCurtain = true;
+      const that = this;
+      this.$store.dispatch('getAllTradeRecord', {
+        id: this.$route.params.id,
+        limit: this.pageLimit,
+        offset: this.offsetNum,
+        that,
+      }).then((res) => {
+        if (res.data.success) {
+          that.record = res.data.trades;
+          for (let i = 0; i < that.record.length; i += 1) {
+            that.record[i].realTime = formatDateTime.formatDateTime(that.record[i].t_timestamp);
+          }
+          this.isCurtain = false;
+        } else {
+          this.$store.commit('envaluePopup', {
+            status: 1,
+            msg: '网络错误',
+          });
+          this.$store.commit('switchModalPopup');
+          return;
+        }
+      })
+    },
+    // pagination methods
+    addPage(){
+      console.log('+', this.page, this.currentPage);
+      let that = this;
+      if (this.currentPage < this.allPage) {
+        this.currentPage = this.currentPage + 1;
+        // that.currentPage = that.currentPage + 1
+        this.getData();
+      } else {
+        return;
+      }
+    },
+    minPage(){
+      console.log('-', this.page, this.currentPage);
+      let that = this;
+      if (that.currentPage > 1) {
+        this.currentPage = this.currentPage - 1;
+        this.getData();
+      } else {
+        return;
+      }
+    },
+    // 页面跳转
+    goto(value){
+      console.log('goto', value, this.page, this.currentPage);
+      let that = this;
+      if (value === this.currentPage) return;
+      // that.currentPage = index
+      this.currentPage = value;
+      this.getData();
+    },
     // tick render
     renderTick(res) {
       const that = this;
@@ -436,7 +541,7 @@ export default {
 
 <style scoped>
   ._overView-contain{
-    /* position: relative; */
+    position: relative;
     background-color: rgb(37, 39, 40);
     width: 100%;
     padding-bottom: 40px;
@@ -475,7 +580,9 @@ export default {
    cursor: pointer;
  }
  .transitionDetail{
+   position: relative;
    margin-top: 30px;
+   padding-bottom: 50px;
  }
   .transitionDetail table{
     width: 100%;
@@ -583,9 +690,46 @@ export default {
    line-height: 40px;
    margin: 20px auto;
  }
+ /* 分页 */
+  .pageGroup{
+    position: absolute;
+    bottom: 0;
+    right: 0;;
+  }
+  .pageGroup span{
+    display: inline-block;
+    height: 24px;
+    width: 24px;
+    line-height: 24px;
+    text-align: center;
+    border: 1px solid #838383;
+    color: #8E8E93;
+    vertical-align: bottom;
+    cursor: pointer;
+  }
+  .active_btn{
+    background-color: #00B9D7 !important;
+    color: #000 !important;
+  }
+  /* .pageGroup span img{
+    height: 70%;
+  } */
+  .pageGroup span.pre_btn{
+    background-image: url('/static/img/Previous page.png');
+    background-size: 35% 55%;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  .pageGroup span.next_btn{
+    background-image: url('/static/img/next page.png');
+    background-size: 35% 55%;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
  /* 动画 */
  /* 黑幕 */
   .curtain{
+    z-index: 99;
     position: absolute;
     top: 0;
     height: 100%;

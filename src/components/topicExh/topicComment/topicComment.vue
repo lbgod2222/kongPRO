@@ -68,7 +68,6 @@ export default {
       offset: this.offsetNum,
       that,
     });
-    console.log(resData, 'hey there');
     that.allComment = resData.data.comments;
     that.totalCount = resData.data.count;
     for (let i = 0; i < that.allComment.length; i += 1) {
@@ -143,7 +142,7 @@ export default {
       if (this.currentPage < this.allPage) {
         this.currentPage = this.currentPage + 1;
         // that.currentPage = that.currentPage + 1
-        this.getData(this.contentStatus, 12, this.offsetNum);
+        this.getData();
       } else {
         return;
       }
@@ -153,7 +152,7 @@ export default {
       let that = this;
       if (that.currentPage > 1) {
         this.currentPage = this.currentPage - 1;
-        this.getData(this.contentStatus, 12, this.offsetNum);
+        this.getData();
       } else {
         return;
       }
@@ -165,7 +164,7 @@ export default {
       if (value === this.currentPage) return;
       // that.currentPage = index
       this.currentPage = value;
-      this.getData(this.contentStatus, 12, this.offsetNum);
+      this.getData();
     },
     // 发布评论
     comment() {
@@ -360,6 +359,7 @@ export default {
     min-height: 600px;
     width: 100%;
     background-color: rgba(0, 0, 0, .8);
+    z-index: 99;
   }
   .curtain iframe{
     display: block;
