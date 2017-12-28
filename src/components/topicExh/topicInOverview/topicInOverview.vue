@@ -76,7 +76,7 @@
         </tr>
         <tr>
           <td>{{ $t('topicExh_InOverview_fee') }}</td>
-          <td class="fee">1 XAS</td>
+          <td class="fee">0.1 XAS</td>
         </tr>
       </table>
       <div class="confirmBtn" @click="dealConfirm">{{ $t('topicExh_InOverview_confirm') }}</div>
