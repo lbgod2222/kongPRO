@@ -22,7 +22,7 @@
   "personal_assert_amount": "资产数量",
   "personal_assert_operation": "操作",
   "personal_assert_transfer": "转账",
-  "personal_assert_transferRec": "转账记录",
+  "personal_assert_transferRec": "交易记录",
   "personal_assert_currency": "资产类型",
   "personal_assert_sender": "发起者",
   "personal_assert_receiver": "接收者",
