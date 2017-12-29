@@ -458,15 +458,23 @@ export default {
     dealConfirm() {
       console.log('pressed that btn!', this.isBuy);
       const that = this;
-      if (this.share <= 0) {
-        this.$store.commit('envaluePopup', {
-          status: 1,
-          msg: '交易份额必须大于零!',
-        });
-        this.$store.commit('switchModalPopup');
-        return;
-      }
+      // if (this.share <= 0) {
+      //   this.$store.commit('envaluePopup', {
+      //     status: 1,
+      //     msg: '交易份额必须大于零!',
+      //   });
+      //   this.$store.commit('switchModalPopup');
+      //   return;
+      // }
       if (this.isBuy === true) {
+        if (this.share <= 0) {
+          this.$store.commit('envaluePopup', {
+            status: 1,
+            msg: '交易份额必须大于零!',
+          });
+          this.$store.commit('switchModalPopup');
+          return;
+        }
         console.log('buy');
         this.$store.dispatch('tradeShare', {
           id: this.$route.params.id,
@@ -492,6 +500,14 @@ export default {
         });
       } else if (this.isBuy === false) {
         console.log('sell');
+        if (this.share <= 0) {
+          this.$store.commit('envaluePopup', {
+            status: 1,
+            msg: '交易份额必须大于零!',
+          });
+          this.$store.commit('switchModalPopup');
+          return;
+        }
         this.$store.dispatch('tradeShare', {
           id: this.$route.params.id,
           share: this.share - (this.share * 2),
