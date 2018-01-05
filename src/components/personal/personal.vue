@@ -72,6 +72,7 @@ export default {
     justify-content: flex-end;
     box-shadow: 0px 0px 10px rgb(26, 29, 29);
     width: 16%;
+    max-width: 280px;
     height: 460px;
     float: left;
     background-color: rgb(37, 39, 40);
