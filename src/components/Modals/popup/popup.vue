@@ -1,6 +1,6 @@
 <template>
   <div class="popup-contain">
-    <b @click="close()">X</b>
+    <b @click="close()" v-show="this.PopupStatus.status === 1">X</b>
     <div class="content">
       <b>{{PopupStatus.msg}}</b>
       <span class="success" v-show="this.PopupStatus.status === 0">
