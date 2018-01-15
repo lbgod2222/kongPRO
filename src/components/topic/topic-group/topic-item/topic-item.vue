@@ -83,7 +83,7 @@ export default {
 .info p{
     display: block;
     height: 5vw;
-    overflow: overlay;
+    overflow: auto;
     box-sizing: border-box;
     padding-top: 10px;
 }
