@@ -206,7 +206,7 @@ export default {
     },
     issueTopic() {
       let that = this;
-      if (this.topicTitle === '' || this.topicDesc === '' || this.topicCurrency === '' || this.topicGuarantee === '' || this.topicShare === '') {
+      if (this.topicTitle === '' || this.topicUrl === '' || this.topicDesc === '' || this.topicCurrency === '' || this.topicGuarantee === '' || this.topicShare === '') {
         this.$store.commit('envaluePopup', {
           status: 1,
           msg: '表格需要填写完整！',

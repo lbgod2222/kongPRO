@@ -557,7 +557,7 @@ export default {
 
 <style scoped>
   ._overView-contain{
-    position: relative;
+    /* position: relative; */
     background-color: rgb(37, 39, 40);
     width: 100%;
     padding-bottom: 40px;
