@@ -126,7 +126,7 @@
   "launchTopic_currency": "资产",
   "launchTopic_fee": "费用",
   "launchTopic_submit": "发布",
-  "launchTopic_detailTip": "简述你的市场",
+  "launchTopic_detailTip": "简述你的市场(5-256长度)",
   "launchTopic_optionTip": "输入并按下回车确认",
   "launchTopic_pictureTip": "在这里输入图片的url",
   "launchTopic_shareTip": "初始份数",

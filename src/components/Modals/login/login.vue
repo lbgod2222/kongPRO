@@ -10,7 +10,7 @@
       <input type="password" v-model.trim="secret" v-bind:placeholder="$t('login_placeholder')">
       <div class="_btn">
         <a href="#" class="login" @click.prevent="toLogin">{{ $t('login_login') }}</a>
-        <a href="http://asch.so/" target="_blank" class="official">{{ $t('login_newAccount') }}</a>
+        <a href="https://wallet.asch.io/#/login" target="_blank" class="official">{{ $t('login_newAccount') }}</a>
       </div>
     </div>
   </div>
