@@ -205,11 +205,20 @@ export default {
       this.optList.splice(index, 1);
     },
     issueTopic() {
+      console.log(this);
       let that = this;
+      if (this.topicTitle.length < 5 || this.topicTitle.length > 256) {
+        this.$store.commit('envaluePopup', {
+          status: 1,
+          msg: this.$t('launchTopic_tip_title'),
+        });
+        this.$store.commit('switchModalPopup');
+        return;
+      }
       if (this.topicTitle === '' || this.topicUrl === '' || this.topicDesc === '' || this.topicCurrency === '' || this.topicGuarantee === '' || this.topicShare === '') {
         this.$store.commit('envaluePopup', {
           status: 1,
-          msg: '表格需要填写完整！',
+          msg: this.$t('launchTopic_tip_needwhole'),
         });
         this.$store.commit('switchModalPopup');
         return;
@@ -217,7 +226,7 @@ export default {
       if (this.topicGuarantee <= 0) {
         this.$store.commit('envaluePopup', {
           status: 1,
-          msg: '保证金不正确',
+          msg: this.$t('launchTopic_tip_guarantee'),
         });
         this.$store.commit('switchModalPopup');
         return;
@@ -225,7 +234,7 @@ export default {
       if (this.topicShare <= 0) {
         this.$store.commit('envaluePopup', {
           status: 1,
-          msg: '初始股份不正确，推荐份数是十的正整倍数',
+          msg: this.$t('launchTopic_tip_initshares'),
         });
         this.$store.commit('switchModalPopup');
         return;
@@ -233,7 +242,7 @@ export default {
       if (this.optList.length < 2) {
         this.$store.commit('envaluePopup', {
           status: 1,
-          msg: '请至少提供两个选项！',
+          msg: this.$t('launchTopic_tip_options'),
         });
         this.$store.commit('switchModalPopup');
         return;
@@ -258,7 +267,7 @@ export default {
             if (res.data.success === true) {
               this.$store.commit('envaluePopup', {
                 status: 0,
-                msg: '发布成功!',
+                msg: this.$t('launchTopic_tip_success'),
               });
               this.$store.commit('switchModalPopup');
             } else {

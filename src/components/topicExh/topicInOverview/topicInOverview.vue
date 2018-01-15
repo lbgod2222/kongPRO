@@ -55,7 +55,7 @@
             <tr v-for="(item, index) in this.record">
               <!--<td>1</td>-->
               <td>{{item.realTime}}</td>
-              <td>{{item.share > 0 ? '买' : '卖'}}</td>
+              <td>{{item.share > 0 ? $t('buy') : $t('sell')}}</td>
               <td>{{item.choice}}</td>
               <td>{{Math.abs(item.share)}}</td>
               <td>{{Math.abs(item.amount / 1e8)}}</td>
@@ -73,7 +73,7 @@
       <span class="close" @click="close">X</span>
       <table>
         <tr>
-          <td>{{this.isBuy === true ? '买入' : '卖出'}}</td>
+          <td>{{this.isBuy === true ? $t('buy') :  $t('sell')}}</td>
           <td class="buy"><input v-model="share" min="0" type="number" @change="getPrice" @keyup="getPrice">{{ $t('topicExh_InOverview_share') }}</td>
         </tr>
         <tr>
@@ -121,7 +121,7 @@ export default {
       choice: null,
       isCurtain: false,
       share: 0,
-      calcInfo: '请在输入栏中输入',
+      calcInfo: this.$t('topicExh_InOverview_placeholder'),
       options: {},
       record: {},
       showDeal: {},
@@ -285,7 +285,7 @@ export default {
         } else {
           this.$store.commit('envaluePopup', {
             status: 1,
-            msg: '网络错误',
+            msg: this.$t('topicExh_comment_neterror'),
           });
           this.$store.commit('switchModalPopup');
           return;
@@ -344,14 +344,14 @@ export default {
       if (!window.sessionStorage.isLogin) {
         this.$store.commit('envaluePopup', {
           status: 1,
-          msg: '请先登录',
+          msg: this.$t('personal_assert_tip_login'),
         });
         this.$store.commit('switchModalPopup');
         return;
       }
       this.$store.commit('envaluePopup', {
         status: 1,
-        msg: '股份不足',
+        msg: this.$t('topicExh_InOverview_tip_noshare'),
       });
       this.$store.commit('switchModalPopup');
     },
@@ -359,7 +359,7 @@ export default {
       if (!window.sessionStorage.isLogin) {
         this.$store.commit('envaluePopup', {
           status: 1,
-          msg: '请先登录',
+          msg: this.$t('personal_assert_tip_login'),
         });
         this.$store.commit('switchModalPopup');
         return;
@@ -367,13 +367,13 @@ export default {
       if (!window.sessionStorage.hasNick) {
         this.$store.commit('envaluePopup', {
           status: 1,
-          msg: '请先设置昵称',
+          msg: this.$t('personal_assert_tip_nick'),
         });
         this.$store.commit('switchModalPopup');
         return;
       }
       if (window.sessionStorage.isLogin) {
-        this.calcInfo = '请在输入栏中输入';
+        this.calcInfo = this.$t('topicExh_InOverview_placeholder');
         this.isBuy = false;
         this.$store.commit('switchBlackSheepWall');
         this.sellModal = true;
@@ -384,7 +384,7 @@ export default {
       if (!window.sessionStorage.isLogin) {
         this.$store.commit('envaluePopup', {
           status: 1,
-          msg: '请先登录',
+          msg: this.$t('personal_assert_tip_login'),
         });
         this.$store.commit('switchModalPopup');
         return;
@@ -392,13 +392,13 @@ export default {
       if (!window.sessionStorage.hasNick) {
         this.$store.commit('envaluePopup', {
           status: 1,
-          msg: '请先设置昵称',
+          msg: this.$t('personal_assert_tip_nick'),
         });
         this.$store.commit('switchModalPopup');
         return;
       }
       if (window.sessionStorage.isLogin) {
-        this.calcInfo = '请在输入栏中输入';
+        this.calcInfo = this.$t('topicExh_InOverview_placeholder');
         this.isBuy = true;
         this.$store.commit('switchBlackSheepWall');
         this.sellModal = true;
@@ -409,7 +409,7 @@ export default {
       if (!window.sessionStorage.isLogin) {
         this.$store.commit('envaluePopup', {
           status: 1,
-          msg: '请先登录',
+          msg: this.$t('personal_assert_tip_login'),
         });
         this.$store.commit('switchModalPopup');
         return;
@@ -417,7 +417,7 @@ export default {
       if (!window.sessionStorage.hasNick) {
         this.$store.commit('envaluePopup', {
           status: 1,
-          msg: '请先设置昵称',
+          msg: this.$t('personal_assert_tip_nick'),
         });
         this.$store.commit('switchModalPopup');
         return;
@@ -440,11 +440,11 @@ export default {
       if (that.share < 0) {
         this.$store.commit('envaluePopup', {
           status: 1,
-          msg: '请在输入栏中输入大于零的数字!',
+          msg: this.$t('topicExh_InOverview_placeholder'),
         });
         this.$store.commit('switchModalPopup');
       }
-      this.calcInfo = '请稍后';
+      this.calcInfo = this.$t('wait');
       this.$store.dispatch('getTotalPrice', {
         id: this.$route.params.id,
         choice: that.choice,
@@ -470,7 +470,7 @@ export default {
         if (this.share <= 0) {
           this.$store.commit('envaluePopup', {
             status: 1,
-            msg: '交易份额必须大于零!',
+            msg: this.$t('topicExh_InOverview_tip_transfer'),
           });
           this.$store.commit('switchModalPopup');
           return;
@@ -486,7 +486,7 @@ export default {
           if (res.data.success === true) {
             this.$store.commit('envaluePopup', {
               status: 0,
-              msg: '购买成功!',
+              msg: this.$t('topicExh_InOverview_tip_success'),
             });
             that.close();
             this.$store.commit('switchModalPopup');
@@ -503,7 +503,7 @@ export default {
         if (this.share <= 0) {
           this.$store.commit('envaluePopup', {
             status: 1,
-            msg: '交易份额必须大于零!',
+            msg: this.$t('topicExh_InOverview_tip_transfer'),
           });
           this.$store.commit('switchModalPopup');
           return;
@@ -517,7 +517,7 @@ export default {
           if (res.data.success === true) {
             this.$store.commit('envaluePopup', {
               status: 0,
-              msg: '售卖成功!',
+              msg: this.$t('topicExh_InOverview_tip_success'),
             });
             that.close();
             this.$store.commit('switchModalPopup');
@@ -537,7 +537,7 @@ export default {
           if (res.data.success === true) {
             this.$store.commit('envaluePopup', {
               status: 0,
-              msg: '兑换成功!',
+              msg: this.$t('topicExh_InOverview_exchange'),
             });
             that.close();
             this.$store.commit('switchModalPopup');

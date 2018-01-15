@@ -157,7 +157,7 @@ export default {
       if (!window.sessionStorage.hasNick) {
         this.$store.commit('envaluePopup', {
           status: 1,
-          msg: '请先设置昵称',
+          msg: this.$t('personal_assert_tip_nick'),
         });
         this.$store.commit('switchModalPopup');
         return;

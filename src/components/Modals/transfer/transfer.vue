@@ -68,7 +68,7 @@ export default {
       if (!aschJS.crypto.isAddress(this.receiveAddress)) {
         this.$store.commit('envaluePopup', {
           status: 1,
-          msg: '您输入的地址不符合规范，请确认',
+          msg: this.$t('transfer_tip_address'),
         });
         this.$store.commit('switchModalPopup');
         return;
@@ -77,7 +77,7 @@ export default {
       if (this.amount < 0) {
         this.$store.commit('envaluePopup', {
           status: 1,
-          msg: '转账数额不能为负数',
+          msg: this.$t('transfer_tip_amount'),
         });
         this.$store.commit('switchModalPopup');
         return;
@@ -93,7 +93,7 @@ export default {
         if (res.data.success === true) {
           this.$store.commit('envaluePopup', {
             status: 0,
-            msg: '转账成功!',
+            msg: this.$t('transfer_tip_success'),
           });
           this.$store.commit('switchModalPopup');
           this.close();

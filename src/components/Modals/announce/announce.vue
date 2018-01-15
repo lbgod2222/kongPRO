@@ -76,7 +76,7 @@ export default {
         if (res.data.success === true) {
             this.$store.commit('envaluePopup', {
               status: 0,
-              msg: '答案宣布成功，请等待下一步!',
+              msg: this.$t('announce_tip_success'),
             });
             this.$store.commit('switchModalPopup');
           } else {

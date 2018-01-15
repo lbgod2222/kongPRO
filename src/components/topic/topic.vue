@@ -33,7 +33,7 @@ export default {
       if (!this.$store.state.isLogin) {
         this.$store.commit('envaluePopup', {
           status: 1,
-          msg: 'topic_lunch',
+          msg: this.$t('personal_assert_tip_login'),
         });
         this.$store.commit('switchModalPopup');
         return;
@@ -41,7 +41,7 @@ export default {
       if (!window.sessionStorage.hasNick) {
         this.$store.commit('envaluePopup', {
           status: 1,
-          msg: '请先设置昵称',
+          msg: this.$t('personal_assert_tip_nick'),
         });
         this.$store.commit('switchModalPopup');
         return;

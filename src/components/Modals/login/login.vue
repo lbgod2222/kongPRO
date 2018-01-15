@@ -38,7 +38,7 @@ export default {
       if (!Mnemonic.isValid(this.secret)) {
         that.$store.commit('envaluePopup', {
           status: 1,
-          msg: '密钥不符合规范',
+          msg: this.$t('login_tip_notvalid'),
         });
         this.secret = '';
         return this.$store.commit('switchModalPopup');

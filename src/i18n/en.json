@@ -1,4 +1,9 @@
 {
+  "buy": "BUY",
+  "sell": "SELL",
+  "deal": "DEAL",
+  "wait": "Waitting...",
+
   "navBar_login": "LOGIN",
   "navBar_logout": "LOGOUT",
   "navBar_home": "HOME",
@@ -16,6 +21,7 @@
   "personal_info_address": "Address",
   "personal_info_save": "SAVE",
   "personal_info_tip": "We charge depend on what you typed",
+  "personal_info_tip_success": "Nickname set successfully! waitting for synchronization",
 
   "personal_assert_myAssert": "Asset",
   "personal_assert_name": "AssetName",
@@ -28,6 +34,8 @@
   "personal_assert_receiver": "Receiver",
   "personal_assert_transferTime": "TransferTime",
   "personal_assert_total": "TOTAL",
+  "personal_assert_tip_nick": "You should set the nick first",
+  "personal_assert_tip_login": "You should login first",
 
   "personal_market_myMarket": "My Market",
   "personal_market_topic": "Topic",
@@ -88,10 +96,17 @@
   "topicExh_InOverview_exchange": "EXCHANGE",
   "topicExh_InOverview_dealTime": "Deal Time",
   "topicExh_InOverview_ratherToExchange": "Ready to exchange?",
+  "topicExh_InOverview_placeholder": "Please type in this blank",
+  "topicExh_InOverview_tip_transfer": "Amount of transfer must more then 0",
+  "topicExh_InOverview_tip_noshare": "Not enought shares",
+  "topicExh_InOverview_tip_success": "Transfer successfully！",
   "topicExh_InOverview_answer": "ANSWER",
 
   "topicExh_comment_title": "Comment Area",
   "topicExh_comment_submit": "SUBMIT",
+  "topicExh_comment_neterror": "NET ERROR",
+  "topicExh_comment_noempty": "Content can not be empty",
+  "topicExh_comment_success": "Comment successfully!",
 
   "launchTopic_title": "To launch a topic",
   "launchTopic_topic": "TITLE",
@@ -114,11 +129,18 @@
   "launchTopic_optionTip": "Type and press enter",
   "launchTopic_pictureTip": "Type the image's url",
   "launchTopic_shareTip": "Initial shares",
+  "launchTopic_tip_title": "Length of title should more then 5, and less then 256",
+  "launchTopic_tip_needwhole": "We need you to fill all blanks",
+  "launchTopic_tip_initshares": "Initial shares not correct, we suggest Multiples of 10",
+  "launchTopic_tip_options": "At least 2 options and less then 65 are required",
+  "launchTopic_tip_guarantee": "Amount of guarantee wrong",
+  "launchTopic_tip_success": "Launch successfully!",
 
   "login_title": "LOGIN",
   "login_placeholder": "plase type your account",
   "login_login": "Login",
   "login_newAccount": "New Account",
+  "login_tip_notvalid": "Secret not valid",
 
   "transfer_title": "TRANSFER",
   "transfer_tip": "Make sure that you are typing right info",
@@ -128,9 +150,13 @@
   "transfer_fee": "Fee",
   "transfer_msg": "Message",
   "transfer_submit": "TRANSFER",
+  "transfer_tip_address": "The address is not valid",
+  "transfer_tip_amount": "Amount of transfer can not be minus",
+  "transfer_tip_success": "Transfer successfully",
 
   "announce_title": "ANNOUNCE ANSWER",
   "announce_confirm": "CONFIRM",
   "announce_tip": "IS THIS ONE RIGHT?",
-  "announce_submit": "SUBMIT"
+  "announce_submit": "SUBMIT",
+  "announce_tip_success": "Announced successfully!"
 }

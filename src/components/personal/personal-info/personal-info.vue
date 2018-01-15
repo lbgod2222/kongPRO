@@ -85,7 +85,7 @@ export default {
         if (res.data.success) {
           this.$store.commit('envaluePopup', {
             status: 0,
-            msg: '修改成功,请等待同步!',
+            msg: this.$t('personal_info_tip_success'),
           });
           this.$store.commit('switchModalPopup');
           setTimeout(() => {

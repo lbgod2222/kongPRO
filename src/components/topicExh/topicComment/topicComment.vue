@@ -128,7 +128,7 @@ export default {
         } else {
           this.$store.commit('envaluePopup', {
             status: 1,
-            msg: '网络错误',
+            msg: this.$t('topicExh_comment_neterror'),
           });
           this.$store.commit('switchModalPopup');
           return;
@@ -173,7 +173,7 @@ export default {
       if (!this.content) {
         this.$store.commit('envaluePopup', {
           status: 1,
-          msg: '内容不能为空',
+          msg: this.$t('topicExh_comment_noempty'),
         });
         this.$store.commit('switchModalPopup');
         return;
@@ -181,7 +181,7 @@ export default {
       if (!window.sessionStorage.isLogin) {
         this.$store.commit('envaluePopup', {
           status: 1,
-          msg: '请先登录',
+          msg: this.$t('personal_assert_tip_login'),
         });
         this.$store.commit('switchModalPopup');
         return;
@@ -189,7 +189,7 @@ export default {
       if (!window.sessionStorage.hasNick) {
         this.$store.commit('envaluePopup', {
           status: 1,
-          msg: '请先设置昵称',
+          msg: this.$t('personal_assert_tip_nick'),
         });
         this.$store.commit('switchModalPopup');
         return;
@@ -204,7 +204,7 @@ export default {
           console.log('judge to true');
           that.$store.commit('envaluePopup', {
             status: 0,
-            msg: '评论成功!',
+            msg: this.$t('topicExh_comment_success'),
           });
           that.content = '';
           this.$store.commit('switchModalPopup');
