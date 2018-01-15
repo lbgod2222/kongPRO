@@ -207,7 +207,7 @@ export default {
     issueTopic() {
       console.log(this);
       let that = this;
-      if (this.topicTitle.length < 5 || this.topicTitle.length > 256) {
+      if (this.topicTitle.length < 100 || this.topicTitle.length > 256) {
         this.$store.commit('envaluePopup', {
           status: 1,
           msg: this.$t('launchTopic_tip_title'),

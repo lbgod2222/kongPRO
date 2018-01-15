@@ -129,7 +129,7 @@
   "launchTopic_optionTip": "Type and press enter",
   "launchTopic_pictureTip": "Type the image's url",
   "launchTopic_shareTip": "Initial shares",
-  "launchTopic_tip_title": "Length of title should more then 5, and less then 256",
+  "launchTopic_tip_title": "Length of title should more then 100 and less then 256",
   "launchTopic_tip_needwhole": "We need you to fill all blanks",
   "launchTopic_tip_initshares": "Initial shares not correct, we suggest Multiples of 10",
   "launchTopic_tip_options": "At least 2 options and less then 65 are required",

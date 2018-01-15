@@ -1,6 +1,8 @@
 <template>
   <div class="navBar-contain">
-    <h2>Koumei</h2>
+    <!-- <span class="logo"></span> -->
+    <!-- <h2>Koumei</h2> -->
+    <span src="/static/img/logo.png"></span>
     <router-link to="/" :class="{'active_normal': this.active === 'home'}" @click.native="changeA(1)">{{ $t('navBar_home') }}</router-link>
     <router-link to="/topic/all" :class="{'active_normal': this.active === 'market'}" @click.native="changeA(2)">{{ $t('navBar_market') }}</router-link>
     <!-- <router-link to="/login" exact>LOGIN</router-link> -->
@@ -98,9 +100,12 @@ export default {
       min-width: 1024px;
       padding: 0 0 0 30px;
   }
-  .navBar-contain h2{
-    color: rgb(33, 133, 150);
-    display: inline;
+  .navBar-contain span{
+    background: url('/static/img/logo.png') no-repeat center;
+    line-height: 60px;
+    height: 60px;
+    width: 120px;
+    display: inline-block;
   }
   .active_normal{
     color: rgb(33, 133, 150);
@@ -137,5 +142,6 @@ export default {
   }
   .navBar-contain a:nth-child(2), .navBar-contain a:nth-child(3){
     margin-left: 30px;
+    vertical-align: text-bottom;
   }
 </style>

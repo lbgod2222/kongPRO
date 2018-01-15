@@ -130,7 +130,7 @@
   "launchTopic_optionTip": "输入并按下回车确认",
   "launchTopic_pictureTip": "在这里输入图片的url",
   "launchTopic_shareTip": "初始份数",
-  "launchTopic_tip_title": "标题长度要大于5，小于256个字符",
+  "launchTopic_tip_title": "标题长度要大于100，小于256个字符",
   "launchTopic_tip_needwhole": "表格需要被填写完整",
   "launchTopic_tip_initshares": "初始股份不正确，推荐为10或10的整数倍",
   "launchTopic_tip_options": "选项数量错误，大于2并小于等于64",
