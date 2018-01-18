@@ -77,6 +77,7 @@
           <td class="buy"><input v-model="share" min="0" type="number" @change="getPrice" @keyup="getPrice">{{ $t('topicExh_InOverview_share') }}</td>
         </tr>
         <tr>
+<<<<<<< HEAD
           <td>{{ $t('topicExh_InOverview_total') }}</td>
           <td class="total">{{this.calcInfo}}</td>
         </tr>
@@ -90,6 +91,21 @@
     <div class="dealModal" v-show="this.dealModal">
       <span class="close" @click="close">X</span>
       <h3>{{ $t('topicExh_InOverview_ratherToExchange') }}?</h3>
+=======
+          <td>总数</td>
+          <td class="total">{{this.calcInfo}}</td>
+        </tr>
+        <tr>
+          <td>手续费</td>
+          <td class="fee">1 XAS</td>
+        </tr>
+      </table>
+      <div class="confirmBtn" @click="dealConfirm"><span>确认</span></div>
+    </div>
+    <div class="dealModal" v-show="this.dealModal">
+      <span class="close" @click="close">X</span>
+      <h3>兑换?</h3>
+>>>>>>> 3f18266fb2b60af5551dea64e168116b2d9768d1
       <table>
         <tr>
           <td>{{ $t('topicExh_InOverview_total') }}</td>
@@ -100,7 +116,11 @@
           <td class="total">{{this.calcInfo}} XAS</td>
         </tr>
       </table>
+<<<<<<< HEAD
       <div class="confirmBtn" @click="dealConfirm">{{ $t('topicExh_InOverview_confirm') }}</div>
+=======
+      <div class="confirmBtn" @click="dealConfirm"><span>确认</span></div>
+>>>>>>> 3f18266fb2b60af5551dea64e168116b2d9768d1
     </div>
   </div>
 </template>
@@ -578,16 +598,20 @@ export default {
  ._overView table th{
     height: 40px;
     line-height: 40px;
-    font-size: 1.2em;
+    font-size: 1em;
+    min-width: 100px;
+    background: #2e2f30;
     border-left: 1px solid rgb(66, 71, 73);
     border-right: 1px solid rgb(66, 71, 73);
  }
  ._overView table tr{
+   background: #252728;
    border-top: 1px solid rgb(66, 71, 73);
  }
  ._overView table td{
     height: 30px;
     line-height: 30px;
+    min-width: 50px;
     border-left: 1px solid rgb(66, 71, 73);
     border-right: 1px solid rgb(66, 71, 73);
     border-bottom: 1px solid rgb(66, 71, 73);
@@ -610,7 +634,9 @@ export default {
  .transitionDetail table th{
     height: 40px;
     line-height: 40px;
-    font-size: 1.2em;
+    font-size: 1em;
+    background: #2e2f30;
+    min-width: 200px;
     border-left: 1px solid rgb(66, 71, 73);
     border-right: 1px solid rgb(66, 71, 73);
  }
@@ -639,6 +665,7 @@ export default {
    color: orange;
  }
  .sellModal{
+<<<<<<< HEAD
     background-color: rgba(37, 39, 40, .9);
     width: 340px;
     height: 190px;
@@ -648,17 +675,45 @@ export default {
     z-index: 999;
     padding: 10px 20px;
     border-radius: 8px;
+=======
+   background-color: #2a2c2d;
+   border-radius: 5px;
+   border-top: 30px solid #22c9df;
+   width: 300px;
+   height: 140px;
+   position: absolute;
+   left: calc(50% - 150px);
+   top: -60px;
+   z-index: 999;
+   padding: 10px 20px;
+>>>>>>> 3f18266fb2b60af5551dea64e168116b2d9768d1
  }
  .sellModal .close{
-   float: right;
+   position: absolute;
+   right: 10px;
+   top: -25px;
    cursor: pointer;
+   display: block;
+   height: 20px;
+   line-height: 20px;
+   text-align: center;
+   width: 20px;
+   color: #ccc;
  }
  .sellModal table{
    margin: auto;
    border-collapse: separate;
+<<<<<<< HEAD
    border-spacing: 13px;
    margin-top: 15px;
+=======
+   border-spacing: 10px;
+   font-size: 14px;
+>>>>>>> 3f18266fb2b60af5551dea64e168116b2d9768d1
  }
+  .sellModal table tr{
+    display: block;
+  }
  .sellModal table input{
     border: 1px solid rgb(78, 78, 78);
     border-radius: 3px;
@@ -666,6 +721,7 @@ export default {
     font-size: .8em;
  }
  .dealModal{
+<<<<<<< HEAD
     background-color: rgba(37, 39, 40, .9);
     width: 340px;
     height: 190px;
@@ -675,10 +731,25 @@ export default {
     z-index: 999;
     padding: 10px 20px;
     border-radius: 8px;
+=======
+   background-color: rgba(37, 39, 40, .9);
+   border-radius: 10px;
+   border-top: 30px solid #22c9df;
+   width: 300px;
+   height: 120px;
+   position: absolute;
+   left: calc(50% - 150px);
+   top: -60px;
+   z-index: 999;
+   padding: 10px 20px;
+>>>>>>> 3f18266fb2b60af5551dea64e168116b2d9768d1
  }
  .dealModal .close{
-   float: right;
+   right: 15px;
+   top: -22px;
+   position: absolute;
    cursor: pointer;
+   color: #ccc;
  }
  .dealModal h3{
    font-size: 1.3em;
